@@ -33,7 +33,7 @@ namespace GMTK22
             this.internalState.RemoveWhere(t => t == slot);
         }
 
-        public Die Transform(DieTransform dieTransform)
+        public TransformResult Transform(DieTransform dieTransform)
         {
             return dieTransform.GenerateDie(this);
         }

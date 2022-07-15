@@ -83,13 +83,14 @@ namespace TestGMTK22
             die.Fill(Slot.BottomLeft);
 
             var result = die.Transform(new MoveDieTransform(Direction.Up));
+            var resultDie = result.Die;
 
-            result.At(Slot.TopRight).Should().Be(FillState.Filled);
-            result.At(Slot.BottomCenter).Should().Be(FillState.Empty);
-            result.At(Slot.CenterCenter).Should().Be(FillState.Filled);
-            result.At(Slot.CenterLeft).Should().Be(FillState.Filled);
-            result.At(Slot.TopLeft).Should().Be(FillState.Filled);
-            result.At(Slot.BottomLeft).Should().Be(FillState.Empty);
+            resultDie.At(Slot.TopRight).Should().Be(FillState.Filled);
+            resultDie.At(Slot.BottomCenter).Should().Be(FillState.Empty);
+            resultDie.At(Slot.CenterCenter).Should().Be(FillState.Filled);
+            resultDie.At(Slot.CenterLeft).Should().Be(FillState.Filled);
+            resultDie.At(Slot.TopLeft).Should().Be(FillState.Filled);
+            resultDie.At(Slot.BottomLeft).Should().Be(FillState.Empty);
         }
         
         [Fact]
@@ -102,14 +103,22 @@ namespace TestGMTK22
             die.Fill(Slot.BottomLeft);
 
             var result = die.Transform(new MoveDieTransform(Direction.Right));
+            var resultDie = result.Die;
 
-            result.At(Slot.TopRight).Should().Be(FillState.Filled);
-            result.At(Slot.BottomCenter).Should().Be(FillState.Filled);
-            result.At(Slot.CenterLeft).Should().Be(FillState.Empty);
-            result.At(Slot.BottomLeft).Should().Be(FillState.Empty);
+            resultDie.At(Slot.TopRight).Should().Be(FillState.Filled);
+            resultDie.At(Slot.BottomCenter).Should().Be(FillState.Filled);
+            resultDie.At(Slot.CenterLeft).Should().Be(FillState.Empty);
+            resultDie.At(Slot.BottomLeft).Should().Be(FillState.Empty);
             
-            result.At(Slot.CenterCenter).Should().Be(FillState.Filled);
-            result.At(Slot.BottomRight).Should().Be(FillState.Filled);
+            resultDie.At(Slot.CenterCenter).Should().Be(FillState.Filled);
+            resultDie.At(Slot.BottomRight).Should().Be(FillState.Filled);
+            
+            result.Animation.All().Should()
+                .ContainEquivalentOf(new MoveAnimation(Slot.CenterLeft, Slot.CenterCenter))
+                .And.ContainEquivalentOf(new MoveAnimation(Slot.BottomLeft, Slot.BottomCenter))
+                .And.ContainEquivalentOf(new MoveAnimation(Slot.BottomCenter, Slot.BottomRight))
+                .And.HaveCount(3)
+                ;
         }
         
         [Fact]
@@ -122,13 +131,19 @@ namespace TestGMTK22
             die.Fill(Slot.BottomLeft);
 
             var result = die.Transform(new MoveDieTransform(Direction.Down));
+            var resultDie = result.Die;
 
-            result.At(Slot.TopRight).Should().Be(FillState.Empty);
-            result.At(Slot.BottomCenter).Should().Be(FillState.Filled);
-            result.At(Slot.CenterLeft).Should().Be(FillState.Filled);
-            result.At(Slot.BottomLeft).Should().Be(FillState.Filled);
+            resultDie.At(Slot.TopRight).Should().Be(FillState.Empty);
+            resultDie.At(Slot.BottomCenter).Should().Be(FillState.Filled);
+            resultDie.At(Slot.CenterLeft).Should().Be(FillState.Filled);
+            resultDie.At(Slot.BottomLeft).Should().Be(FillState.Filled);
             
-            result.At(Slot.CenterRight).Should().Be(FillState.Filled);
+            resultDie.At(Slot.CenterRight).Should().Be(FillState.Filled);
+
+            result.Animation.All().Should()
+                .ContainEquivalentOf(new MoveAnimation(Slot.TopRight, Slot.CenterRight))
+                .And.HaveCount(1)
+                ;
         }
     }
 }
