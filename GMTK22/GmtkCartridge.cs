@@ -13,6 +13,7 @@ namespace GMTK22
 
         public override void OnGameLoad(GameSpecification specification, MachinaRuntime runtime)
         {
+            SceneLayers.BackgroundColor = Color.Black;
         }
 
         public override void PrepareDynamicAssets(AssetLoader loader, MachinaRuntime runtime)
