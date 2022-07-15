@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExTween.MonoGame", "machina
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExTween.Art", "machina\extween\ExTween.Art\ExTween.Art.csproj", "{4EAC2E29-0B21-4F73-8472-B596B04616E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGMTK22", "TestGMTK22\TestGMTK22.csproj", "{166E2D82-EE3B-447F-B98E-CB7F6F76D116}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{4EAC2E29-0B21-4F73-8472-B596B04616E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EAC2E29-0B21-4F73-8472-B596B04616E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EAC2E29-0B21-4F73-8472-B596B04616E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{166E2D82-EE3B-447F-B98E-CB7F6F76D116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{166E2D82-EE3B-447F-B98E-CB7F6F76D116}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{166E2D82-EE3B-447F-B98E-CB7F6F76D116}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{166E2D82-EE3B-447F-B98E-CB7F6F76D116}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E7423E5A-C076-44AB-8106-976DC1DE1A94} = {97AB1654-CC64-435A-A549-E7DFE7213CE3}
