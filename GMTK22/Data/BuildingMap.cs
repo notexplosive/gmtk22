@@ -46,7 +46,7 @@ namespace GMTK22.Data
         {
             Selector.ClearSelection();
             command.Execute(location, this);
-            Selector.Select(GetBuildingAt(location));
+            // Selector.Select(GetBuildingAt(location));
         }
 
         public Building GetBuildingAt(BuildingPosition location)

@@ -4,11 +4,11 @@ using Microsoft.Xna.Framework;
 
 namespace GMTK22.Data
 {
-    public class DieBuilding : MainBuilding
+    public class NormalDieBuilding : MainBuilding
     {
         private readonly DieComponent dieComponent;
 
-        public DieBuilding(BuildingPosition position, BuildingMap map) : base(position, "Die", map)
+        public NormalDieBuilding(BuildingPosition position, BuildingMap map) : base(position, "Die", map)
         {
             this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, Upgrades);
             new RollOnHover(Actor);

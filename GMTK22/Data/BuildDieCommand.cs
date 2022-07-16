@@ -23,7 +23,7 @@ namespace GMTK22.Data
 
         public void Execute(BuildingPosition buildingLocation, BuildingMap map)
         {
-            new DieBuilding(buildingLocation, map);
+            new NormalDieBuilding(buildingLocation, map);
         }
     }
 }

@@ -28,6 +28,7 @@ namespace GMTK22.Data
         public void ClearSelection()
         {
             this.selected = null;
+            this.buildMenu.ClearButtons();
         }
     }
 }

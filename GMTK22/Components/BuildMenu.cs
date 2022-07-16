@@ -25,7 +25,18 @@ namespace GMTK22.Components
 
         public void PopulateButtons(Building building)
         {
-            var commands = building.Commands();
+            var commandsFromBuilding = building.Commands();
+            var commands = new List<IBuildCommand>();
+
+            var isSellable = (building is UpgradeModule && !(building is UpgradeSite)) ||
+                             (building is MainBuilding && !(building is BuildSite));
+            if (isSellable)
+            {
+                commands.Add(new SellCommand());
+            }
+
+            commands.AddRange(commandsFromBuilding);
+
             ClearButtons();
             
             var leaves = new List<FlowLayout.LayoutNodeOrInstruction>();
@@ -64,7 +75,7 @@ namespace GMTK22.Components
             }
         }
 
-        private void ClearButtons()
+        public void ClearButtons()
         {
             foreach (var button in this.buttonActors)
             {
