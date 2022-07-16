@@ -12,10 +12,10 @@ namespace GMTK22.Components
     public class BuildMenuButtonRenderer : BaseComponent
     {
         private readonly BoundingRect boundingRect;
-        private readonly IBuildCommand command;
+        private readonly Command command;
         private readonly Hoverable hoverable;
 
-        public BuildMenuButtonRenderer(Actor actor, IBuildCommand command) : base(actor)
+        public BuildMenuButtonRenderer(Actor actor, Command command) : base(actor)
         {
             this.boundingRect = RequireComponent<BoundingRect>();
             this.hoverable = RequireComponent<Hoverable>();
@@ -50,7 +50,7 @@ namespace GMTK22.Components
             }
             
 
-            this.command.DrawButtonGraphic(spriteBatch, rect, transform.Depth - 10);
+            this.command.DrawButtonGraphic(new DrawInfo(spriteBatch, rect, transform.Depth - 10));
         }
     }
 }

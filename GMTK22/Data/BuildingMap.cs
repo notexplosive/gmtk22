@@ -42,7 +42,7 @@ namespace GMTK22.Data
             }
         }
 
-        public void BuildFromCommand(BuildingPosition location, IBuildCommand command)
+        public void BuildFromCommand(BuildingPosition location, Command command)
         {
             Selector.ClearSelection();
             command.Execute(location, this);

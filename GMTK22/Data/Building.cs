@@ -31,7 +31,7 @@ namespace GMTK22.Data
         public string Name { get; }
         public BuildingPosition Position { get; }
         public SelectableBuilding Selectable { get; }
-        public abstract IBuildCommand[] Commands();
+        public abstract Command[] Commands();
 
         public void Destroy()
         {

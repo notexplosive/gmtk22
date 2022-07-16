@@ -16,9 +16,9 @@ namespace GMTK22.Data
             new AutoRollerComponent(Actor, map.GetMainBuildingAt(new BuildingPosition(position.GridPosition)));
         }
 
-        public override IBuildCommand[] Commands()
+        public override Command[] Commands()
         {
-            return Array.Empty<IBuildCommand>();
+            return Array.Empty<Command>();
         }
     }
     

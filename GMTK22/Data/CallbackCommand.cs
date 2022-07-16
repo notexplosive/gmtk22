@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GMTK22.Data
 {
-    public abstract class CallbackCommand : IBuildCommand
+    public abstract class CallbackCommand : Command
     {
         private readonly Action callback;
 
@@ -14,9 +14,7 @@ namespace GMTK22.Data
             this.callback = callback;
         }
         
-        public abstract string Name { get; }
-        public abstract void DrawButtonGraphic(SpriteBatch spriteBatch, Rectangle rectangle, Depth depth);
-        public void Execute(BuildingPosition buildingLocation, BuildingMap map)
+        public override void Execute(BuildingPosition buildingLocation, BuildingMap map)
         {
             this.callback();
         }

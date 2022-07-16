@@ -12,9 +12,10 @@ namespace GMTK22.Data
         }
 
         public override string Name => "ReRoll";
-
-        public override void DrawButtonGraphic(SpriteBatch spriteBatch, Rectangle rectangle, Depth depth)
+        
+        public override void DrawButtonGraphic(DrawInfo drawInfo)
         {
+            
         }
     }
 }

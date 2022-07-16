@@ -14,7 +14,7 @@ namespace GMTK22.Components
 {
     public class BuildMenu : BaseComponent
     {
-        public event Action<BuildingPosition, IBuildCommand> RequestedBuilding;
+        public event Action<BuildingPosition, Command> RequestedBuilding;
         private readonly BoundingRect boundingRect;
         private readonly List<Actor> buttonActors = new List<Actor>();
 
@@ -26,7 +26,7 @@ namespace GMTK22.Components
         public void PopulateButtons(Building building)
         {
             var commandsFromBuilding = building.Commands();
-            var commands = new List<IBuildCommand>();
+            var commands = new List<Command>();
 
             var isSellable = (building is UpgradeModule && !(building is UpgradeSite)) ||
                              (building is MainBuilding && !(building is BuildSite));
@@ -93,7 +93,7 @@ namespace GMTK22.Components
             spriteBatch.DrawRectangle(rect, Color.White, 2f, transform.Depth - 1);
         }
 
-        public void RequestBuilding(BuildingPosition buildingGridPosition, IBuildCommand command)
+        public void RequestBuilding(BuildingPosition buildingGridPosition, Command command)
         {
             RequestedBuilding?.Invoke(buildingGridPosition, command);
         }

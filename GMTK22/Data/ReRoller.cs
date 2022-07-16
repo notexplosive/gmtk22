@@ -26,25 +26,12 @@ namespace GMTK22.Data
 
         public int FaceToReRollOn { get; set; } = 0;
 
-        public override IBuildCommand[] Commands()
+        public override Command[] Commands()
         {
-            return new IBuildCommand[]
+            return new Command[]
             {
                 new ReRollCommand(() => { this.dieComponent.ForceRoll(); })
             };
-        }
-    }
-
-    public class BuildReRollerCommand : IBuildCommand
-    {
-        public string Name => "Build ReRoller";
-        public void DrawButtonGraphic(SpriteBatch spriteBatch, Rectangle rectangle, Depth depth)
-        {
-        }
-
-        public void Execute(BuildingPosition buildingLocation, BuildingMap map)
-        {
-            new ReRoller(buildingLocation, map);
         }
     }
 }

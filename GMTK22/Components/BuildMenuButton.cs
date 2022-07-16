@@ -8,7 +8,7 @@ namespace GMTK22.Components
     public class BuildMenuButton : BaseComponent
     {
 
-        public BuildMenuButton(Actor actor, IBuildCommand command, Building building, BuildMenu menu) : base(actor)
+        public BuildMenuButton(Actor actor, Command command, Building building, BuildMenu menu) : base(actor)
         {
             var clickable = RequireComponent<Clickable>();
 

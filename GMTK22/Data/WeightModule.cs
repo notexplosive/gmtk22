@@ -22,9 +22,9 @@ namespace GMTK22.Data
             ProbableWeight = new ProbableWeight(roll.FaceValue, this.percentageWeight);
         }
 
-        public override IBuildCommand[] Commands()
+        public override Command[] Commands()
         {
-            return Array.Empty<IBuildCommand>();
+            return Array.Empty<Command>();
         }
     }
 }

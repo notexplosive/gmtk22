@@ -18,9 +18,9 @@ namespace GMTK22.Data
             this.dieComponent.RollFinished += moneyMaker.GainMoneyFromRoll;
         }
 
-        public override IBuildCommand[] Commands()
+        public override Command[] Commands()
         {
-            return Array.Empty<IBuildCommand>();
+            return Array.Empty<Command>();
         }
 
         public override int CurrentFace => this.dieComponent.CurrentFace;

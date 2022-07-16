@@ -4,11 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GMTK22.Data
 {
-    public interface IBuildCommand
+    public abstract class Command
     {
-        string Name { get; }
-        public void DrawButtonGraphic(SpriteBatch spriteBatch, Rectangle rectangle, Depth depth);
+        public abstract string Name { get; }
+        public abstract void Execute(BuildingPosition buildingLocation, BuildingMap map);
 
-        public void Execute(BuildingPosition buildingLocation, BuildingMap map);
+        public abstract void DrawButtonGraphic(DrawInfo drawInfo);
     }
 }

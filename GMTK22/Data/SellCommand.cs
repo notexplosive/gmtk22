@@ -1,22 +1,19 @@
-﻿using GMTK22.Components;
-using Machina.Data;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GMTK22.Data
+﻿namespace GMTK22.Data
 {
-    public class SellCommand : IBuildCommand
+    public class SellCommand : Command
     {
-        public string Name => "Sell";
-        public void DrawButtonGraphic(SpriteBatch spriteBatch, Rectangle rectangle, Depth depth)
-        {
-        }
+        public override string Name => "Sell";
 
-        public void Execute(BuildingPosition buildingLocation, BuildingMap map)
+        public override void Execute(BuildingPosition buildingLocation, BuildingMap map)
         {
             var building = map.GetBuildingAt(buildingLocation);
 
             building.Sell();
+        }
+
+        public override void DrawButtonGraphic(DrawInfo drawInfo)
+        {
+            
         }
     }
 }
