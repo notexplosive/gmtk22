@@ -2,6 +2,7 @@
 {
     public interface IBuilding
     {
-        
+        string Name { get; }
+        IBuildCommand[] Commands { get; }
     }
 }

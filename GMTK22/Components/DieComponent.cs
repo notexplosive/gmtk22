@@ -17,14 +17,14 @@ namespace GMTK22.Components
         private readonly Player player;
         private readonly int size;
         private readonly SequenceTween tween = new SequenceTween();
-        private readonly HoverFeedback hoverFeedback;
+        private readonly BuildingHoverSelectionRenderer buildingHoverSelectionRenderer;
 
         public DieComponent(Actor actor, Player player, NoiseBasedRNG cleanRandom) : base(actor)
         {
             this.player = player;
             this.cleanRandom = cleanRandom;
             this.size = RequireComponent<BoundingRect>().Height;
-            this.hoverFeedback = RequireComponent<HoverFeedback>();
+            this.buildingHoverSelectionRenderer = RequireComponent<BuildingHoverSelectionRenderer>();
 
             Pips = new Pip[6];
             for (var i = 0; i < Pips.Length; i++)
@@ -59,7 +59,7 @@ namespace GMTK22.Components
 
                 this.tween.Add(new CallbackTween(() =>
                 {
-                    this.hoverFeedback.BusyFlags++;
+                    this.buildingHoverSelectionRenderer.BusyFlags++;
                 }));
                 
                 TweenToRolling(totalDuration * 2 / 3f);
@@ -84,7 +84,7 @@ namespace GMTK22.Components
                 this.tween.Add(new WaitSecondsTween(totalDuration * 1 / 6f));
                 this.tween.Add(new CallbackTween(() =>
                 {
-                    this.hoverFeedback.BusyFlags--;
+                    this.buildingHoverSelectionRenderer.BusyFlags--;
                 }));
             }
         }
