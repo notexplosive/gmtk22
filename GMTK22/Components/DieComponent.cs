@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ExTween;
-using ExTween.MonoGame;
 using GMTK22.Data;
 using Machina.Components;
 using Machina.Data;
@@ -144,92 +143,10 @@ namespace GMTK22.Components
                 return result;
             }));
         }
-    }
 
-    public class Roll
-    {
-        public Roll(int faceValue)
+        public bool IsTweenDone()
         {
-            FaceValue = faceValue;
+            return this.tween.IsDone();
         }
-
-        public int FaceValue { get; }
-
-        public void ApplyTween(SequenceTween tween, Pip[] inputPips, float duration)
-        {
-            tween.Add(new DynamicTween(() =>
-            {
-                var result = new MultiplexTween();
-                for (var i = 0; i < inputPips.Length; i++)
-                {
-                    var inputPip = inputPips[i];
-                    var j = i % FaceValue;
-
-                    void TweenTo(Vector2 target)
-                    {
-                        result.AddChannel(new Tween<Vector2>(inputPip.LocalPosition, target, duration,
-                            Ease.QuadFastSlow));
-                    }
-
-                    if (j == 0)
-                    {
-                        if (FaceValue == 1)
-                        {
-                            TweenTo(Pip.Center);
-                        }
-                        else
-                        {
-                            TweenTo(Pip.TopRight);
-                        }
-                    }
-                    else if (j == 1)
-                    {
-                        TweenTo(Pip.BottomLeft);
-                    }
-                    else if (j == 2)
-                    {
-                        if (FaceValue == 6)
-                        {
-                            TweenTo(Pip.Left);
-                        }
-                        else if (FaceValue == 4)
-                        {
-                            TweenTo(Pip.TopLeft);
-                        }
-                        else
-                        {
-                            TweenTo(Pip.Center);
-                        }
-                    }
-                    else if (j == 3)
-                    {
-                        TweenTo(Pip.BottomRight);
-                    }
-                    else if (j == 4)
-                    {
-                        TweenTo(Pip.TopLeft);
-                    }
-                    else if (j == 5)
-                    {
-                        TweenTo(Pip.Right);
-                    }
-                }
-
-                return result;
-            }));
-        }
-    }
-
-    public class Pip
-    {
-        public static readonly Vector2 TopRight = new Vector2(1, -1);
-        public static readonly Vector2 BottomLeft = new Vector2(-1, 1);
-        public static readonly Vector2 BottomRight = new Vector2(1, 1);
-        public static readonly Vector2 TopLeft = new Vector2(-1, -1);
-        public static readonly Vector2 Center = new Vector2(0, 0);
-        public static readonly Vector2 Left = new Vector2(-1, 0);
-        public static readonly Vector2 Right = new Vector2(1, 0);
-        public TweenableVector2 LocalPosition { get; } = new TweenableVector2();
-        public TweenableInt IsVisible { get; } = new TweenableInt(1);
     }
 }

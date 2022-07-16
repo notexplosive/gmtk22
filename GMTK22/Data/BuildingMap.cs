@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GMTK22.Components;
 using Machina.Components;
 using Machina.Engine;
 using Microsoft.Xna.Framework;
@@ -16,22 +17,7 @@ namespace GMTK22.Data
             Selector = selector;
         }
 
-        public void BuildDie(BuildingPosition position)
-        {
-            new DieBuilding(position, this);
-
-            for (var x = -1; x <= 1; x++)
-            {
-                for (var y = -1; y <= 1; y++)
-                {
-                    var offset = new Point(x, y);
-                    CreateBuildSite(new BuildingPosition(position.GridPosition + offset));
-                    CreateUpgradeSite(new BuildingPosition(position.GridPosition,offset));
-                }
-            }
-        }
-
-        private void CreateUpgradeSite(BuildingPosition buildingPosition)
+        public void CreateUpgradeSite(BuildingPosition buildingPosition)
         {
             if (!this.map.ContainsKey(buildingPosition))
             {
@@ -39,7 +25,7 @@ namespace GMTK22.Data
             }
         }
 
-        private void CreateBuildSite(BuildingPosition gridPosition)
+        public void CreateBuildSite(BuildingPosition gridPosition)
         {
             if (!this.map.ContainsKey(gridPosition))
             {
@@ -54,9 +40,14 @@ namespace GMTK22.Data
             Selector.Select(GetBuildingAt(location));
         }
 
-        private Building GetBuildingAt(BuildingPosition location)
+        public Building GetBuildingAt(BuildingPosition location)
         {
             return this.map[location];
+        }
+        
+        public MainBuilding GetMainBuildingAt(BuildingPosition location)
+        {
+            return this.map[new BuildingPosition(location.GridPosition)] as MainBuilding;
         }
 
         private bool HasBuildingAt(BuildingPosition location)

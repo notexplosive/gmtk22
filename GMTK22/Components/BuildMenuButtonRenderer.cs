@@ -50,7 +50,7 @@ namespace GMTK22.Components
             }
             
 
-            this.command.Draw(spriteBatch, rect, transform.Depth - 10);
+            this.command.DrawButtonGraphic(spriteBatch, rect, transform.Depth - 10);
         }
     }
 }

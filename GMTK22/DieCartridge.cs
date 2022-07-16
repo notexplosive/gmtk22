@@ -56,7 +56,17 @@ namespace GMTK22
             buildMenu.RequestedBuilding += buildingMap.BuildFromCommand;
             
             // Starting Die
-            buildingMap.BuildDie(new BuildingPosition(Point.Zero));
+            BuildingPosition position = new BuildingPosition(Point.Zero);
+            new DieBuilding(position, buildingMap);
+            for (var x = -1; x <= 1; x++)
+            {
+                for (var y = -1; y <= 1; y++)
+                {
+                    var offset = new Point(x, y);
+                    buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + offset));
+                    buildingMap.CreateUpgradeSite(new BuildingPosition(position.GridPosition,offset));
+                }
+            }
         }
 
         public override void PrepareDynamicAssets(AssetLoader loader, MachinaRuntime runtime)
