@@ -27,7 +27,7 @@ namespace GMTK22.Components
                 var circle = new CircleF(transform.Position + pip.LocalPosition.Value * this.boundingRect.Width / 2f * 0.65f, radius);
                 spriteBatch.DrawCircle(circle, 10, Color.Black, radius);
             }
-            
+
             spriteBatch.DrawRectangle(this.boundingRect.Rect, Color.Black, 3f, transform.Depth - 1);
         }
     }

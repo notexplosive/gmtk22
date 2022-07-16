@@ -41,6 +41,7 @@ namespace GMTK22.Data
             building.transform.Position = gridPosition.ToVector2() * 256;
             new BoundingRect(building, new Point(128, 128)).SetOffsetToCenter();
             new Hoverable(building);
+            new HoverFeedback(building);
             return building;
         }
 
