@@ -1,26 +1,48 @@
-﻿using GMTK22.Data;
+﻿using System;
+using GMTK22.Data;
 
 namespace GMTK22.Components
 {
     public abstract class MainBuilding : Building, IHasSpec
     {
         private readonly SmallBuilding[] cachedUpgrades;
+        protected readonly DieComponent dieComponent;
 
-        public MainBuilding(BuildingPosition position, string name, BuildingMap map, int[] faces, BuildingSpecification spec) : base(position, name, map, 128)
+        public MainBuilding(BuildingPosition position, BuildingMap map, string name, int[] faces,
+            BuildingSpecification spec) : base(position, name, map)
         {
             Faces = faces;
             this.cachedUpgrades = new SmallBuilding[8];
             MySpec = spec;
+
+            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, Faces, GetSmallBuildings);
+            new RollOnHover(Actor);
+            new DieRenderer(Actor, Palette.NormalDieBody, Palette.NormalDiePips);
         }
+
+        public int CurrentFace => this.dieComponent.CurrentFace;
+        public int[] Faces { get; }
 
         public BuildingSpecification MySpec { get; }
 
-        public abstract int CurrentFace { get; }
-        public int[] Faces { get; }
+        public override Command[] Commands()
+        {
+            return Array.Empty<Command>();
+        }
+
+        public bool IsIdle()
+        {
+            return this.dieComponent.IsTweenDone();
+        }
+
+        public void Roll()
+        {
+            this.dieComponent.AttemptToRoll();
+        }
 
         public SmallBuilding[] GetSmallBuildings()
         {
-            for (int i = 0; i < this.cachedUpgrades.Length; i++)
+            for (var i = 0; i < this.cachedUpgrades.Length; i++)
             {
                 this.cachedUpgrades[i] = null;
             }
@@ -34,8 +56,5 @@ namespace GMTK22.Components
 
             return this.cachedUpgrades;
         }
-        
-        public abstract bool IsIdle();
-        public abstract void Roll();
     }
 }

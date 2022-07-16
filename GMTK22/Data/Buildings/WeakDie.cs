@@ -2,7 +2,7 @@
 
 namespace GMTK22.Data.Buildings
 {
-    public class WeakDie : BaseDieBuilding
+    public class WeakDie : MainBuilding
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification("Build Weak Die",
@@ -10,7 +10,7 @@ namespace GMTK22.Data.Buildings
                 new Costs(0)
             );
 
-        public WeakDie(BuildingPosition position, BuildingMap map) : base(position, map, new[] {1, 2, 3}, "Weak Die", Spec)
+        public WeakDie(BuildingPosition position, BuildingMap map) : base(position, map, "Weak Die", new[] {1, 2, 3}, WeakDie.Spec)
         {
             var moneyMaker = new MoneyMaker(Actor);
             this.dieComponent.RollFinished += moneyMaker.GainMoneyFromRoll;
