@@ -6,7 +6,7 @@ namespace GMTK22.Data.Buildings
     public class WeightModule : UpgradeModule
     {
         public static readonly BuildingSpecification Spec =
-            new BuildingSpecification("Build Weight Module",
+            new BuildingSpecification("Weight Module",
                 info => new WeightModule(info),
                 new Costs(200)
             );

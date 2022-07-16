@@ -5,7 +5,7 @@ namespace GMTK22.Data.Buildings
     public class ReRollerModule : UpgradeModule
     {
         public static readonly BuildingSpecification Spec =
-            new BuildingSpecification("Build ReRoller",
+            new BuildingSpecification("ReRoller",
                 info => new ReRollerModule(info),
                 new Costs(100)
             );

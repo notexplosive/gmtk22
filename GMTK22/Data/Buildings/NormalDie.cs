@@ -5,7 +5,7 @@ namespace GMTK22.Data.Buildings
     public class NormalDie : MainBuilding
     {
         public static readonly BuildingSpecification Spec =
-            new BuildingSpecification("Build Average Die",
+            new BuildingSpecification("Average Die",
                 info => new NormalDie(info),
                 new Costs(40)
             );

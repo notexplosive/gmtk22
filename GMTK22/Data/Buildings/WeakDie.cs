@@ -5,7 +5,7 @@ namespace GMTK22.Data.Buildings
     public class WeakDie : MainBuilding
     {
         public static readonly BuildingSpecification Spec =
-            new BuildingSpecification("Build Weak Die",
+            new BuildingSpecification("Weak Die",
                 info => new WeakDie(info),
                 new Costs(0)
             );
