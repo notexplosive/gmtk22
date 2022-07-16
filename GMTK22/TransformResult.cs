@@ -62,18 +62,7 @@ namespace GMTK22
 
             foreach (var animation in result.Animation.All())
             {
-                var startingPosition = dieComponent.SlotToPosition(animation.EmptiedSlot);
-                var endingPosition = dieComponent.SlotToPosition(animation.FilledSlot);
-                var pip = new Pip(startingPosition);
-
-                var duration = 0.25f;
-                this.rootTween
-                    .AddChannel(
-                        new SequenceTween()
-                            .Add(new Tween<Vector2>(pip.Position, endingPosition, duration/2, Ease.SineFastSlow))
-                            .Add(new Tween<Vector2>(pip.Position, endingPosition, duration/2, Ease.SineSlowFast))
-                    );
-
+                var pip = animation.BuildTweenAndPip(this.rootTween, dieComponent);
                 Pips.Add(pip);
             }
         }
