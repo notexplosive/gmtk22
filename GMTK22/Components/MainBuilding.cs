@@ -11,6 +11,8 @@ namespace GMTK22.Components
             this.cachedUpgrades = new UpgradeModule[8];
         }
 
+        public abstract int CurrentFace { get; }
+
         public UpgradeModule[] Upgrades()
         {
             for (int i = 0; i < this.cachedUpgrades.Length; i++)

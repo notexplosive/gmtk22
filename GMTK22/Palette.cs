@@ -11,5 +11,13 @@ namespace GMTK22
         
         public static readonly Color HoveredBuildingBorderColor = Color.Cyan;
         public static readonly Color SelectedBuildingBorderColor = Color.Orange;
+        
+        public static readonly Color NormalDiePips = Color.Black;
+        public static readonly Color NormalDieBody = Color.White;
+
+        public static readonly Color ReRollerBody = Color.DarkRed;
+        public static readonly Color ReRollerPips = Color.Orange;
+        public static readonly Color WeightBody = Color.Gray;
+        public static readonly Color WeightPips = Color.White;
     }
 }

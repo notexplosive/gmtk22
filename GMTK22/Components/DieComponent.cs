@@ -32,6 +32,7 @@ namespace GMTK22.Components
         }
 
         public Pip[] Pips { get; }
+        public int CurrentFace { get; private set; } = 1;
 
         public override void Update(float dt)
         {
@@ -54,19 +55,27 @@ namespace GMTK22.Components
                 // oh god why
                 this.tween.Clear();
                 this.tween.Reset();
+                
+                CurrentFace = 0;
 
                 var totalDuration = 1.5f;
-                var weights = new List<Weight>();
+                
+                // calculate duration
+                foreach (var upgrade in this.getUpgrades())
+                {
+                    totalDuration -= upgrade.SpeedBoost / 10f;
+                }
+
+                // Calculate weight
+                var weights = new List<ProbableWeight>();
                 var percentForUnweighted = 1f;
 
                 foreach (var upgrade in this.getUpgrades())
                 {
-                    totalDuration -= upgrade.SpeedBoost / 10f;
-
-                    if (!upgrade.Weight.IsEmpty)
+                    if (!upgrade.ProbableWeight.IsEmpty)
                     {
-                        weights.Add(upgrade.Weight);
-                        percentForUnweighted -= upgrade.Weight.Percentage;
+                        weights.Add(upgrade.ProbableWeight);
+                        percentForUnweighted -= upgrade.ProbableWeight.Percentage;
                     }
                 }
 
@@ -118,6 +127,7 @@ namespace GMTK22.Components
 
                 this.tween.Add(new CallbackTween(() =>
                 {
+                    CurrentFace = roll.FaceValue;
                     RollFinished?.Invoke(roll);
                 }));
                 this.tween.Add(new WaitSecondsTween(totalDuration * 1 / 6f));

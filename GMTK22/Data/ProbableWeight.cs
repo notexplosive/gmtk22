@@ -1,11 +1,11 @@
 ﻿namespace GMTK22.Data
 {
-    public readonly struct Weight
+    public readonly struct ProbableWeight
     {
         public int FaceValue { get; }
         public float Percentage { get; }
 
-        public Weight(int faceValue, float percentage)
+        public ProbableWeight(int faceValue, float percentage)
         {
             FaceValue = faceValue;
             Percentage = percentage;

@@ -11,7 +11,7 @@ namespace GMTK22.Data
         {
             this.percentageWeight = 0.1f;
             var dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, GetUpgrades);
-            new DieRenderer(Actor);
+            new DieRenderer(Actor, Palette.WeightBody, Palette.WeightPips);
 
             dieComponent.ForceRoll();
             dieComponent.RollFinished += AssignWeight;
@@ -19,7 +19,7 @@ namespace GMTK22.Data
 
         private void AssignWeight(Roll roll)
         {
-            Weight = new Weight(roll.FaceValue, this.percentageWeight);
+            ProbableWeight = new ProbableWeight(roll.FaceValue, this.percentageWeight);
         }
 
         public override IBuildCommand[] Commands()

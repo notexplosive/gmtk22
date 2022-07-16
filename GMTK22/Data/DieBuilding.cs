@@ -12,7 +12,7 @@ namespace GMTK22.Data
         {
             this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, Upgrades);
             new RollOnHover(Actor);
-            new DieRenderer(Actor);
+            new DieRenderer(Actor, Palette.NormalDieBody, Palette.NormalDiePips);
             var moneyMaker = new MoneyMaker(Actor);
 
             this.dieComponent.RollFinished += moneyMaker.GainMoneyFromRoll;
@@ -22,6 +22,8 @@ namespace GMTK22.Data
         {
             return Array.Empty<IBuildCommand>();
         }
+
+        public override int CurrentFace => this.dieComponent.CurrentFace;
 
         public override bool IsIdle()
         {

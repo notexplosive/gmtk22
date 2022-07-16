@@ -16,6 +16,6 @@ namespace GMTK22.Data
             return AttachedBuilding.Upgrades();
         }
         public float SpeedBoost { get; protected set; } = 0;
-        public Weight Weight { get; protected set; } = new Weight();
+        public ProbableWeight ProbableWeight { get; protected set; } = new ProbableWeight();
     }
 }

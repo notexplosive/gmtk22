@@ -16,7 +16,8 @@ namespace GMTK22.Data
             {
                 new BuildAutoRollerCommand(),
                 new BuildSpeedUpgradeCommand(),
-                new BuildWeightModuleCommand()
+                new BuildWeightModuleCommand(),
+                new BuildReRollerCommand(),
             };
         }
     }

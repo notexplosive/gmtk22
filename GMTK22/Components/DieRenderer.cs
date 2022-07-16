@@ -8,27 +8,32 @@ namespace GMTK22.Components
 {
     public class DieRenderer : BaseComponent
     {
+        private readonly Color bodyColor;
+        private readonly Color pipColor;
         private readonly DieComponent die;
         private readonly BoundingRect boundingRect;
 
-        public DieRenderer(Actor actor) : base(actor)
+        public DieRenderer(Actor actor, Color bodyColor, Color pipColor) : base(actor)
         {
+            this.bodyColor = bodyColor;
+            this.pipColor = pipColor;
             this.boundingRect = RequireComponent<BoundingRect>();
             this.die = RequireComponent<DieComponent>();
+            
         }
         
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.FillRectangle(this.boundingRect.Rect, Color.White, transform.Depth);
+            spriteBatch.FillRectangle(this.boundingRect.Rect, this.bodyColor, transform.Depth);
 
             foreach (var pip in this.die.Pips)
             {
                 var radius = this.boundingRect.Width / 15;
                 var circle = new CircleF(transform.Position + pip.LocalPosition.Value * this.boundingRect.Width / 2f * 0.65f, radius);
-                spriteBatch.DrawCircle(circle, 10, Color.Black, radius);
+                spriteBatch.DrawCircle(circle, 10, this.pipColor, radius);
             }
 
-            spriteBatch.DrawRectangle(this.boundingRect.Rect, Color.Black, 3f, transform.Depth - 1);
+            spriteBatch.DrawRectangle(this.boundingRect.Rect, this.pipColor, 3f, transform.Depth - 1);
         }
     }
 }
