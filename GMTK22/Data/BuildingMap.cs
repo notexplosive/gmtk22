@@ -25,11 +25,20 @@ namespace GMTK22.Data
             }
         }
 
-        public void CreateBuildSite(BuildingPosition gridPosition)
+        public void CreateBuildSite(BuildingPosition position)
         {
-            if (!this.map.ContainsKey(gridPosition))
+            if (!this.map.ContainsKey(position))
             {
-                new BuildSite(gridPosition, this);
+                new BuildSite(position, this);
+            }
+            
+            for (var x = -1; x <= 1; x++)
+            {
+                for (var y = -1; y <= 1; y++)
+                {
+                    var offset = new Point(x, y);
+                    CreateUpgradeSite(new BuildingPosition(position.GridPosition,offset));
+                }
             }
         }
 

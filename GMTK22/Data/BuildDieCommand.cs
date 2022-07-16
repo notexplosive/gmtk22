@@ -24,16 +24,6 @@ namespace GMTK22.Data
         public void Execute(BuildingPosition buildingLocation, BuildingMap map)
         {
             new DieBuilding(buildingLocation, map);
-
-            for (var x = -1; x <= 1; x++)
-            {
-                for (var y = -1; y <= 1; y++)
-                {
-                    var offset = new Point(x, y);
-                    map.CreateBuildSite(new BuildingPosition(buildingLocation.GridPosition + offset));
-                    map.CreateUpgradeSite(new BuildingPosition(buildingLocation.GridPosition,offset));
-                }
-            }
         }
     }
 }

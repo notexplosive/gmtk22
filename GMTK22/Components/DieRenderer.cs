@@ -23,7 +23,7 @@ namespace GMTK22.Components
 
             foreach (var pip in this.die.Pips)
             {
-                var radius = 10;
+                var radius = this.boundingRect.Width / 15;
                 var circle = new CircleF(transform.Position + pip.LocalPosition.Value * this.boundingRect.Width / 2f * 0.65f, radius);
                 spriteBatch.DrawCircle(circle, 10, Color.Black, radius);
             }

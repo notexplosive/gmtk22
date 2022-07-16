@@ -10,14 +10,16 @@ namespace GMTK22.Data
 {
     public class AutoRoller : UpgradeModule
     {
-        private readonly AutoRollerComponent roller;
-
-        public AutoRoller(BuildingPosition position, BuildingMap map) : base(position, "Auto Roller", map)
+        public AutoRoller(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller")
         {
-            this.roller = new AutoRollerComponent(Actor, map.GetMainBuildingAt(new BuildingPosition(position.GridPosition)));
+            new BuildingBodyRenderer(Actor);
+            new AutoRollerComponent(Actor, map.GetMainBuildingAt(new BuildingPosition(position.GridPosition)));
         }
 
-        public override IBuildCommand[] Commands { get; } = Array.Empty<IBuildCommand>();
+        public override IBuildCommand[] Commands()
+        {
+            return Array.Empty<IBuildCommand>();
+        }
     }
     
     public class AutoRollerComponent : BaseComponent
@@ -52,9 +54,6 @@ namespace GMTK22.Data
         public override void Draw(SpriteBatch spriteBatch)
         {
             var rect = this.boundingRect.Rect;
-            
-            spriteBatch.FillRectangle(rect, Color.White, transform.Depth + 10);
-
             var percent = 1f - this.cooldown / this.maxCooldown;
             var prevRadians = 0f;
             var radius = rect.Width * 0.4f;

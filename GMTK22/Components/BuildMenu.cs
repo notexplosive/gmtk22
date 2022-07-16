@@ -25,7 +25,7 @@ namespace GMTK22.Components
 
         public void PopulateButtons(Building building)
         {
-            var commands = building.Commands;
+            var commands = building.Commands();
             ClearButtons();
             
             var leaves = new List<FlowLayout.LayoutNodeOrInstruction>();

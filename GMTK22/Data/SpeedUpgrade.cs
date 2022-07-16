@@ -10,14 +10,17 @@ namespace GMTK22.Data
 {
     public class SpeedUpgrade : UpgradeModule
     {
-        public SpeedUpgrade(BuildingPosition position, BuildingMap map) : base(position, "Auto Roller", map)
+        public SpeedUpgrade(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller")
         {
             SpeedBoost = 1;
             new BuildingBodyRenderer(Actor);
             new SpeedUpgradeRenderer(Actor, map.GetMainBuildingAt(new BuildingPosition(position.GridPosition)));
         }
 
-        public override IBuildCommand[] Commands { get; } = Array.Empty<IBuildCommand>();
+        public override IBuildCommand[] Commands()
+        {
+            return Array.Empty<IBuildCommand>();
+        }
     }
 
     public class SpeedUpgradeRenderer : BaseComponent

@@ -2,6 +2,7 @@
 using GMTK22.Data;
 using Machina.Components;
 using Machina.Engine;
+using Microsoft.Xna.Framework;
 
 namespace GMTK22.Components
 {
@@ -17,6 +18,8 @@ namespace GMTK22.Components
             this.text = RequireComponent<BoundedTextRenderer>();
             this.player = player;
             this.tweenable = new TweenableInt();
+
+            this.text.EnableDropShadow(Color.Black);
 
             this.player.MoneyChanged += OnMoneyChange;
         }

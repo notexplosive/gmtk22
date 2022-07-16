@@ -4,15 +4,20 @@ namespace GMTK22.Data
 {
     public class UpgradeSite : UpgradeModule
     {
-        public UpgradeSite(BuildingPosition position, BuildingMap map) : base(position, "Upgrade Site", map)
+        public UpgradeSite(BuildingPosition position, BuildingMap map) : base(position, map, "Upgrade Site")
         {
             new BuildSiteRenderer(Actor);
+            new UpgradeSiteRenderer(Actor, position, Map);
         }
-        
-        public override IBuildCommand[] Commands => new IBuildCommand[]
+
+        public override IBuildCommand[] Commands()
         {
-            new BuildAutoRollerCommand(),
-            new BuildSpeedUpgradeCommand()
-        };
+            return new IBuildCommand[]
+            {
+                new BuildAutoRollerCommand(),
+                new BuildSpeedUpgradeCommand(),
+                new BuildWeightModuleCommand()
+            };
+        }
     }
 }

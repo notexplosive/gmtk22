@@ -10,9 +10,12 @@ namespace GMTK22.Data
             new BuildSiteRenderer(Actor);
         }
 
-        public override IBuildCommand[] Commands => new IBuildCommand[]
+        public override IBuildCommand[] Commands()
         {
-            new BuildDieCommand()
-        };
+            return new IBuildCommand[]
+            {
+                new BuildDieCommand()
+            };
+        }
     }
 }

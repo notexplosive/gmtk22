@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using ExTween;
 using GMTK22.Data;
 using Machina.Components;
@@ -12,19 +13,15 @@ namespace GMTK22.Components
     public class DieComponent : BaseComponent
     {
         private readonly NoiseBasedRNG cleanRandom;
-        private readonly Hoverable hoverable;
-        private readonly Player player;
-        private readonly int size;
         private readonly SequenceTween tween = new SequenceTween();
         private readonly BuildingHoverSelectionRenderer buildingHoverSelectionRenderer;
         private readonly Func<UpgradeModule[]> getUpgrades;
+        public event Action<Roll> RollFinished;
 
-        public DieComponent(Actor actor, Player player, NoiseBasedRNG cleanRandom, Func<UpgradeModule[]> getUpgrades) : base(actor)
+        public DieComponent(Actor actor, NoiseBasedRNG cleanRandom, Func<UpgradeModule[]> getUpgrades) : base(actor)
         {
             this.getUpgrades = getUpgrades;
-            this.player = player;
             this.cleanRandom = cleanRandom;
-            this.size = RequireComponent<BoundingRect>().Height;
             this.buildingHoverSelectionRenderer = RequireComponent<BuildingHoverSelectionRenderer>();
 
             Pips = new Pip[6];
@@ -32,8 +29,6 @@ namespace GMTK22.Components
             {
                 Pips[i] = new Pip();
             }
-
-            this.hoverable = RequireComponent<Hoverable>();
         }
 
         public Pip[] Pips { get; }
@@ -41,11 +36,15 @@ namespace GMTK22.Components
         public override void Update(float dt)
         {
             this.tween.Update(dt);
+        }
 
-            if (this.hoverable.IsHovered)
-            {
-                AttemptToRoll();
-            }
+        public void ForceRoll()
+        {
+            // oh god why
+            this.tween.Clear();
+            this.tween.Reset();
+            
+            AttemptToRoll();
         }
 
         public void AttemptToRoll()
@@ -57,12 +56,57 @@ namespace GMTK22.Components
                 this.tween.Reset();
 
                 var totalDuration = 1.5f;
+                var weights = new List<Weight>();
+                var percentForUnweighted = 1f;
 
                 foreach (var upgrade in this.getUpgrades())
                 {
                     totalDuration -= upgrade.SpeedBoost / 10f;
+
+                    if (!upgrade.Weight.IsEmpty)
+                    {
+                        weights.Add(upgrade.Weight);
+                        percentForUnweighted -= upgrade.Weight.Percentage;
+                    }
                 }
 
+                var faces = new int[] {1, 2, 3, 4, 5, 6};
+                var numberOfFaces = faces.Length;
+                var baselineWeight = percentForUnweighted / numberOfFaces;
+
+                var faceToWeight =  new Dictionary<int, float>();
+                foreach (var face in faces)
+                {
+                    faceToWeight[face] = baselineWeight;
+                }
+
+                foreach (var weight in weights)
+                {
+                    faceToWeight[weight.FaceValue] += weight.Percentage;
+                }
+
+                var totalPercent = 0f;
+                foreach (var val in faceToWeight.Values)
+                {
+                    totalPercent += val;
+                }
+
+                var randomPercent = this.cleanRandom.NextFloat() * totalPercent;
+
+                var accumulatedWeight = 0f;
+                Roll roll = null;
+                foreach (var faceWeight in faceToWeight)
+                {
+                    if (accumulatedWeight + faceWeight.Value > randomPercent)
+                    {
+                        roll = new Roll(faceWeight.Key);
+                        break;
+                    }
+                    accumulatedWeight += faceWeight.Value;
+                }
+
+                Debug.Assert(roll != null);
+                
                 this.tween.Add(new CallbackTween(() =>
                 {
                     this.buildingHoverSelectionRenderer.BusyFlags++;
@@ -70,22 +114,11 @@ namespace GMTK22.Components
                 
                 TweenToRolling(totalDuration * 2 / 3f);
 
-                var roll = this.cleanRandom.GetRandomElement(new[]
-                {
-                    new Roll(1),
-                    new Roll(2),
-                    new Roll(3),
-                    new Roll(4),
-                    new Roll(5),
-                    new Roll(6)
-                });
-
                 roll.ApplyTween(this.tween, Pips, totalDuration * 1 / 6f);
 
                 this.tween.Add(new CallbackTween(() =>
                 {
-                    SpawnMoneyTextParticle(roll.FaceValue);
-                    this.player.GainMoney(roll.FaceValue);
+                    RollFinished?.Invoke(roll);
                 }));
                 this.tween.Add(new WaitSecondsTween(totalDuration * 1 / 6f));
                 this.tween.Add(new CallbackTween(() =>
@@ -93,21 +126,6 @@ namespace GMTK22.Components
                     this.buildingHoverSelectionRenderer.BusyFlags--;
                 }));
             }
-        }
-
-        private void SpawnMoneyTextParticle(int value)
-        {
-            var moneyCounter = this.actor.transform.AddActorAsChild("TextParticle");
-
-            moneyCounter.transform.LocalDepth = -10;
-            
-            new BoundingRect(moneyCounter, 5, 5).SetOffsetToCenter();
-            var text = new BoundedTextRenderer(moneyCounter, "0", MachinaClient.Assets.GetSpriteFont("UIFont"), Color.White,
-                Alignment.Center, Overflow.Ignore);
-            text.Text = $"+{value}";
-            text.TextColor = Color.Goldenrod;
-
-            new TextToastTween(moneyCounter);
         }
 
         public void TweenToRolling(float totalDuration)

@@ -11,24 +11,21 @@ namespace GMTK22.Components
             this.cachedUpgrades = new UpgradeModule[8];
         }
 
-        public UpgradeModule[] Upgrades
+        public UpgradeModule[] Upgrades()
         {
-            get
+            for (int i = 0; i < this.cachedUpgrades.Length; i++)
             {
-                for (int i = 0; i < this.cachedUpgrades.Length; i++)
-                {
-                    this.cachedUpgrades[i] = null;
-                }
-
-                var index = 0;
-                foreach (var position in Position.AllSubgridPositions())
-                {
-                    this.cachedUpgrades[index] = Map.GetUpgradeAt(position);
-                    index++;
-                }
-
-                return this.cachedUpgrades;
+                this.cachedUpgrades[i] = null;
             }
+
+            var index = 0;
+            foreach (var position in Position.AllSubgridPositions())
+            {
+                this.cachedUpgrades[index] = Map.GetUpgradeAt(position);
+                index++;
+            }
+
+            return this.cachedUpgrades;
         }
         
         public abstract bool IsIdle();

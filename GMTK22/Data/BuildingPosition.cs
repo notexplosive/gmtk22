@@ -59,5 +59,10 @@ namespace GMTK22.Data
                 }
             }
         }
+
+        public BuildingPosition AsJustGridPosition()
+        {
+            return new BuildingPosition(GridPosition, Point.Zero);
+        }
     }
 }
