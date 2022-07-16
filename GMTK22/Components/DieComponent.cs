@@ -14,25 +14,26 @@ namespace GMTK22.Components
     {
         private readonly NoiseBasedRNG cleanRandom;
         private readonly Hoverable hoverable;
+        private readonly Player player;
         private readonly int size;
         private readonly SequenceTween tween = new SequenceTween();
-        private readonly Player player;
 
         public DieComponent(Actor actor, Player player, NoiseBasedRNG cleanRandom) : base(actor)
         {
             this.player = player;
             this.cleanRandom = cleanRandom;
             this.size = RequireComponent<BoundingRect>().Height;
-            for (var i = 0; i < 6; i++)
+
+            Pips = new Pip[6];
+            for (var i = 0; i < Pips.Length; i++)
             {
-                var pip = new Pip();
-                Pips.Add(pip);
+                Pips[i] = new Pip();
             }
 
             this.hoverable = RequireComponent<Hoverable>();
         }
 
-        public List<Pip> Pips { get; } = new List<Pip>();
+        public Pip[] Pips { get; }
 
         public override void Update(float dt)
         {
@@ -56,24 +57,40 @@ namespace GMTK22.Components
 
                 TweenToRolling(totalDuration * 2 / 3f);
 
-                var queueRollAnimation = this.cleanRandom.GetRandomElement(new Action<float>[]
+                var roll = this.cleanRandom.GetRandomElement(new[]
                 {
-                    TweenToOne,
-                    TweenToTwo,
-                    TweenToThree,
-                    TweenToFour,
-                    TweenToFive,
-                    TweenToSix
+                    new Roll(1),
+                    new Roll(2),
+                    new Roll(3),
+                    new Roll(4),
+                    new Roll(5),
+                    new Roll(6)
                 });
 
-                queueRollAnimation(totalDuration * 1 / 6f);
+                roll.ApplyTween(this.tween, Pips, totalDuration * 1 / 6f);
 
                 this.tween.Add(new CallbackTween(() =>
                 {
-                    this.player.GainMoney(5);
+                    SpawnMoneyTextParticle(roll.FaceValue);
+                    this.player.GainMoney(roll.FaceValue);
                 }));
                 this.tween.Add(new WaitSecondsTween(totalDuration * 1 / 6f));
             }
+        }
+
+        private void SpawnMoneyTextParticle(int value)
+        {
+            var moneyCounter = this.actor.transform.AddActorAsChild("TextParticle");
+
+            moneyCounter.transform.LocalDepth = -10;
+            
+            new BoundingRect(moneyCounter, 5, 5).SetOffsetToCenter();
+            var text = new BoundedTextRenderer(moneyCounter, "0", MachinaClient.Assets.GetSpriteFont("UIFont"), Color.White,
+                Alignment.Center, Overflow.Ignore);
+            text.Text = $"+{value}";
+            text.TextColor = Color.Goldenrod;
+
+            new TextToastTween(moneyCounter);
         }
 
         public void TweenToRolling(float totalDuration)
@@ -82,11 +99,11 @@ namespace GMTK22.Components
             {
                 var result = new MultiplexTween();
 
-                for (var i = 0; i < Pips.Count; i++)
+                for (var i = 0; i < Pips.Length; i++)
                 {
                     var pip = Pips[i];
 
-                    var percent = (float) i / Pips.Count;
+                    var percent = (float) i / Pips.Length;
                     var fullCircle = MathF.PI * 2;
                     var startingPos = new Vector2(MathF.Cos(percent * fullCircle), MathF.Sin(percent * fullCircle));
 
@@ -116,200 +133,74 @@ namespace GMTK22.Components
                 return result;
             }));
         }
+    }
 
-        public void TweenToOne(float duration)
+    public class Roll
+    {
+        public Roll(int faceValue)
         {
-            this.tween.Add(new DynamicTween(() =>
-            {
-                var result = new MultiplexTween();
-
-                foreach (var pip in Pips)
-                {
-                    result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Vector2.Zero, duration, Ease.QuadFastSlow));
-                }
-
-                return result;
-            }));
+            FaceValue = faceValue;
         }
 
-        public void TweenToTwo(float duration)
+        public int FaceValue { get; }
+
+        public void ApplyTween(SequenceTween tween, Pip[] inputPips, float duration)
         {
-            this.tween.Add(new DynamicTween(() =>
+            tween.Add(new DynamicTween(() =>
             {
                 var result = new MultiplexTween();
-
-                for (var i = 0; i < Pips.Count; i++)
+                for (var i = 0; i < inputPips.Length; i++)
                 {
-                    var pip = Pips[i];
-                    var j = i % 2;
+                    var inputPip = inputPips[i];
+                    var j = i % FaceValue;
+
+                    void TweenTo(Vector2 target)
+                    {
+                        result.AddChannel(new Tween<Vector2>(inputPip.LocalPosition, target, duration,
+                            Ease.QuadFastSlow));
+                    }
 
                     if (j == 0)
                     {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.TopRight, duration,
-                            Ease.QuadFastSlow));
+                        if (FaceValue == 1)
+                        {
+                            TweenTo(Pip.Center);
+                        }
+                        else
+                        {
+                            TweenTo(Pip.TopRight);
+                        }
                     }
                     else if (j == 1)
                     {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.BottomLeft, duration,
-                            Ease.QuadFastSlow));
-                    }
-                }
-
-                return result;
-            }));
-        }
-
-        public void TweenToThree(float duration)
-        {
-            this.tween.Add(new DynamicTween(() =>
-            {
-                var result = new MultiplexTween();
-
-                for (var i = 0; i < Pips.Count; i++)
-                {
-                    var pip = Pips[i];
-                    var j = i % 3;
-
-                    if (j == 0)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.TopRight, duration,
-                            Ease.QuadFastSlow));
-                    }
-                    else if (j == 1)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.BottomLeft, duration,
-                            Ease.QuadFastSlow));
+                        TweenTo(Pip.BottomLeft);
                     }
                     else if (j == 2)
                     {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.Center, duration,
-                            Ease.QuadFastSlow));
-                    }
-                }
-
-                return result;
-            }));
-        }
-
-        public void TweenToFour(float duration)
-        {
-            this.tween.Add(new DynamicTween(() =>
-            {
-                var result = new MultiplexTween();
-
-                for (var i = 0; i < Pips.Count; i++)
-                {
-                    var pip = Pips[i];
-                    var j = i % 4;
-
-                    if (j == 0)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.TopRight, duration,
-                            Ease.QuadFastSlow));
-                    }
-                    else if (j == 1)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.BottomLeft, duration,
-                            Ease.QuadFastSlow));
-                    }
-                    else if (j == 2)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.TopLeft, duration,
-                            Ease.QuadFastSlow));
+                        if (FaceValue == 6)
+                        {
+                            TweenTo(Pip.Left);
+                        }
+                        else if (FaceValue == 4)
+                        {
+                            TweenTo(Pip.TopLeft);
+                        }
+                        else
+                        {
+                            TweenTo(Pip.Center);
+                        }
                     }
                     else if (j == 3)
                     {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.BottomRight, duration,
-                            Ease.QuadFastSlow));
-                    }
-                }
-
-                return result;
-            }));
-        }
-
-        public void TweenToFive(float duration)
-        {
-            this.tween.Add(new DynamicTween(() =>
-            {
-                var result = new MultiplexTween();
-
-                for (var i = 0; i < Pips.Count; i++)
-                {
-                    var pip = Pips[i];
-                    var j = i % 5;
-
-                    if (j == 0)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.TopRight, duration,
-                            Ease.QuadFastSlow));
-                    }
-                    else if (j == 1)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.BottomLeft, duration,
-                            Ease.QuadFastSlow));
-                    }
-                    else if (j == 2)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.TopLeft, duration,
-                            Ease.QuadFastSlow));
-                    }
-                    else if (j == 3)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.BottomRight, duration,
-                            Ease.QuadFastSlow));
+                        TweenTo(Pip.BottomRight);
                     }
                     else if (j == 4)
                     {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.Center, duration,
-                            Ease.QuadFastSlow));
-                    }
-                }
-
-                return result;
-            }));
-        }
-
-        public void TweenToSix(float duration)
-        {
-            this.tween.Add(new DynamicTween(() =>
-            {
-                var result = new MultiplexTween();
-
-                for (var i = 0; i < Pips.Count; i++)
-                {
-                    var pip = Pips[i];
-                    var j = i % 6;
-
-                    if (j == 0)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.TopRight, duration,
-                            Ease.QuadFastSlow));
-                    }
-                    else if (j == 1)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.BottomLeft, duration,
-                            Ease.QuadFastSlow));
-                    }
-                    else if (j == 2)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.TopLeft, duration,
-                            Ease.QuadFastSlow));
-                    }
-                    else if (j == 3)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.BottomRight, duration,
-                            Ease.QuadFastSlow));
-                    }
-                    else if (j == 4)
-                    {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.Left, duration,
-                            Ease.QuadFastSlow));
+                        TweenTo(Pip.TopLeft);
                     }
                     else if (j == 5)
                     {
-                        result.AddChannel(new Tween<Vector2>(pip.LocalPosition, Pip.Right, duration,
-                            Ease.QuadFastSlow));
+                        TweenTo(Pip.Right);
                     }
                 }
 

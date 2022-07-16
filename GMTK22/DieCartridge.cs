@@ -20,26 +20,19 @@ namespace GMTK22
             SceneLayers.BackgroundColor = Color.ForestGreen;
 
             // Setup
-            var cleanRandom = new NoiseBasedRNG((uint)Random.Seed);
-            var scene = SceneLayers.AddNewScene();
-            var uiScene = SceneLayers.AddNewScene();
-            scene.camera.UnscaledPosition -=  new Vector2(1600 / 2f, 900 / 2f);
-
-            var player = new Player();
+            var gameCore = new GameCore(SceneLayers, Random.Seed);
             
             // Money Tracker
-            var moneyCounter = uiScene.AddActor("MoneyCounter");
+            var moneyCounter = gameCore.UiScene.AddActor("MoneyCounter");
             new BoundingRect(moneyCounter, 1600, 200);
             new BoundedTextRenderer(moneyCounter, "0", MachinaClient.Assets.GetSpriteFont("UIFont"), Color.White,
                 Alignment.Center);
-            new MoneyTracker(moneyCounter, player);
+            new MoneyTracker(moneyCounter, gameCore.Player);
+
+            var buildingMap = new BuildingMap(gameCore);
             
             // Starting Die
-            var die = scene.AddActor("Die");
-            new BoundingRect(die, new Point(128, 128)).SetOffsetToCenter();
-            new Hoverable(die);
-            new DieComponent(die, player, cleanRandom);
-            new DieRenderer(die);
+            buildingMap.CreateDie(new Point(0,0));
         }
 
         public override void PrepareDynamicAssets(AssetLoader loader, MachinaRuntime runtime)
