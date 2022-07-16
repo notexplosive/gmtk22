@@ -28,8 +28,8 @@ namespace GMTK22.Components
             var commandsFromBuilding = building.Commands();
             var commands = new List<Command>();
 
-            var isSellable = (building is UpgradeModule && !(building is UpgradeSite)) ||
-                             (building is MainBuilding && !(building is BuildSite));
+            var isSellable = building is IHasSpec;
+            
             if (isSellable)
             {
                 commands.Add(new SellCommand());

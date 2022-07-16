@@ -8,15 +8,16 @@ namespace GMTK22.Data.Buildings
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification("Build Weight Module",
                 info => new WeightModule(info.Position, info.Map),
-                new Costs()
+                new Costs(200)
             );
         
         private readonly float percentageWeight;
+        private readonly DieComponent dieComponent;
 
         public WeightModule(BuildingPosition position, BuildingMap map) : base(position, map, "Weight Upgrade", WeightModule.Spec)
         {
             this.percentageWeight = 0.1f;
-            var dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, GetUpgrades);
+            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, AttachedBuilding.Faces, GetUpgrades);
             new DieRenderer(Actor, Palette.WeightBody, Palette.WeightPips);
 
             dieComponent.ForceRoll();
@@ -30,7 +31,11 @@ namespace GMTK22.Data.Buildings
 
         public override Command[] Commands()
         {
-            return Array.Empty<Command>();
+            return new Command[]
+            {
+                new CallbackCommand("ReRoll", ReRollerModule.Spec.Costs.ConstructCost / 2,
+                    () => { this.dieComponent.ForceRoll(); })
+            };
         }
     }
 }

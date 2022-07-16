@@ -50,7 +50,7 @@ namespace GMTK22.Data
 
                 if (this is MainBuilding mainBuilding)
                 {
-                    foreach (var upgrade in mainBuilding.SmallBuildings())
+                    foreach (var upgrade in mainBuilding.GetSmallBuildings())
                     {
                         upgrade.Sell();
                     }

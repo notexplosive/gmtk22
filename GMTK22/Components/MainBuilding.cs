@@ -6,8 +6,9 @@ namespace GMTK22.Components
     {
         private readonly SmallBuilding[] cachedUpgrades;
 
-        public MainBuilding(BuildingPosition position, string name, BuildingMap map, BuildingSpecification spec) : base(position, name, map, 128)
+        public MainBuilding(BuildingPosition position, string name, BuildingMap map, int[] faces, BuildingSpecification spec) : base(position, name, map, 128)
         {
+            Faces = faces;
             this.cachedUpgrades = new SmallBuilding[8];
             MySpec = spec;
         }
@@ -15,8 +16,9 @@ namespace GMTK22.Components
         public BuildingSpecification MySpec { get; }
 
         public abstract int CurrentFace { get; }
+        public int[] Faces { get; }
 
-        public SmallBuilding[] SmallBuildings()
+        public SmallBuilding[] GetSmallBuildings()
         {
             for (int i = 0; i < this.cachedUpgrades.Length; i++)
             {

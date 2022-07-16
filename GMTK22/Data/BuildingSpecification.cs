@@ -4,15 +4,15 @@ using MonoGame.Extended;
 
 namespace GMTK22.Data
 {
-    public readonly struct Costs
+    public class Costs
     {
         public int SellValue { get; }
         public int ConstructCost { get; }
 
-        public Costs(int sellValue, int constructCost)
+        public Costs(int constructCost)
         {
-            SellValue = sellValue;
             ConstructCost = constructCost;
+            SellValue = (int) (ConstructCost * 0.8f);
         }
     }
     

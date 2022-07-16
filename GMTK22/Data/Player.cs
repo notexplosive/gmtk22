@@ -14,5 +14,15 @@ namespace GMTK22.Data
         }
 
         public event Action<int, int> MoneyChanged;
+
+        public bool CanAfford(int cost)
+        {
+            return this.money >= cost;
+        }
+
+        public void SpendMoney(int commandCost)
+        {
+            this.money -= commandCost;
+        }
     }
 }

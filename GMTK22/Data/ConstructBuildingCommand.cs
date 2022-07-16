@@ -10,6 +10,7 @@
         }
 
         public override string Name => this.spec.Name;
+        public override int Cost => this.spec.Costs.ConstructCost;
 
         public override void Execute(BuildingPosition buildingLocation, BuildingMap map)
         {

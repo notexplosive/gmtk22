@@ -16,10 +16,12 @@ namespace GMTK22.Components
         private readonly SequenceTween tween = new SequenceTween();
         private readonly BuildingHoverSelectionRenderer buildingHoverSelectionRenderer;
         private readonly Func<SmallBuilding[]> getUpgrades;
+        private readonly int[] faces;
         public event Action<Roll> RollFinished;
 
-        public DieComponent(Actor actor, NoiseBasedRNG cleanRandom, Func<SmallBuilding[]> getUpgrades) : base(actor)
+        public DieComponent(Actor actor, NoiseBasedRNG cleanRandom, int[] faces, Func<SmallBuilding[]> getUpgrades) : base(actor)
         {
+            this.faces = faces;
             this.getUpgrades = getUpgrades;
             this.cleanRandom = cleanRandom;
             this.buildingHoverSelectionRenderer = RequireComponent<BuildingHoverSelectionRenderer>();
@@ -79,8 +81,7 @@ namespace GMTK22.Components
                         percentForUnweighted -= upgrade.ProbableWeight.Percentage;
                     }
                 }
-
-                var faces = new int[] {1, 2, 3, 4, 5, 6};
+                
                 var numberOfFaces = faces.Length;
                 var baselineWeight = percentForUnweighted / numberOfFaces;
 

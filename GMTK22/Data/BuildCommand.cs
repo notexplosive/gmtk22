@@ -7,6 +7,7 @@ namespace GMTK22.Data
     public abstract class Command
     {
         public abstract string Name { get; }
+        public abstract int Cost { get; }
         public abstract void Execute(BuildingPosition buildingLocation, BuildingMap map);
 
         public abstract void DrawButtonGraphic(DrawInfo drawInfo);

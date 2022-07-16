@@ -5,18 +5,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GMTK22.Data
 {
-    public abstract class CallbackCommand : Command
+    public class CallbackCommand : Command
     {
         private readonly Action callback;
 
-        protected CallbackCommand(Action callback)
+        public CallbackCommand(string name, int cost, Action callback)
         {
             this.callback = callback;
+            Name = name;
+            Cost = cost;
         }
-        
+
+        public override string Name { get; }
+        public override int Cost { get; }
+
         public override void Execute(BuildingPosition buildingLocation, BuildingMap map)
         {
             this.callback();
+        }
+
+        public override void DrawButtonGraphic(DrawInfo drawInfo)
+        {
         }
     }
 }

@@ -3,6 +3,7 @@
     public class SellCommand : Command
     {
         public override string Name => "Sell";
+        public override int Cost => 0;
 
         public override void Execute(BuildingPosition buildingLocation, BuildingMap map)
         {

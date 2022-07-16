@@ -44,9 +44,13 @@ namespace GMTK22.Data
 
         public void BuildFromCommand(BuildingPosition location, Command command)
         {
-            Selector.ClearSelection();
-            command.Execute(location, this);
-            // Selector.Select(GetBuildingAt(location));
+            if (DieCartridge.GameCore.Player.CanAfford(command.Cost))
+            {
+                Selector.ClearSelection();
+                command.Execute(location, this);
+                DieCartridge.GameCore.Player.SpendMoney(command.Cost);
+                // Selector.Select(GetBuildingAt(location));
+            }
         }
 
         public Building GetBuildingAt(BuildingPosition location)

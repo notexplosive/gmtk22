@@ -16,7 +16,7 @@ namespace GMTK22.Data
         
         public SmallBuilding[] GetUpgrades()
         {
-            return AttachedBuilding.SmallBuildings();
+            return AttachedBuilding.GetSmallBuildings();
         }
     }
 }

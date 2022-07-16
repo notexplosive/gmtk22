@@ -13,7 +13,7 @@ namespace GMTK22.Data.Buildings
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification("Build AutoRoller",
                 info => new AutoRoller(info.Position, info.Map),
-                new Costs()
+                new Costs(70)
             );
         
         public AutoRoller(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller", AutoRoller.Spec)
