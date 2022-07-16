@@ -64,5 +64,10 @@ namespace GMTK22.Data
         {
             return new BuildingPosition(GridPosition, Point.Zero);
         }
+
+        public bool IsUpgradePosition()
+        {
+            return SubgridPosition != Point.Zero;
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace GMTK22.Components
     public class ReRollerComponent : BaseComponent
     {
         private readonly DieComponent die;
+        private readonly MainBuilding attachedBuilding;
         public BuildingPosition Position { get; }
         public BuildingMap Map { get; }
 
@@ -15,11 +16,12 @@ namespace GMTK22.Components
             this.die = RequireComponent<DieComponent>();
             Position = position;
             Map = map;
+            this.attachedBuilding = Map.GetMainBuildingAt(Position);
         }
 
         public override void Update(float dt)
         {
-            var building = GetAttachedBuilding();
+            var building = this.attachedBuilding;
             if (building.IsIdle())
             {
                 if (building.CurrentFace == this.die.CurrentFace)
@@ -27,11 +29,6 @@ namespace GMTK22.Components
                     building.Roll();
                 }
             }
-        }
-
-        public MainBuilding GetAttachedBuilding()
-        {
-            return Map.GetMainBuildingAt(Position);
         }
     }
 }

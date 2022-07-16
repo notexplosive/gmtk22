@@ -1,5 +1,4 @@
-﻿using System;
-using GMTK22.Components;
+﻿using GMTK22.Components;
 using Machina.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,9 +7,11 @@ namespace GMTK22.Data
 {
     public class ReRoller : UpgradeModule
     {
+        private readonly DieComponent dieComponent;
+
         public ReRoller(BuildingPosition position, BuildingMap map) : base(position, map, "ReRoller")
         {
-            var dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, GetUpgrades);
+            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, GetUpgrades);
             new DieRenderer(Actor, Palette.ReRollerBody, Palette.ReRollerPips);
             new ReRollerComponent(Actor, position, Map);
             
@@ -27,10 +28,13 @@ namespace GMTK22.Data
 
         public override IBuildCommand[] Commands()
         {
-            return Array.Empty<IBuildCommand>();
+            return new IBuildCommand[]
+            {
+                new ReRollCommand(() => { this.dieComponent.ForceRoll(); })
+            };
         }
     }
-    
+
     public class BuildReRollerCommand : IBuildCommand
     {
         public string Name => "Build ReRoller";

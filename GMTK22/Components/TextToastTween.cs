@@ -19,8 +19,10 @@ namespace GMTK22.Components
             this.text = RequireComponent<BoundedTextRenderer>();
             this.originalTextColor = this.text.TextColor;
 
+            var targetPosition = transform.Position + new Vector2(0, -100);
+            
             var position =
-                new TweenableVector2(() => transform.LocalPosition, val => transform.LocalPosition = val);
+                new TweenableVector2(() => transform.Position, val => transform.Position = val);
             this.opacity =
                 new TweenableFloat(1);
             
@@ -28,7 +30,7 @@ namespace GMTK22.Components
                 new SequenceTween()
                     .Add(
                         new MultiplexTween()
-                            .AddChannel(new Tween<Vector2>(position, new Vector2(0, -100), 0.75f, Ease.SineFastSlow))
+                            .AddChannel(new Tween<Vector2>(position, targetPosition, 0.75f, Ease.SineFastSlow))
                             .AddChannel(
                                 new SequenceTween()
                                     .Add(new WaitSecondsTween(0.25f))
