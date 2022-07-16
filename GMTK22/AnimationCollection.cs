@@ -11,11 +11,6 @@ namespace GMTK22
             this.animations.Add(new MoveAnimation(start, end));
         }
 
-        public IEnumerator<IAnimation> Each()
-        {
-            return this.animations.GetEnumerator();
-        }
-
         public IAnimation[] All()
         {
             return this.animations.ToArray();

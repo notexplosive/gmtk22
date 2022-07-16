@@ -2,18 +2,19 @@
 {
     public interface IAnimation
     {
-        
+        public Slot FilledSlot { get; }
+        public Slot EmptiedSlot { get; }
     }
     
     public readonly struct MoveAnimation : IAnimation
     {
-        private readonly Slot start;
-        private readonly Slot end;
-
         public MoveAnimation(Slot start, Slot end)
         {
-            this.start = start;
-            this.end = end;
+            EmptiedSlot = start;
+            FilledSlot = end;
         }
+
+        public Slot FilledSlot { get; }
+        public Slot EmptiedSlot { get; }
     }
 }

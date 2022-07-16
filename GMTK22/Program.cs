@@ -15,7 +15,7 @@ namespace GMTK22
                 new GameSpecification(
                     "GMTK2022 - NotExplosive & Quarkimo",
                     args,
-                    new GameSettings(new Point(1600, 900))), new GmtkCartridge(),
+                    new GameSettings(new Point(1600, 900))), new DieCartridge(),
                 ".");
         }
     }

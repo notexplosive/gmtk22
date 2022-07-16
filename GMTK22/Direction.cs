@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace GMTK22
 {
@@ -37,6 +38,23 @@ namespace GMTK22
             else
             {
                 return "Invalid";
+            }
+        }
+
+        public static Direction FromKey(Keys key)
+        {
+            switch (key)
+            {
+                case Keys.Left:
+                    return Direction.Left;
+                case Keys.Right:
+                    return Direction.Right;
+                case Keys.Down:
+                    return Direction.Down;
+                case Keys.Up:
+                    return Direction.Up;
+                default:
+                    return Direction.Invalid;
             }
         }
     }
