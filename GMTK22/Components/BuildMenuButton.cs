@@ -7,24 +7,16 @@ namespace GMTK22.Components
 {
     public class BuildMenuButton : BaseComponent
     {
-        private readonly IBuildCommand command;
-        private readonly Building building;
-        private readonly BuildMenu menu;
-        private readonly Clickable clickable;
 
         public BuildMenuButton(Actor actor, IBuildCommand command, Building building, BuildMenu menu) : base(actor)
         {
-            this.clickable = RequireComponent<Clickable>();
-            
-            this.command = command;
-            this.building = building;
-            this.menu = menu;
+            var clickable = RequireComponent<Clickable>();
 
-            this.clickable.OnClick += mouseButton =>
+            clickable.OnClick += mouseButton =>
             {
                 if (mouseButton == MouseButton.Left)
                 {
-                    this.menu.RequestBuilding(building.GridPosition, command);
+                    menu.RequestBuilding(building.Position, command);
                 }
             };
         }

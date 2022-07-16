@@ -14,7 +14,7 @@ namespace GMTK22.Components
 {
     public class BuildMenu : BaseComponent
     {
-        public event Action<Point, IBuildCommand> RequestedBuilding;
+        public event Action<BuildingPosition, IBuildCommand> RequestedBuilding;
         private readonly BoundingRect boundingRect;
         private readonly List<Actor> buttonActors = new List<Actor>();
 
@@ -82,7 +82,7 @@ namespace GMTK22.Components
             spriteBatch.DrawRectangle(rect, Color.White, 2f, transform.Depth - 1);
         }
 
-        public void RequestBuilding(Point buildingGridPosition, IBuildCommand command)
+        public void RequestBuilding(BuildingPosition buildingGridPosition, IBuildCommand command)
         {
             RequestedBuilding?.Invoke(buildingGridPosition, command);
         }
