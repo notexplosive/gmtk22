@@ -10,7 +10,7 @@ namespace GMTK22.Data
 
         public DieBuilding(BuildingPosition position, BuildingMap map) : base(position, "Die", map)
         {
-            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.Player, DieCartridge.GameCore.CleanRandom);
+            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.Player, DieCartridge.GameCore.CleanRandom, ()=> Upgrades);
             new DieRenderer(Actor);
         }
 

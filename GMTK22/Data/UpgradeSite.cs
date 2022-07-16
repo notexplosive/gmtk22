@@ -2,18 +2,17 @@
 
 namespace GMTK22.Data
 {
-    public class UpgradeSite : Building
+    public class UpgradeSite : UpgradeModule
     {
-        public UpgradeSite(BuildingPosition position, BuildingMap map) : base(position, "Upgrade Site", map, buildingSize: UpgradeSite.Size)
+        public UpgradeSite(BuildingPosition position, BuildingMap map) : base(position, "Upgrade Site", map)
         {
             new BuildSiteRenderer(Actor);
         }
-
-        public static int Size { get; } = 32;
-
+        
         public override IBuildCommand[] Commands => new IBuildCommand[]
         {
-            new BuildAutoRollerCommand()
+            new BuildAutoRollerCommand(),
+            new BuildSpeedUpgradeCommand()
         };
     }
 }

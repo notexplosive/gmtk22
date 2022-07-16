@@ -25,14 +25,18 @@ namespace GMTK22.Components
                 new TweenableFloat(1);
             
             this.tween = 
-                    new MultiplexTween()
-                        .AddChannel(new Tween<Vector2>(position, new Vector2(0, -100), 0.75f, Ease.SineFastSlow))
-                        .AddChannel(
-                            new SequenceTween()
-                                .Add(new WaitSecondsTween(0.25f))
-                                .Add(new Tween<float>(this.opacity, 0, 0.25f, Ease.Linear))
-                            
-                            )
+                new SequenceTween()
+                    .Add(
+                        new MultiplexTween()
+                            .AddChannel(new Tween<Vector2>(position, new Vector2(0, -100), 0.75f, Ease.SineFastSlow))
+                            .AddChannel(
+                                new SequenceTween()
+                                    .Add(new WaitSecondsTween(0.25f))
+                                    .Add(new Tween<float>(this.opacity, 0, 0.25f, Ease.Linear))
+                            )    
+                        )
+                    .Add(new CallbackTween(()=>this.actor.Destroy()))
+                    
                 ;
         }
 

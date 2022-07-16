@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace GMTK22.Data
@@ -43,5 +45,19 @@ namespace GMTK22.Data
 
         public Point SubgridPosition { get; }
         public Point GridPosition { get; }
+
+        public IEnumerable<BuildingPosition> AllSubgridPositions()
+        {
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if (!(x == 0 && y == 0))
+                    {
+                        yield return new BuildingPosition(GridPosition, new Point(x, y));
+                    }
+                }
+            }
+        }
     }
 }

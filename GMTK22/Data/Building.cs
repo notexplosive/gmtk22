@@ -11,6 +11,7 @@ namespace GMTK22.Data
         {
             Position = position;
             Name = name;
+            Map = map;
 
             Actor = DieCartridge.GameCore.GameScene.AddActor(Name);
             Actor.transform.Position = Position.GridPosition.ToVector2() * 256 + Position.SubgridPosition.ToVector2() * (64 + 32);
@@ -23,15 +24,17 @@ namespace GMTK22.Data
             map.PlaceBuilding(this);
         }
 
+        public BuildingMap Map { get; }
+
         public Actor Actor { get; }
         public string Name { get; }
         public abstract IBuildCommand[] Commands { get; }
         public BuildingPosition Position { get; }
         public SelectableBuilding Selectable { get; }
 
-        public void Delete()
+        public void Destroy()
         {
-            Actor.Delete();
+            Actor.Destroy();
         }
     }
 }

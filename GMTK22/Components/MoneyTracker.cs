@@ -29,7 +29,7 @@ namespace GMTK22.Components
         public override void Update(float dt)
         {
             this.tween?.Update(dt);
-            this.text.Text = this.tweenable.Value.ToString();
+            this.text.Text = this.tweenable.Value.ToString() + " pips";
         }
     }
 }

@@ -45,6 +45,11 @@ namespace GMTK22.Data
             return this.map[location];
         }
         
+        public UpgradeModule GetUpgradeAt(BuildingPosition location)
+        {
+            return this.map[location] as UpgradeModule;
+        }
+        
         public MainBuilding GetMainBuildingAt(BuildingPosition location)
         {
             return this.map[new BuildingPosition(location.GridPosition)] as MainBuilding;
@@ -59,7 +64,7 @@ namespace GMTK22.Data
         {
             if (HasBuildingAt(building.Position))
             {
-                GetBuildingAt(building.Position).Delete();
+                GetBuildingAt(building.Position).Destroy();
             }
             this.map[building.Position] = building;
         }

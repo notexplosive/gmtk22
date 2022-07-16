@@ -17,9 +17,11 @@ namespace GMTK22.Components
         private readonly int size;
         private readonly SequenceTween tween = new SequenceTween();
         private readonly BuildingHoverSelectionRenderer buildingHoverSelectionRenderer;
+        private readonly Func<UpgradeModule[]> getUpgrades;
 
-        public DieComponent(Actor actor, Player player, NoiseBasedRNG cleanRandom) : base(actor)
+        public DieComponent(Actor actor, Player player, NoiseBasedRNG cleanRandom, Func<UpgradeModule[]> getUpgrades) : base(actor)
         {
+            this.getUpgrades = getUpgrades;
             this.player = player;
             this.cleanRandom = cleanRandom;
             this.size = RequireComponent<BoundingRect>().Height;
@@ -55,6 +57,11 @@ namespace GMTK22.Components
                 this.tween.Reset();
 
                 var totalDuration = 1.5f;
+
+                foreach (var upgrade in this.getUpgrades())
+                {
+                    totalDuration -= upgrade.SpeedBoost / 10f;
+                }
 
                 this.tween.Add(new CallbackTween(() =>
                 {

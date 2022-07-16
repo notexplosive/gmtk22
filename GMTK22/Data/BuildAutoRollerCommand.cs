@@ -16,4 +16,17 @@ namespace GMTK22.Data
             new AutoRoller(buildingLocation, map);
         }
     }
+    
+    public class BuildSpeedUpgradeCommand : IBuildCommand
+    {
+        public string Name => "Build Speed Module";
+        public void DrawButtonGraphic(SpriteBatch spriteBatch, Rectangle rectangle, Depth depth)
+        {
+        }
+
+        public void Execute(BuildingPosition buildingLocation, BuildingMap map)
+        {
+            new SpeedUpgrade(buildingLocation, map);
+        }
+    }
 }
