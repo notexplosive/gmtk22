@@ -8,7 +8,7 @@ namespace GMTK22
     {
         public Slot FilledSlot { get; }
         public Slot EmptiedSlot { get; }
-        Pip BuildTweenAndPip(MultiplexTween tween, DieComponent dieComponent);
+        AnimationPip BuildTweenAndPip(MultiplexTween tween, DieComponent dieComponent);
     }
     
     public readonly struct MoveAnimation : IAnimation
@@ -21,11 +21,11 @@ namespace GMTK22
 
         public Slot FilledSlot { get; }
         public Slot EmptiedSlot { get; }
-        public Pip BuildTweenAndPip(MultiplexTween tween, DieComponent dieComponent)
+        public AnimationPip BuildTweenAndPip(MultiplexTween tween, DieComponent dieComponent)
         {
             var startingPosition = dieComponent.SlotToPosition(EmptiedSlot);
             var endingPosition = dieComponent.SlotToPosition(FilledSlot);
-            var pip = new Pip(startingPosition);
+            var pip = new AnimationPip(startingPosition);
 
             var duration = 0.25f;
             tween

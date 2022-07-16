@@ -51,6 +51,11 @@ namespace GMTK22.Components
 
         public Vector2 SlotToPosition(Slot slot)
         {
+            if (!slot.IsValid)
+            {
+                return Vector2.Zero;
+            }
+            
             return this.actorMap[slot].transform.Position;
         }
 

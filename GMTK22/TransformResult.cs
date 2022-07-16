@@ -23,9 +23,9 @@ namespace GMTK22
         }
     }
 
-    public class Pip
+    public class AnimationPip
     {
-        public Pip(Vector2 startingPosition)
+        public AnimationPip(Vector2 startingPosition)
         {
             Position.ForceSetValue(startingPosition);
         }
@@ -36,7 +36,7 @@ namespace GMTK22
     public class TweenAnimation
     {
         private readonly MultiplexTween rootTween = new MultiplexTween();
-        public List<Pip> Pips { get; } = new List<Pip>();
+        public List<AnimationPip> Pips { get; } = new List<AnimationPip>();
 
         public TweenAnimation(TransformResult result, DieComponent dieComponent)
         {
@@ -57,7 +57,7 @@ namespace GMTK22
 
             foreach (var slot in staticSlots)
             {
-                Pips.Add(new Pip(dieComponent.SlotToPosition(slot)));
+                Pips.Add(new AnimationPip(dieComponent.SlotToPosition(slot)));
             }
 
             foreach (var animation in result.Animation.All())
