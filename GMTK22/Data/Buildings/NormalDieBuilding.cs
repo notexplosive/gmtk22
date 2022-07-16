@@ -1,8 +1,7 @@
 ﻿using System;
 using GMTK22.Components;
-using Microsoft.Xna.Framework;
 
-namespace GMTK22.Data
+namespace GMTK22.Data.Buildings
 {
     public class NormalDieBuilding : MainBuilding
     {
@@ -14,7 +13,7 @@ namespace GMTK22.Data
         
         private readonly DieComponent dieComponent;
 
-        public NormalDieBuilding(BuildingPosition position, BuildingMap map) : base(position, "Die", map, Spec)
+        public NormalDieBuilding(BuildingPosition position, BuildingMap map) : base(position, "Die", map, NormalDieBuilding.Spec)
         {
             this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, SmallBuildings);
             new RollOnHover(Actor);

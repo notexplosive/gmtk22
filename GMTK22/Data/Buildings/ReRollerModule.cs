@@ -1,9 +1,6 @@
 ﻿using GMTK22.Components;
-using Machina.Data;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-namespace GMTK22.Data
+namespace GMTK22.Data.Buildings
 {
     public class ReRollerModule : UpgradeModule
     {
@@ -21,8 +18,8 @@ namespace GMTK22.Data
             new DieRenderer(Actor, Palette.ReRollerBody, Palette.ReRollerPips);
             new ReRollerComponent(Actor, position, Map);
             
-            dieComponent.ForceRoll();
-            dieComponent.RollFinished += AssignRollingCriteria;
+            this.dieComponent.ForceRoll();
+            this.dieComponent.RollFinished += AssignRollingCriteria;
         }
 
         private void AssignRollingCriteria(Roll roll)

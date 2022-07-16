@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
-namespace GMTK22.Data
+namespace GMTK22.Data.Buildings
 {
     public class SpeedUpgrade : UpgradeModule
     {
@@ -16,7 +16,7 @@ namespace GMTK22.Data
                 new Costs()
             );
         
-        public SpeedUpgrade(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller", Spec)
+        public SpeedUpgrade(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller", SpeedUpgrade.Spec)
         {
             SpeedBoost = 1;
             new BuildingBodyRenderer(Actor);

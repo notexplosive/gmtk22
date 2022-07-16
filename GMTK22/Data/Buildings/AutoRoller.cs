@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
-namespace GMTK22.Data
+namespace GMTK22.Data.Buildings
 {
     public class AutoRoller : UpgradeModule
     {
@@ -16,7 +16,7 @@ namespace GMTK22.Data
                 new Costs()
             );
         
-        public AutoRoller(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller", Spec)
+        public AutoRoller(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller", AutoRoller.Spec)
         {
             new BuildingBodyRenderer(Actor);
             new AutoRollerComponent(Actor, map.GetMainBuildingAt(new BuildingPosition(position.GridPosition)));
