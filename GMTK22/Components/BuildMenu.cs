@@ -32,7 +32,7 @@ namespace GMTK22.Components
             
             if (isSellable)
             {
-                commands.Add(new SellCommand());
+                commands.Add(new SellCommand(building));
             }
 
             commands.AddRange(commandsFromBuilding);

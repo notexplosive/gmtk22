@@ -36,7 +36,7 @@ namespace GMTK22.Components
                 Color.White,
                 Alignment.Center, Overflow.Ignore);
             text.Text = $"+{value}";
-            text.TextColor = Color.Goldenrod;
+            text.TextColor = Palette.MoneyColor;
 
             new TextToastTween(moneyCounter);
         }

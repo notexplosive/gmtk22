@@ -33,8 +33,7 @@ namespace GMTK22.Components
 
             var text = new BoundedText(rect.Size, Alignment.TopRight, Overflow.Ignore,
                 new FormattedText(
-                    new FormattedTextFragment("Cost: ", font, Color.Black),
-                    new FormattedTextFragment("5", font, Color.Goldenrod)
+                    new FormattedTextFragment(this.command.Cost.ToString(), font, DieCartridge.GameCore.Player.CanAfford(this.command.Cost) ? Palette.MoneyColor : Color.DarkRed)
                 )
             );
 
