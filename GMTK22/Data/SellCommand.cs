@@ -7,7 +7,6 @@
         public override void Execute(BuildingPosition buildingLocation, BuildingMap map)
         {
             var building = map.GetBuildingAt(buildingLocation);
-
             building.Sell();
         }
 

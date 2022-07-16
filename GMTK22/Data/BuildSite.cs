@@ -14,7 +14,7 @@ namespace GMTK22.Data
         {
             return new Command[]
             {
-                new ConstructBuildingCommand(Spec.NormalDie)
+                new ConstructBuildingCommand(NormalDieBuilding.Spec)
             };
         }
     }

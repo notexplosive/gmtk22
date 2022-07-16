@@ -6,6 +6,12 @@ namespace GMTK22.Data
 {
     public class NormalDieBuilding : MainBuilding
     {
+        public static readonly BuildingSpecification Spec =
+            new BuildingSpecification("Build Die",
+                info => new NormalDieBuilding(info.Position, info.Map),
+                new Costs()
+            );
+        
         private readonly DieComponent dieComponent;
 
         public NormalDieBuilding(BuildingPosition position, BuildingMap map) : base(position, "Die", map)

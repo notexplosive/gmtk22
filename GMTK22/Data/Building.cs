@@ -26,12 +26,13 @@ namespace GMTK22.Data
         }
 
         public BuildingMap Map { get; }
-        public int SellValue { get; protected set; } = 0;
         public Actor Actor { get; }
         public string Name { get; }
         public BuildingPosition Position { get; }
         public SelectableBuilding Selectable { get; }
         public abstract Command[] Commands();
+        
+        public int SellValue { get; } // todo remove this
 
         public void Destroy()
         {

@@ -5,6 +5,12 @@ namespace GMTK22.Data
 {
     public class WeightModule : UpgradeModule
     {
+        public static readonly BuildingSpecification Spec =
+            new BuildingSpecification("Build Weight Module",
+                info => new WeightModule(info.Position, info.Map),
+                new Costs()
+            );
+        
         private readonly float percentageWeight;
 
         public WeightModule(BuildingPosition position, BuildingMap map) : base(position, map, "Weight Upgrade")

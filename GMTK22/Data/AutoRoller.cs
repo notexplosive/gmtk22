@@ -10,6 +10,12 @@ namespace GMTK22.Data
 {
     public class AutoRoller : UpgradeModule
     {
+        public static readonly BuildingSpecification Spec =
+            new BuildingSpecification("Build AutoRoller",
+                info => new AutoRoller(info.Position, info.Map),
+                new Costs()
+            );
+        
         public AutoRoller(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller")
         {
             new BuildingBodyRenderer(Actor);

@@ -10,6 +10,12 @@ namespace GMTK22.Data
 {
     public class SpeedUpgrade : UpgradeModule
     {
+        public static readonly BuildingSpecification Spec =
+            new BuildingSpecification("Build Speed Module",
+                info => new SpeedUpgrade(info.Position, info.Map),
+                new Costs()
+            );
+        
         public SpeedUpgrade(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller")
         {
             SpeedBoost = 1;

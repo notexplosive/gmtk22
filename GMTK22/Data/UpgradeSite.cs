@@ -16,43 +16,11 @@ namespace GMTK22.Data
         {
             return new Command[]
             {
-                new ConstructBuildingCommand(Spec.AutoRoller),
-                new ConstructBuildingCommand(Spec.SpeedModule),
-                new ConstructBuildingCommand(Spec.WeightModule),
-                new ConstructBuildingCommand(Spec.ReRollerModule)
+                new ConstructBuildingCommand(AutoRoller.Spec),
+                new ConstructBuildingCommand(SpeedUpgrade.Spec),
+                new ConstructBuildingCommand(WeightModule.Spec),
+                new ConstructBuildingCommand(ReRollerModule.Spec)
             };
         }
-    }
-
-    public static class Spec
-    {
-        public static readonly BuildingSpecification AutoRoller =
-            new BuildingSpecification("Build AutoRoller",
-                info => new AutoRoller(info.Position, info.Map)
-            );
-
-        public static readonly BuildingSpecification SpeedModule =
-            new BuildingSpecification("Build Speed Module",
-                info => new SpeedUpgrade(info.Position, info.Map)
-            );
-
-        public static readonly BuildingSpecification WeightModule =
-            new BuildingSpecification("Build Weight Module",
-                info => new WeightModule(info.Position, info.Map)
-            );
-
-        public static readonly BuildingSpecification ReRollerModule =
-            new BuildingSpecification("Build ReRoller",
-                info => new ReRoller(info.Position, info.Map)
-            );
-
-        public static readonly BuildingSpecification NormalDie =
-            new BuildingSpecification("Build Die",
-                info => new NormalDieBuilding(info.Position, info.Map),
-                drawInfo =>
-                {
-                    
-                }
-            );
     }
 }

@@ -5,11 +5,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GMTK22.Data
 {
-    public class ReRoller : UpgradeModule
+    public class ReRollerModule : UpgradeModule
     {
+        public static readonly BuildingSpecification Spec =
+            new BuildingSpecification("Build ReRoller",
+                info => new ReRollerModule(info.Position, info.Map),
+                new Costs()
+            );
+        
         private readonly DieComponent dieComponent;
 
-        public ReRoller(BuildingPosition position, BuildingMap map) : base(position, map, "ReRoller")
+        public ReRollerModule(BuildingPosition position, BuildingMap map) : base(position, map, "ReRoller")
         {
             this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, GetUpgrades);
             new DieRenderer(Actor, Palette.ReRollerBody, Palette.ReRollerPips);
