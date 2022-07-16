@@ -36,40 +36,22 @@ namespace GMTK22.Data
                 info => new SpeedUpgrade(info.Position, info.Map)
             );
 
-        public static BuildingSpecification WeightModule =
+        public static readonly BuildingSpecification WeightModule =
             new BuildingSpecification("Build Weight Module",
                 info => new WeightModule(info.Position, info.Map)
             );
 
-        public static BuildingSpecification ReRollerModule =
+        public static readonly BuildingSpecification ReRollerModule =
             new BuildingSpecification("Build ReRoller",
                 info => new ReRoller(info.Position, info.Map)
             );
 
-        public static BuildingSpecification NormalDie =
+        public static readonly BuildingSpecification NormalDie =
             new BuildingSpecification("Build Die",
                 info => new NormalDieBuilding(info.Position, info.Map),
                 drawInfo =>
                 {
-                    drawInfo.spriteBatch.FillRectangle(drawInfo.rectangle, Color.White, drawInfo.depth);
-                    var radius = drawInfo.rectangle.Width / 10;
-                    drawInfo.spriteBatch.DrawCircle(new CircleF(drawInfo.rectangle.Center, radius), 8, Color.Black,
-                        radius,
-                        drawInfo.depth - 1);
-                    var offsetSize = drawInfo.rectangle.Width / 5;
-                    drawInfo.spriteBatch.DrawCircle(
-                        new CircleF(drawInfo.rectangle.Center.ToVector2() + new Vector2(-offsetSize), radius), 8, Color.Black,
-                        radius,
-                        drawInfo.depth - 1);
-                    drawInfo.spriteBatch.DrawCircle(
-                        new CircleF(drawInfo.rectangle.Center.ToVector2() + new Vector2(offsetSize), radius),
-                        8, Color.Black, radius, drawInfo.depth - 1);
-                    drawInfo.spriteBatch.DrawCircle(
-                        new CircleF(drawInfo.rectangle.Center.ToVector2() + new Vector2(-offsetSize, offsetSize), radius), 8,
-                        Color.Black, radius, drawInfo.depth - 1);
-                    drawInfo.spriteBatch.DrawCircle(
-                        new CircleF(drawInfo.rectangle.Center.ToVector2() + new Vector2(offsetSize, -offsetSize), radius), 8,
-                        Color.Black, radius, drawInfo.depth - 1);
+                    
                 }
             );
     }

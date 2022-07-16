@@ -30,7 +30,7 @@ namespace GMTK22.Components
             {
                 var radius = this.boundingRect.Width / 15;
                 var circle = new CircleF(transform.Position + pip.LocalPosition.Value * this.boundingRect.Width / 2f * 0.65f, radius);
-                spriteBatch.DrawCircle(circle, 10, this.pipColor, radius);
+                spriteBatch.DrawCircle(circle, 10, this.pipColor, radius, transform.Depth - 10);
             }
 
             spriteBatch.DrawRectangle(this.boundingRect.Rect, this.pipColor, 3f, transform.Depth - 1);
