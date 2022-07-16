@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Machina.Components;
+﻿using Machina.Components;
 using Machina.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,25 +8,27 @@ namespace GMTK22.Components
 {
     public class DieRenderer : BaseComponent
     {
+        private readonly DieComponent die;
         private readonly BoundingRect boundingRect;
-        private readonly DieComponent dieComponent;
 
         public DieRenderer(Actor actor) : base(actor)
         {
-            this.dieComponent = RequireComponent<DieComponent>();
             this.boundingRect = RequireComponent<BoundingRect>();
+            this.die = RequireComponent<DieComponent>();
         }
-
+        
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.FillRectangle(this.boundingRect.Rect, Color.White);
+            spriteBatch.FillRectangle(this.boundingRect.Rect, Color.White, transform.Depth);
 
-            foreach (var position in this.dieComponent.PipPositions())
+            foreach (var pip in this.die.Pips)
             {
-                var radius = 32;
-                var circle = new CircleF(position, radius);
-                spriteBatch.DrawCircle(circle, 15, Color.Black, radius);
+                var radius = 10;
+                var circle = new CircleF(transform.Position + pip.LocalPosition.Value * this.boundingRect.Width / 2f * 0.65f, radius);
+                spriteBatch.DrawCircle(circle, 10, Color.Black, radius);
             }
+            
+            spriteBatch.DrawRectangle(this.boundingRect.Rect, Color.Black, 3f, transform.Depth - 1);
         }
     }
 }
