@@ -54,9 +54,9 @@ namespace GMTK22.Data
             return this.map[location];
         }
         
-        public UpgradeModule GetUpgradeAt(BuildingPosition location)
+        public SmallBuilding GetSmallBuildingAt(BuildingPosition location)
         {
-            return this.map[location] as UpgradeModule;
+            return this.map[location] as SmallBuilding;
         }
         
         public MainBuilding GetMainBuildingAt(BuildingPosition location)

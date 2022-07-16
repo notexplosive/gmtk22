@@ -16,7 +16,7 @@ namespace GMTK22.Data
                 new Costs()
             );
         
-        public SpeedUpgrade(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller")
+        public SpeedUpgrade(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller", Spec)
         {
             SpeedBoost = 1;
             new BuildingBodyRenderer(Actor);

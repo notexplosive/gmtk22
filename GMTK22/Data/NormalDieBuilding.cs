@@ -14,9 +14,9 @@ namespace GMTK22.Data
         
         private readonly DieComponent dieComponent;
 
-        public NormalDieBuilding(BuildingPosition position, BuildingMap map) : base(position, "Die", map)
+        public NormalDieBuilding(BuildingPosition position, BuildingMap map) : base(position, "Die", map, Spec)
         {
-            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, Upgrades);
+            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, SmallBuildings);
             new RollOnHover(Actor);
             new DieRenderer(Actor, Palette.NormalDieBody, Palette.NormalDiePips);
             var moneyMaker = new MoneyMaker(Actor);

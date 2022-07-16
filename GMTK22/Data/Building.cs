@@ -32,8 +32,6 @@ namespace GMTK22.Data
         public SelectableBuilding Selectable { get; }
         public abstract Command[] Commands();
         
-        public int SellValue { get; } // todo remove this
-
         public void Destroy()
         {
             Actor.Destroy();
@@ -41,22 +39,28 @@ namespace GMTK22.Data
 
         public void Sell()
         {
-            if (SellValue > 0)
+            if (this is IHasSpec specContainer)
             {
-                MoneyMaker.GainMoney(SellValue, Actor.transform.Position);
-            }
-
-            if (this is MainBuilding mainBuilding)
-            {
-                foreach (var upgrade in mainBuilding.Upgrades())
+                var costs = specContainer.MySpec.Costs;
+                var sellValue = costs.SellValue;
+                if (sellValue > 0)
                 {
-                    upgrade.Sell();
+                    MoneyMaker.GainMoney(sellValue, Actor.transform.Position);
                 }
-                new BuildSite(Position, Map);
-            }
-            else
-            {
-                new UpgradeSite(Position, Map);
+
+                if (this is MainBuilding mainBuilding)
+                {
+                    foreach (var upgrade in mainBuilding.SmallBuildings())
+                    {
+                        upgrade.Sell();
+                    }
+
+                    new BuildSite(Position, Map);
+                }
+                else
+                {
+                    new UpgradeSite(Position, Map);
+                }
             }
         }
     }

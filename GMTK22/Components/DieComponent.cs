@@ -15,10 +15,10 @@ namespace GMTK22.Components
         private readonly NoiseBasedRNG cleanRandom;
         private readonly SequenceTween tween = new SequenceTween();
         private readonly BuildingHoverSelectionRenderer buildingHoverSelectionRenderer;
-        private readonly Func<UpgradeModule[]> getUpgrades;
+        private readonly Func<SmallBuilding[]> getUpgrades;
         public event Action<Roll> RollFinished;
 
-        public DieComponent(Actor actor, NoiseBasedRNG cleanRandom, Func<UpgradeModule[]> getUpgrades) : base(actor)
+        public DieComponent(Actor actor, NoiseBasedRNG cleanRandom, Func<SmallBuilding[]> getUpgrades) : base(actor)
         {
             this.getUpgrades = getUpgrades;
             this.cleanRandom = cleanRandom;
@@ -61,7 +61,8 @@ namespace GMTK22.Components
                 var totalDuration = 1.5f;
                 
                 // calculate duration
-                foreach (var upgrade in this.getUpgrades())
+                var upgrades = this.getUpgrades();
+                foreach (var upgrade in upgrades)
                 {
                     totalDuration -= upgrade.SpeedBoost / 10f;
                 }
@@ -70,7 +71,7 @@ namespace GMTK22.Components
                 var weights = new List<ProbableWeight>();
                 var percentForUnweighted = 1f;
 
-                foreach (var upgrade in this.getUpgrades())
+                foreach (var upgrade in upgrades)
                 {
                     if (!upgrade.ProbableWeight.IsEmpty)
                     {

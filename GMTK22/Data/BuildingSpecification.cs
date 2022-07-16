@@ -6,8 +6,14 @@ namespace GMTK22.Data
 {
     public readonly struct Costs
     {
-        private int SellCost { get; }
-        private int ConstructCost { get; }
+        public int SellValue { get; }
+        public int ConstructCost { get; }
+
+        public Costs(int sellValue, int constructCost)
+        {
+            SellValue = sellValue;
+            ConstructCost = constructCost;
+        }
     }
     
     public readonly struct BuildingSpecification

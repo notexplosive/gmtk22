@@ -16,7 +16,7 @@ namespace GMTK22.Data
                 new Costs()
             );
         
-        public AutoRoller(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller")
+        public AutoRoller(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller", Spec)
         {
             new BuildingBodyRenderer(Actor);
             new AutoRollerComponent(Actor, map.GetMainBuildingAt(new BuildingPosition(position.GridPosition)));

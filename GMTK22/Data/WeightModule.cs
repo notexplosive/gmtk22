@@ -13,7 +13,7 @@ namespace GMTK22.Data
         
         private readonly float percentageWeight;
 
-        public WeightModule(BuildingPosition position, BuildingMap map) : base(position, map, "Weight Upgrade")
+        public WeightModule(BuildingPosition position, BuildingMap map) : base(position, map, "Weight Upgrade", Spec)
         {
             this.percentageWeight = 0.1f;
             var dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, GetUpgrades);

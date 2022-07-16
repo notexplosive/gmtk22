@@ -4,7 +4,7 @@ using MonoGame.Extended;
 
 namespace GMTK22.Data
 {
-    public class UpgradeSite : UpgradeModule
+    public class UpgradeSite : SmallBuilding
     {
         public UpgradeSite(BuildingPosition position, BuildingMap map) : base(position, map, "Upgrade Site")
         {

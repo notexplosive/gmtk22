@@ -2,18 +2,21 @@
 
 namespace GMTK22.Components
 {
-    public abstract class MainBuilding : Building
+    public abstract class MainBuilding : Building, IHasSpec
     {
-        private readonly UpgradeModule[] cachedUpgrades;
+        private readonly SmallBuilding[] cachedUpgrades;
 
-        public MainBuilding(BuildingPosition position, string name, BuildingMap map) : base(position, name, map, 128)
+        public MainBuilding(BuildingPosition position, string name, BuildingMap map, BuildingSpecification spec) : base(position, name, map, 128)
         {
-            this.cachedUpgrades = new UpgradeModule[8];
+            this.cachedUpgrades = new SmallBuilding[8];
+            MySpec = spec;
         }
+
+        public BuildingSpecification MySpec { get; }
 
         public abstract int CurrentFace { get; }
 
-        public UpgradeModule[] Upgrades()
+        public SmallBuilding[] SmallBuildings()
         {
             for (int i = 0; i < this.cachedUpgrades.Length; i++)
             {
@@ -23,7 +26,7 @@ namespace GMTK22.Components
             var index = 0;
             foreach (var position in Position.AllSubgridPositions())
             {
-                this.cachedUpgrades[index] = Map.GetUpgradeAt(position);
+                this.cachedUpgrades[index] = Map.GetSmallBuildingAt(position);
                 index++;
             }
 
