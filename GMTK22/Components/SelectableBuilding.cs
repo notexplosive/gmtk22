@@ -9,7 +9,7 @@ namespace GMTK22.Components
     {
         private readonly BuildingSelector selector;
 
-        public SelectableBuilding(Actor actor, IBuilding building, BuildingSelector selector) : base(actor)
+        public SelectableBuilding(Actor actor, Building building, BuildingSelector selector) : base(actor)
         {
             Building = building;
             this.selector = selector;
@@ -19,7 +19,7 @@ namespace GMTK22.Components
             {
                 if (mouseButton == MouseButton.Left)
                 {
-                    this.selector.Select(this);
+                    this.selector.Select(Building);
                 }
             };
         }
@@ -32,7 +32,7 @@ namespace GMTK22.Components
             }
         }
 
-        public IBuilding Building { get; }
+        public Building Building { get; }
 
         public bool IsSelected()
         {

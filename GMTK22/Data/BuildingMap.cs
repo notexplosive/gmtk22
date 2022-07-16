@@ -3,29 +3,26 @@ using System.Collections.Generic;
 using GMTK22.Components;
 using Machina.Components;
 using Machina.Engine;
-using Machina.Engine.Input;
 using Microsoft.Xna.Framework;
 
 namespace GMTK22.Data
 {
     public class BuildingMap
     {
-        private readonly GameCore gameCore;
-        private readonly Dictionary<Point, IBuilding> map;
-        private readonly BuildingSelector selector;
+        private readonly Dictionary<Point, Building> map;
+        public BuildingSelector Selector { get; }
 
-        public BuildingMap(GameCore gameCore, BuildingSelector selector)
+        public BuildingMap(BuildingSelector selector)
         {
-            this.map = new Dictionary<Point, IBuilding>();
-            this.gameCore = gameCore;
-            this.selector = selector;
+            this.map = new Dictionary<Point, Building>();
+            this.Selector = selector;
         }
 
-        public void CreateDie(Point gridPosition)
+        public void BuildDie(Point gridPosition)
         {
-            var die = CreateBuildingActor(gridPosition, new DieBuilding());
-            new DieComponent(die, this.gameCore.Player, this.gameCore.CleanRandom);
-            new DieRenderer(die);
+            var die = new DieBuilding(gridPosition, this);
+            new DieComponent(die.Actor, DieCartridge.GameCore.Player, DieCartridge.GameCore.CleanRandom);
+            new DieRenderer(die.Actor);
 
             for (var x = -1; x <= 1; x++)
             {
@@ -35,48 +32,61 @@ namespace GMTK22.Data
                     CreateBuildSite(offsetGridPosition);
                 }
             }
-
-        }
-
-        private Actor CreateBuildingActor(Point gridPosition, IBuilding building)
-        {
-            var buildingActor = this.gameCore.GameScene.AddActor(building.Name);
-            buildingActor.transform.Position = gridPosition.ToVector2() * 256;
-            new BoundingRect(buildingActor, new Point(128, 128)).SetOffsetToCenter();
-            new Hoverable(buildingActor);
-            new Clickable(buildingActor);
-            new SelectableBuilding(buildingActor, building, this.selector);
-            new BuildingHoverSelectionRenderer(buildingActor);
-            
-            this.map[gridPosition] = building;
-
-            
-            return buildingActor;
         }
 
         private void CreateBuildSite(Point gridPosition)
         {
             if (!this.map.ContainsKey(gridPosition))
             {
-                var site = CreateBuildingActor(gridPosition, new BuildSite());
-                new BuildSiteComponent(site);
-                new BuildSiteRenderer(site);
+                var site = new BuildSite(gridPosition, this);
+                new BuildSiteComponent(site.Actor);
+                new BuildSiteRenderer(site.Actor);
             }
+        }
+
+        public void BuildFromCommand(Point location, IBuildCommand command)
+        {
+            this.Selector.ClearSelection();
+            command.Execute(location, this);
+            this.Selector.Select(GetBuildingAt(location));
+        }
+
+        private Building GetBuildingAt(Point location)
+        {
+            return this.map[location];
+        }
+
+        private bool HasBuildingAt(Point location)
+        {
+            return this.map.ContainsKey(location);
+        }
+
+        public void PlaceBuilding(Building building)
+        {
+            if (HasBuildingAt(building.GridPosition))
+            {
+                GetBuildingAt(building.GridPosition).Delete();
+            }
+            this.map[building.GridPosition] = building;
         }
     }
 
-    public class DieBuilding : IBuilding
+    public class DieBuilding : Building
     {
-        public string Name => "Die";
+        public DieBuilding(Point gridPosition, BuildingMap map) : base(gridPosition, "Die", map)
+        {
+        }
 
-        public IBuildCommand[] Commands => Array.Empty<IBuildCommand>();
+        public override IBuildCommand[] Commands => Array.Empty<IBuildCommand>();
     }
 
-    public class BuildSite : IBuilding
+    public class BuildSite : Building
     {
-        public string Name => "Build Site";
+        public BuildSite(Point gridPosition, BuildingMap map) : base(gridPosition, "Build Site", map)
+        {
+        }
 
-        public IBuildCommand[] Commands => new IBuildCommand[]
+        public override IBuildCommand[] Commands => new IBuildCommand[]
         {
             new BuildDieCommand()
         };

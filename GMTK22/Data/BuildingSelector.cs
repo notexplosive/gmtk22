@@ -1,5 +1,6 @@
 ﻿using GMTK22.Components;
 using Machina.Engine;
+using Microsoft.Xna.Framework;
 
 namespace GMTK22.Data
 {
@@ -13,10 +14,10 @@ namespace GMTK22.Data
             this.buildMenu = buildMenu;
         }
 
-        public void Select(SelectableBuilding selectable)
+        public void Select(Building building)
         {
-            this.selected = selectable;
-            this.buildMenu.BuildButtons(selectable.Building.Commands);
+            this.selected = building.Selectable;
+            this.buildMenu.PopulateButtons(building);
         }
 
         public bool IsSelected(SelectableBuilding selectableBuilding)

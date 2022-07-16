@@ -10,6 +10,8 @@ namespace GMTK22.Data
         string Name { get; }
 
         public void Draw(SpriteBatch spriteBatch, Rectangle rectangle, Depth depth);
+
+        public void Execute(Point buildingLocation, BuildingMap map);
     }
 
     public class BuildDieCommand : IBuildCommand
@@ -26,6 +28,11 @@ namespace GMTK22.Data
             spriteBatch.DrawCircle(new CircleF(rectangle.Center.ToVector2() + new Vector2(offsetSize), radius), 8, Color.Black, radius, depth - 1);
             spriteBatch.DrawCircle(new CircleF(rectangle.Center.ToVector2() + new Vector2(-offsetSize,offsetSize), radius), 8, Color.Black, radius, depth - 1);
             spriteBatch.DrawCircle(new CircleF(rectangle.Center.ToVector2() + new Vector2(offsetSize, -offsetSize), radius), 8, Color.Black, radius, depth - 1);
+        }
+
+        public void Execute(Point buildingLocation, BuildingMap map)
+        {
+            map.BuildDie(buildingLocation);
         }
     }
 }

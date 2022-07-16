@@ -12,6 +12,8 @@ namespace GMTK22
 {
     public class DieCartridge : GameCartridge
     {
+        public static GameCore GameCore { get; private set; }
+
         public DieCartridge() : base(new Point(1600, 900), ResizeBehavior.KeepAspectRatio)
         {
         }
@@ -21,7 +23,7 @@ namespace GMTK22
             SceneLayers.BackgroundColor = Color.ForestGreen;
 
             // Setup
-            var gameCore = new GameCore(SceneLayers, Random.Seed);
+            GameCore = new GameCore(SceneLayers, Random.Seed);
             
             // UI
             var layout = LayoutNode.VerticalParent("", LayoutSize.Pixels(1600, 900), LayoutStyle.Empty,
@@ -32,13 +34,13 @@ namespace GMTK22
                 )
             ).Bake();
 
-            var uiLayoutActors = new LayoutActors(gameCore.UiScene, layout);
+            var uiLayoutActors = new LayoutActors(GameCore.UiScene, layout);
             
             // Money counter
             var moneyCounter = uiLayoutActors.GetActor("MoneyCounter");
             new BoundedTextRenderer(moneyCounter, "0", MachinaClient.Assets.GetSpriteFont("UIFont"), Color.White,
                 Alignment.Center);
-            new MoneyTracker(moneyCounter, gameCore.Player);
+            new MoneyTracker(moneyCounter, GameCore.Player);
             
             // Build menu
             var buildMenuActor = uiLayoutActors.GetActor("BuildMenu");
@@ -49,10 +51,12 @@ namespace GMTK22
             var selector = new BuildingSelector(buildMenu);
             
             // WORLD
-            var buildingMap = new BuildingMap(gameCore, selector);
+            var buildingMap = new BuildingMap(selector);
+
+            buildMenu.RequestedBuilding += buildingMap.BuildFromCommand;
             
             // Starting Die
-            buildingMap.CreateDie(new Point(0,0));
+            buildingMap.BuildDie(new Point(0,0));
         }
 
         public override void PrepareDynamicAssets(AssetLoader loader, MachinaRuntime runtime)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GMTK22.Data;
 using Machina.Components;
 using Machina.Data;
@@ -13,21 +14,18 @@ namespace GMTK22.Components
 {
     public class BuildMenu : BaseComponent
     {
+        public event Action<Point, IBuildCommand> RequestedBuilding;
         private readonly BoundingRect boundingRect;
         private readonly List<Actor> buttonActors = new List<Actor>();
 
         public BuildMenu(Actor actor) : base(actor)
         {
             this.boundingRect = RequireComponent<BoundingRect>();
-
-            BuildButtons(new IBuildCommand[]
-            {
-                new BuildDieCommand()
-            });
         }
 
-        public void BuildButtons(IBuildCommand[] commands)
+        public void PopulateButtons(Building building)
         {
+            var commands = building.Commands;
             ClearButtons();
             
             var leaves = new List<FlowLayout.LayoutNodeOrInstruction>();
@@ -59,6 +57,8 @@ namespace GMTK22.Components
                     child.transform.LocalDepth -= 10;
                     new BoundingRect(child, node.Size);
                     new Hoverable(child);
+                    new Clickable(child);
+                    new BuildMenuButton(child, command, building, this);
                     new BuildMenuButtonRenderer(child, command);
                 }
             }
@@ -80,6 +80,11 @@ namespace GMTK22.Components
 
             spriteBatch.FillRectangle(rect, Color.Black, transform.Depth);
             spriteBatch.DrawRectangle(rect, Color.White, 2f, transform.Depth - 1);
+        }
+
+        public void RequestBuilding(Point buildingGridPosition, IBuildCommand command)
+        {
+            RequestedBuilding?.Invoke(buildingGridPosition, command);
         }
     }
 }
