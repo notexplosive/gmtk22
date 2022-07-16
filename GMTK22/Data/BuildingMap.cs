@@ -21,7 +21,7 @@ namespace GMTK22.Data
         {
             if (!this.map.ContainsKey(buildingPosition))
             {
-                new UpgradeSite(buildingPosition, this);
+                new UpgradeSite(new PositionAndMap(buildingPosition, this));
             }
         }
 
@@ -29,7 +29,7 @@ namespace GMTK22.Data
         {
             if (!this.map.ContainsKey(position))
             {
-                new BuildSite(position, this);
+                new BuildSite(new PositionAndMap(position, this));
             }
             
             for (var x = -1; x <= 1; x++)

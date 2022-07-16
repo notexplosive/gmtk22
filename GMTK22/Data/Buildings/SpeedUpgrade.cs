@@ -12,15 +12,15 @@ namespace GMTK22.Data.Buildings
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification("Build Speed Module",
-                info => new SpeedUpgrade(info.Position, info.Map),
+                info => new SpeedUpgrade(info),
                 new Costs(100)
             );
         
-        public SpeedUpgrade(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller", SpeedUpgrade.Spec)
+        public SpeedUpgrade(PositionAndMap positionAndMap) : base(positionAndMap, SpeedUpgrade.Spec)
         {
             SpeedBoost = 1;
             new BuildingBodyRenderer(Actor);
-            new SpeedUpgradeRenderer(Actor, map.GetMainBuildingAt(new BuildingPosition(position.GridPosition)));
+            new SpeedUpgradeRenderer(Actor, Map.GetMainBuildingAt(new BuildingPosition(Position.GridPosition)));
         }
 
         public override Command[] Commands()

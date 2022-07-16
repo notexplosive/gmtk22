@@ -4,7 +4,7 @@ namespace GMTK22.Data
 {
     public abstract class UpgradeModule : SmallBuilding, IHasSpec
     {
-        protected UpgradeModule(BuildingPosition position, BuildingMap map, string name, BuildingSpecification mySpec) : base(position, map, name)
+        protected UpgradeModule(PositionAndMap positionAndMap, BuildingSpecification mySpec) : base(positionAndMap, mySpec.Name)
         {
             MySpec = mySpec;
         }

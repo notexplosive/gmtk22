@@ -7,10 +7,10 @@ namespace GMTK22.Data
 {
     public class UpgradeSite : SmallBuilding
     {
-        public UpgradeSite(BuildingPosition position, BuildingMap map) : base(position, map, "Upgrade Site")
+        public UpgradeSite(PositionAndMap positionAndMap) : base(positionAndMap, "Upgrade Site")
         {
             new BuildSiteRenderer(Actor);
-            new UpgradeSiteRenderer(Actor, position, Map);
+            new UpgradeSiteRenderer(Actor, Position, Map);
         }
 
         public override Command[] Commands()

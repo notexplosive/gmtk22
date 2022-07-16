@@ -6,17 +6,17 @@ namespace GMTK22.Data.Buildings
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification("Build ReRoller",
-                info => new ReRollerModule(info.Position, info.Map),
+                info => new ReRollerModule(info),
                 new Costs(100)
             );
         
         private readonly DieComponent dieComponent;
 
-        public ReRollerModule(BuildingPosition position, BuildingMap map) : base(position, map, "ReRoller", ReRollerModule.Spec)
+        public ReRollerModule(PositionAndMap positionAndMap) : base(positionAndMap, ReRollerModule.Spec)
         {
             this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, AttachedBuilding.Faces, GetUpgrades);
             new DieRenderer(Actor, Palette.ReRollerBody, Palette.ReRollerPips);
-            new ReRollerComponent(Actor, position, Map);
+            new ReRollerComponent(Actor, Position, Map);
             
             this.dieComponent.ForceRoll();
             this.dieComponent.RollFinished += AssignRollingCriteria;

@@ -6,12 +6,12 @@ namespace GMTK22.Data.Buildings
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification("Build Average Die",
-                info => new NormalDie(info.Position, info.Map),
+                info => new NormalDie(info),
                 new Costs(40)
             );
         
 
-        public NormalDie(BuildingPosition position, BuildingMap map) : base(position, map, "Average Die", new[] {1, 2, 3, 4, 5, 6}, NormalDie.Spec)
+        public NormalDie(PositionAndMap positionAndMap) : base(positionAndMap, new[] {1, 2, 3, 4, 5, 6}, NormalDie.Spec)
         {
             var moneyMaker = new MoneyMaker(Actor);
             this.dieComponent.RollFinished += moneyMaker.GainMoneyFromRoll;

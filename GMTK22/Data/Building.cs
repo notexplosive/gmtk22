@@ -7,10 +7,10 @@ namespace GMTK22.Data
 {
     public abstract class Building
     {
-        protected Building(BuildingPosition position, BuildingMap map, string name, int buildingSize = 128)
+        protected Building(PositionAndMap positionAndMap, string name, int buildingSize = 128)
         {
-            Position = position;
-            Map = map;
+            Position = positionAndMap.Position;
+            Map = positionAndMap.Map;
 
             Actor = DieCartridge.GameCore.GameScene.AddActor(name);
             Actor.transform.Position = Position.GridPosition.ToVector2() * (256 + 64) +
@@ -18,10 +18,10 @@ namespace GMTK22.Data
             new BoundingRect(Actor, new Point(buildingSize, buildingSize)).SetOffsetToCenter();
             new Hoverable(Actor);
             new Clickable(Actor);
-            Selectable = new SelectableBuilding(Actor, this, map.Selector);
+            Selectable = new SelectableBuilding(Actor, this, Map.Selector);
             new BuildingHoverSelectionRenderer(Actor);
 
-            map.PlaceBuilding(this);
+            Map.PlaceBuilding(this);
         }
 
         public BuildingMap Map { get; }
@@ -53,11 +53,11 @@ namespace GMTK22.Data
                         upgrade.Sell();
                     }
 
-                    new BuildSite(Position, Map);
+                    new BuildSite(new PositionAndMap(Position, Map));
                 }
                 else
                 {
-                    new UpgradeSite(Position, Map);
+                    new UpgradeSite(new PositionAndMap(Position, Map));
                 }
             }
         }

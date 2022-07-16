@@ -12,14 +12,14 @@ namespace GMTK22.Data.Buildings
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification("Build AutoRoller",
-                info => new AutoRoller(info.Position, info.Map),
+                info => new AutoRoller(info),
                 new Costs(70)
             );
         
-        public AutoRoller(BuildingPosition position, BuildingMap map) : base(position, map, "Auto Roller", AutoRoller.Spec)
+        public AutoRoller(PositionAndMap positionAndMap) : base(positionAndMap, AutoRoller.Spec)
         {
             new BuildingBodyRenderer(Actor);
-            new AutoRollerComponent(Actor, map.GetMainBuildingAt(new BuildingPosition(position.GridPosition)));
+            new AutoRollerComponent(Actor, Map.GetMainBuildingAt(new BuildingPosition(Position.GridPosition)));
         }
 
         public override Command[] Commands()

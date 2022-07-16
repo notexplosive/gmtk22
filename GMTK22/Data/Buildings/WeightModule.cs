@@ -7,14 +7,14 @@ namespace GMTK22.Data.Buildings
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification("Build Weight Module",
-                info => new WeightModule(info.Position, info.Map),
+                info => new WeightModule(info),
                 new Costs(200)
             );
         
         private readonly float percentageWeight;
         private readonly DieComponent dieComponent;
 
-        public WeightModule(BuildingPosition position, BuildingMap map) : base(position, map, "Weight Upgrade", WeightModule.Spec)
+        public WeightModule(PositionAndMap positionAndMap) : base(positionAndMap, WeightModule.Spec)
         {
             this.percentageWeight = 0.1f;
             this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, AttachedBuilding.Faces, GetUpgrades);
