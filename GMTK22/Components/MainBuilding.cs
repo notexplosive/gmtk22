@@ -9,7 +9,7 @@ namespace GMTK22.Components
         protected readonly DieComponent dieComponent;
 
         public MainBuilding(BuildingPosition position, BuildingMap map, string name, int[] faces,
-            BuildingSpecification spec) : base(position, name, map)
+            BuildingSpecification spec) : base(position, map, name)
         {
             Faces = faces;
             this.cachedUpgrades = new SmallBuilding[8];

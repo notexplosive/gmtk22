@@ -4,7 +4,7 @@ namespace GMTK22.Data
 {
     public abstract class SmallBuilding : Building
     {
-        protected SmallBuilding(BuildingPosition position, BuildingMap map, string name) : base(position, name, map, SmallBuilding.Size)
+        protected SmallBuilding(BuildingPosition position, BuildingMap map, string name) : base(position, map, name, SmallBuilding.Size)
         {
         }
         
