@@ -369,3 +369,5 @@ launchSettings.json
 
 # ApprovalTests
 *.received.*
+
+build

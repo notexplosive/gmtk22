@@ -13,8 +13,8 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin fonts/FredokaOne.ttf
-/copy:fonts/FredokaOne.ttf
+#begin fonts/FredokaOne-InGame.ttf
+/copy:fonts/FredokaOne-InGame.ttf
 
 #begin fonts/UIFont.spritefont
 /importer:FontDescriptionImporter
