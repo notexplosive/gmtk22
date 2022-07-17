@@ -117,9 +117,9 @@ namespace GMTK22.Data
             Camera.ZoomTarget = () => target;
             this.tween = new SequenceTween()
                     .Add(new MultiplexTween()
-                        .AddChannel(new Tween<float>(this.cameraZoomTweenable, 3f, 4f, Ease.Linear))
+                        .AddChannel(new Tween<float>(this.cameraZoomTweenable, 20f, 5f, Ease.Linear))
                         .AddChannel(new SequenceTween()
-                            .Add(new WaitSecondsTween(1f))
+                            .Add(new WaitSecondsTween(2f))
                             .Add(new Tween<float>(this.fadeTweenable, 1f, 2f, Ease.QuadSlowFast))
                             .Add(new CallbackTween(LoadEndScene))
                         )

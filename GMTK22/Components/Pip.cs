@@ -15,5 +15,6 @@ namespace GMTK22.Components
         public static readonly Vector2 Right = new Vector2(1, 0);
         public TweenableVector2 LocalPosition { get; } = new TweenableVector2();
         public TweenableInt IsVisible { get; } = new TweenableInt(1);
+        public TweenableFloat RadiusPercent { get; } = new TweenableFloat(1);
     }
 }
