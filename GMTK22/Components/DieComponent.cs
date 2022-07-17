@@ -12,7 +12,7 @@ namespace GMTK22.Components
 {
     public static class PipTweens
     {
-        public static void TweenToRolling(SequenceTween tween, Pip[] pips, float totalDuration)
+        public static void TweenToRolling(SequenceTween tween, Pip[] pips, float totalDuration, SoundBundle soundBundle)
         {
             tween.Add(new DynamicTween(() =>
             {
@@ -38,12 +38,16 @@ namespace GMTK22.Components
                     var sequenceItemCount = 4f;
                     result.AddChannel(
                         new SequenceTween()
+                            .Add(new CallbackTween(soundBundle.PlayRandom))
                             .Add(new Tween<Vector2>(pip.LocalPosition, startingPos, totalDuration / sequenceItemCount,
                                 Ease.QuadFastSlow))
+                            .Add(new CallbackTween(soundBundle.PlayRandom))
                             .Add(new Tween<Vector2>(pip.LocalPosition, orbitPos[0], totalDuration / sequenceItemCount,
                                 Ease.QuadFastSlow))
+                            .Add(new CallbackTween(soundBundle.PlayRandom))
                             .Add(new Tween<Vector2>(pip.LocalPosition, orbitPos[1], totalDuration / sequenceItemCount,
                                 Ease.QuadFastSlow))
+                            .Add(new CallbackTween(soundBundle.PlayRandom))
                             .Add(new Tween<Vector2>(pip.LocalPosition, orbitPos[2], totalDuration / sequenceItemCount,
                                 Ease.QuadFastSlow))
                     );
@@ -62,10 +66,12 @@ namespace GMTK22.Components
         private readonly Func<SmallBuilding[]> getUpgrades;
         private readonly SequenceTween tween = new SequenceTween();
         private readonly float baseDuration;
+        private readonly SoundBundle soundBundle;
 
-        public DieComponent(Actor actor, NoiseBasedRNG cleanRandom, int[] faces, float baseDuration, Func<SmallBuilding[]> getUpgrades) :
+        public DieComponent(Actor actor, NoiseBasedRNG cleanRandom, int[] faces, float baseDuration, SoundBundle soundBundle, Func<SmallBuilding[]> getUpgrades) :
             base(actor)
         {
+            this.soundBundle = soundBundle;
             this.baseDuration = baseDuration;
             this.faces = faces;
             this.getUpgrades = getUpgrades;
@@ -177,7 +183,7 @@ namespace GMTK22.Components
 
                 this.tween.Add(new CallbackTween(() => { this.buildingHoverSelectionRenderer.BusyFlags++; }));
 
-                PipTweens.TweenToRolling(this.tween, Pips, totalDuration * 2 / 3f);
+                PipTweens.TweenToRolling(this.tween, Pips, totalDuration * 2 / 3f, this.soundBundle);
 
                 Roll.ApplyTween(this.tween, Pips, roll.FaceValue, totalDuration * 1 / 6f);
 

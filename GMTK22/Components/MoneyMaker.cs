@@ -1,5 +1,4 @@
-﻿using GMTK22.Data;
-using Machina.Components;
+﻿using Machina.Components;
 using Machina.Data;
 using Machina.Engine;
 using Microsoft.Xna.Framework;
@@ -19,6 +18,8 @@ namespace GMTK22.Components
 
         public static void GainMoney(int amount, Vector2 particleSpawnPosition)
         {
+            DieCartridge.frogSounds.PlayRandom();
+
             MoneyMaker.SpawnMoneyTextParticle(amount, particleSpawnPosition);
             DieCartridge.GameCore.Player.GainMoney(amount);
         }

@@ -15,7 +15,7 @@ namespace GMTK22.Data.Buildings
 
         public ReRollerModule(PositionAndMap positionAndMap) : base(positionAndMap, ReRollerModule.Spec)
         {
-            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, AttachedBuilding.Faces, 0.5f,
+            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, AttachedBuilding.Faces, 0.5f, DieCartridge.loBlockSounds,
                 GetUpgrades);
             new DieRenderer(Actor, Palette.ReRollerBody, Palette.ReRollerPips);
             new ReRollerComponent(Actor, Position, Map);

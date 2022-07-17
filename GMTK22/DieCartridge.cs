@@ -17,6 +17,14 @@ namespace GMTK22
     public class DieCartridge : GameCartridge
     {
         public static SoundEffectInstance bgm;
+        public static SoundBundle bubbleSounds;
+        public static SoundBundle frogSounds;
+        public static SoundBundle hiBlockSounds;
+        public static SoundBundle loBlockSounds;
+        public static SoundBundle popSounds;
+        public static SoundEffectInstance shakeSound;
+        public static SoundEffectInstance snapSound;
+        public static SoundEffectInstance claveSound;
 
         public DieCartridge() : base(new Point(1600, 900), ResizeBehavior.KeepAspectRatio)
         {
@@ -27,6 +35,18 @@ namespace GMTK22
         public override void OnGameLoad(GameSpecification specification, MachinaRuntime runtime)
         {
             SceneLayers.BackgroundColor = Color.ForestGreen;
+
+            // spin sounds
+            DieCartridge.bubbleSounds = new SoundBundle("bubble", 7);
+            DieCartridge.popSounds = new SoundBundle("pop", 7);
+            DieCartridge.hiBlockSounds = new SoundBundle("hiblock", 2);
+            DieCartridge.loBlockSounds = new SoundBundle("lowblock", 2);
+            
+            // number sounds
+            DieCartridge.frogSounds = new SoundBundle("frog", 7);
+            DieCartridge.shakeSound = MachinaClient.Assets.GetSoundEffectInstance("shake");
+            DieCartridge.snapSound = MachinaClient.Assets.GetSoundEffectInstance("snap");
+            DieCartridge.claveSound = MachinaClient.Assets.GetSoundEffectInstance("clave");
 
             DieCartridge.bgm = MachinaClient.Assets.GetSoundEffectInstance("bgm");
             DieCartridge.bgm.IsLooped = true;

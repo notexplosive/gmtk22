@@ -36,6 +36,96 @@
 /processorParam:Quality=Best
 /build:sounds/bgm.ogg
 
+#begin sounds/bubble1.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubble1.ogg
+
+#begin sounds/bubble2.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubble2.ogg
+
+#begin sounds/bubble3.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubble3.ogg
+
+#begin sounds/bubble4.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubble4.ogg
+
+#begin sounds/bubble5.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubble5.ogg
+
+#begin sounds/bubble6.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubble6.ogg
+
+#begin sounds/bubble7.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubble7.ogg
+
+#begin sounds/clave.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/clave.ogg
+
+#begin sounds/frog1.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/frog1.ogg
+
+#begin sounds/frog2.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/frog2.ogg
+
+#begin sounds/frog3.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/frog3.ogg
+
+#begin sounds/frog4.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/frog4.ogg
+
+#begin sounds/frog5.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/frog5.ogg
+
+#begin sounds/frog6.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/frog6.ogg
+
+#begin sounds/frog7.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/frog7.ogg
+
 #begin sounds/grow.ogg
 /importer:OggImporter
 /processor:SoundEffectProcessor
@@ -47,4 +137,82 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sounds/growflower.ogg
+
+#begin sounds/hiblock1.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/hiblock1.ogg
+
+#begin sounds/hiblock2.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/hiblock2.ogg
+
+#begin sounds/lowblock1.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/lowblock1.ogg
+
+#begin sounds/lowblock2.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/lowblock2.ogg
+
+#begin sounds/pop1.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/pop1.ogg
+
+#begin sounds/pop2.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/pop2.ogg
+
+#begin sounds/pop3.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/pop3.ogg
+
+#begin sounds/pop4.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/pop4.ogg
+
+#begin sounds/pop5.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/pop5.ogg
+
+#begin sounds/pop6.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/pop6.ogg
+
+#begin sounds/pop7.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/pop7.ogg
+
+#begin sounds/shake.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/shake.ogg
+
+#begin sounds/snap.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/snap.ogg
 

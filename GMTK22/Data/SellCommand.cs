@@ -1,4 +1,6 @@
-﻿namespace GMTK22.Data
+﻿using Microsoft.Xna.Framework.Audio;
+
+namespace GMTK22.Data
 {
     public class SellCommand : Command
     {
@@ -15,6 +17,16 @@
         
         public override void Execute(BuildingPosition buildingLocation, BuildingMap map)
         {
+            try
+            {
+                DieCartridge.snapSound.Stop();
+                DieCartridge.snapSound.Play();
+            }
+            catch (InstancePlayLimitException)
+            {
+                
+            }
+            
             var building = map.GetBuildingAt(buildingLocation);
             if (building is IHasSpec specHolder)
             {

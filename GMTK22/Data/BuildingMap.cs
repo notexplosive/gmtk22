@@ -3,6 +3,7 @@ using GMTK22.Components;
 using Machina.Components;
 using Machina.Engine;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GMTK22.Data
 {
@@ -79,6 +80,7 @@ namespace GMTK22.Data
             {
                 GetBuildingAt(building.Position).Destroy();
             }
+
             this.map[building.Position] = building;
         }
     }
