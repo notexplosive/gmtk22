@@ -2,7 +2,7 @@
 {
     public class ConstructBuildingCommand : Command
     {
-        private readonly BuildingSpecification spec;
+        public readonly BuildingSpecification spec;
 
         public ConstructBuildingCommand(BuildingSpecification spec)
         {
@@ -15,11 +15,6 @@
         public override void Execute(BuildingPosition buildingLocation, BuildingMap map)
         {
             this.spec.buildCallback(new PositionAndMap(buildingLocation,map));
-        }
-
-        public override void DrawButtonGraphic(DrawInfo drawInfo)
-        {
-            this.spec.drawCallback(drawInfo);
         }
     }
 }

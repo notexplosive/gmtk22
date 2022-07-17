@@ -9,7 +9,5 @@ namespace GMTK22.Data
         public abstract NameAndDescription NameAndDescription { get; }
         public abstract int Cost { get; }
         public abstract void Execute(BuildingPosition buildingLocation, BuildingMap map);
-
-        public abstract void DrawButtonGraphic(DrawInfo drawInfo);
     }
 }

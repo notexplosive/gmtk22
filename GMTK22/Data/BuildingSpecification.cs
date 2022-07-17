@@ -11,27 +11,13 @@ namespace GMTK22.Data
         public string Description { get; }
 
         public readonly Action<PositionAndMap> buildCallback;
-        public readonly Action<DrawInfo> drawCallback;
 
-        public BuildingSpecification(NameAndDescription nameAndDescription, Action<PositionAndMap> buildCallback, Costs costs, Action<DrawInfo> drawCallback = null)
+        public BuildingSpecification(NameAndDescription nameAndDescription, Action<PositionAndMap> buildCallback, Costs costs)
         {
             Name = nameAndDescription.Name;
             Description = nameAndDescription.Description;
             Costs = costs;
             this.buildCallback = buildCallback;
-            this.drawCallback = drawCallback;
-
-            if (this.drawCallback == null)
-            {
-                this.drawCallback = DefaultDraw;
-            }
-            
-
-        }
-
-        public void DefaultDraw(DrawInfo drawInfo)
-        {
-            
         }
     }
 }

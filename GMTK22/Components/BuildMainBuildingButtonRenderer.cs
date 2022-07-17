@@ -9,17 +9,19 @@ using MonoGame.Extended;
 
 namespace GMTK22.Components
 {
-    public class BuildMenuButtonRenderer : BaseComponent
+    public class BuildMainBuildingButtonRenderer : BaseComponent
     {
         private readonly BoundingRect boundingRect;
-        private readonly Command command;
         private readonly Hoverable hoverable;
+        private readonly BuildingSpecification spec;
+        private readonly DieData dieData;
 
-        public BuildMenuButtonRenderer(Actor actor, Command command) : base(actor)
+        public BuildMainBuildingButtonRenderer(Actor actor, BuildingSpecification spec, DieData dieData) : base(actor)
         {
             this.boundingRect = RequireComponent<BoundingRect>();
             this.hoverable = RequireComponent<Hoverable>();
-            this.command = command;
+            this.spec = spec;
+            this.dieData = dieData;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -31,9 +33,10 @@ namespace GMTK22.Components
             
             rect.Inflate(-5, -5);
 
+            var cost = this.spec.Costs.ConstructCost;
             var text = new BoundedText(rect.Size, Alignment.TopRight, Overflow.Ignore,
                 new FormattedText(
-                    new FormattedTextFragment(this.command.Cost.ToString(), font, DieCartridge.GameCore.Player.CanAfford(this.command.Cost) ? Palette.MoneyColor : Color.DarkRed)
+                    new FormattedTextFragment(cost.ToString(), font, DieCartridge.GameCore.Player.CanAfford(cost) ? Palette.MoneyColor : Color.DarkRed)
                 )
             );
 
@@ -47,9 +50,8 @@ namespace GMTK22.Components
             {
                 rect.Inflate(-5, -5);
             }
-            
 
-            this.command.DrawButtonGraphic(new DrawInfo(spriteBatch, rect, transform.Depth - 10));
+            DieRenderer.DrawDie(spriteBatch, this.boundingRect.Rect, new Pip[] {new Pip()}, this.dieData.BodyColor, this.dieData.PipColor, transform.Depth - 10);
         }
     }
 }

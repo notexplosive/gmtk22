@@ -1,4 +1,5 @@
 ﻿using Machina.Components;
+using Machina.Data;
 using Machina.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,21 +20,25 @@ namespace GMTK22.Components
             this.pipColor = pipColor;
             this.boundingRect = RequireComponent<BoundingRect>();
             this.die = RequireComponent<DieComponent>();
-            
         }
         
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.FillRectangle(this.boundingRect.Rect, this.bodyColor, transform.Depth);
+            DrawDie(spriteBatch, this.boundingRect.Rect, this.die.Pips, this.bodyColor, this.pipColor, transform.Depth);
+        }
 
-            foreach (var pip in this.die.Pips)
+        public static void DrawDie(SpriteBatch spriteBatch, Rectangle rect, Pip[] pips, Color bodyColor, Color pipColor, Depth depth)
+        {
+            spriteBatch.FillRectangle(rect, bodyColor, depth);
+
+            foreach (var pip in pips)
             {
-                var radius = this.boundingRect.Width / 10;
-                var circle = new CircleF(transform.Position + pip.LocalPosition.Value * this.boundingRect.Width / 4f, radius);
-                spriteBatch.DrawCircle(circle, 10, this.pipColor, radius, transform.Depth - 10);
+                var radius = rect.Width / 10;
+                var circle = new CircleF(rect.Center.ToVector2() + pip.LocalPosition.Value * rect.Width / 4f, radius);
+                spriteBatch.DrawCircle(circle, 10, pipColor, radius, depth - 10);
             }
 
-            spriteBatch.DrawRectangle(this.boundingRect.Rect, this.pipColor, 3f, transform.Depth - 1);
+            spriteBatch.DrawRectangle(rect, pipColor, 3f, depth - 1);
         }
     }
 }

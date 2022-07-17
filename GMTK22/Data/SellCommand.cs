@@ -21,10 +21,5 @@
                 building.Sell();
             }
         }
-
-        public override void DrawButtonGraphic(DrawInfo drawInfo)
-        {
-            
-        }
     }
 }

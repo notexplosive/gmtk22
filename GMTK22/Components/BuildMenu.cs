@@ -70,7 +70,11 @@ namespace GMTK22.Components
                     new Hoverable(child);
                     new Clickable(child);
                     new BuildMenuButton(child, command, building, this);
-                    new BuildMenuButtonRenderer(child, command);
+                    
+                    if(command is ConstructBuildingCommand constructCommand)
+                    {
+                        // new BuildMainBuildingButtonRenderer(child, constructCommand.spec, constructCommand.DieData);
+                    }
                 }
             }
         }

@@ -25,7 +25,7 @@ namespace GMTK22.Components
 
         public MainBuilding(PositionAndMap positionAndMap, DieData dieData) : base(positionAndMap)
         {
-            Faces = dieData.Faces;
+            DieData = dieData;
             this.cachedUpgrades = new SmallBuilding[8];
 
             this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, Faces, GetSmallBuildings);
@@ -33,8 +33,10 @@ namespace GMTK22.Components
             new DieRenderer(Actor, dieData.BodyColor, dieData.PipColor);
         }
 
+        public DieData DieData { get; }
+
         public int CurrentFace => this.dieComponent.CurrentFace;
-        public int[] Faces { get; }
+        public int[] Faces => DieData.Faces;
 
         public override NameAndDescription NameAndDescription => new NameAndDescription(MySpec.Name, MySpec.Description);
 

@@ -23,9 +23,5 @@ namespace GMTK22.Data
         {
             this.callback();
         }
-
-        public override void DrawButtonGraphic(DrawInfo drawInfo)
-        {
-        }
     }
 }
