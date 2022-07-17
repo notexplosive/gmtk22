@@ -107,6 +107,8 @@ namespace GMTK22
             buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(-3, -1)));
             buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(3, -1)));
 
+            new FullscreenToggler(GameCore.GameScene.AddActor("fullscren"));
+            
             var titleScene = SceneLayers.AddNewScene();
 
             var titleLayout = LayoutNode.VerticalParent("Screen", LayoutSize.Pixels(1600, 900), LayoutStyle.Empty,
@@ -116,7 +118,7 @@ namespace GMTK22
                 LayoutNode.Leaf("Byline1", LayoutSize.StretchedHorizontally(30)),
                 LayoutNode.Spacer(10),
                 LayoutNode.Leaf("Byline2", LayoutSize.StretchedHorizontally(30)),
-                LayoutNode.Spacer(50),
+                LayoutNode.Spacer(100),
                 LayoutNode.Leaf("StartText", LayoutSize.StretchedHorizontally(30)),
                 LayoutNode.StretchedSpacer()
             ).Bake();
@@ -131,7 +133,7 @@ namespace GMTK22
             new BoundedTextRenderer(titleLayoutActors.GetActor("Byline2"), "sound design and music by quarkimo",
                     MachinaClient.Assets.GetSpriteFont("UIFontSmall"), Color.White, Alignment.Center, Overflow.Ignore)
                 .EnableDropShadow(Color.Black);
-            new BoundedTextRenderer(titleLayoutActors.GetActor("StartText"), "roll a 7 to win. click anywhere to start",
+            new BoundedTextRenderer(titleLayoutActors.GetActor("StartText"), "roll a 7 to win\npress F to toggle fullscreen\nclick anywhere to start",
                     MachinaClient.Assets.GetSpriteFont("UIFontSmall"), Color.White, Alignment.Center, Overflow.Ignore)
                 .EnableDropShadow(Color.Black);
             new ClickToStart(titleScene.AddActor("click to start"));
@@ -143,6 +145,22 @@ namespace GMTK22
 
         public override void PrepareDynamicAssets(AssetLoader loader, MachinaRuntime runtime)
         {
+        }
+    }
+
+    public class FullscreenToggler : BaseComponent
+    {
+        public FullscreenToggler(Actor actor) : base(actor)
+        {
+        }
+
+        public override void OnKey(Keys key, ButtonState state, ModifierKeys modifiers)
+        {
+            if (key == Keys.F && state == ButtonState.Pressed && modifiers.None)
+            {
+                Runtime.Specification.settings.fullscreen.State = !Runtime.Specification.settings.fullscreen.State;
+                Runtime.Specification.settings.Apply(Runtime.WindowInterface);
+            }
         }
     }
 
