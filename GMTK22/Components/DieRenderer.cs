@@ -15,6 +15,7 @@ namespace GMTK22.Components
         private readonly BoundingRect boundingRect;
         private readonly DieComponent die;
         private readonly Color pipColor;
+        private readonly bool firstDie;
 
         public DieRenderer(Actor actor, Color bodyColor, Color pipColor) : base(actor)
         {
@@ -22,6 +23,8 @@ namespace GMTK22.Components
             this.pipColor = pipColor;
             this.boundingRect = RequireComponent<BoundingRect>();
             this.die = RequireComponent<DieComponent>();
+
+            this.firstDie = Progression.IsFirstDie();
         }
 
         public static void GenericDrawDie1Pip(DrawInfo drawInfo)
@@ -72,6 +75,15 @@ namespace GMTK22.Components
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (Progression.NumberOfTotalDieRolls <= 3 && this.firstDie)
+            {
+                var font = MachinaClient.Assets.GetSpriteFont("UIFontSmall");
+                var text = "Hover over dice to roll them!";
+                var textSize = font.MeasureString("Hover over dice to roll them!");
+                spriteBatch.DrawString(font, text, transform.Position + new Vector2(0, -100), Color.White, 0f,
+                    textSize / 2, Vector2.One, SpriteEffects.None, transform.Depth - 100);
+            }
+
             DieRenderer.DrawDie(spriteBatch, this.boundingRect.Rect, this.die.Pips, this.bodyColor, this.pipColor,
                 transform.Depth);
         }

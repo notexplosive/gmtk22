@@ -102,6 +102,8 @@ namespace GMTK22.Components
         {
             if (this.tween.IsDone())
             {
+                Progression.NumberOfTotalDieRolls++;
+                
                 // oh god why
                 this.tween.Clear();
                 this.tween.Reset();

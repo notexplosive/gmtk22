@@ -18,7 +18,7 @@ namespace GMTK22.Components
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawRectangle(this.boundingRect.Rect, Color.Blue.WithMultipliedOpacity(0.25f), 4f, transform.Depth);
+            spriteBatch.FillRectangle(this.boundingRect.Rect, Color.Black.WithMultipliedOpacity(0.25f), transform.Depth);
         }
     }
 }

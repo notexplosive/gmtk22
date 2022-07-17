@@ -30,6 +30,19 @@ namespace GMTK22.Data
         }
 
         private Camera Camera => this.gameScene.camera;
+        public static int NumberOfTotalDieRolls { get; set; }
+
+        private static bool firstDie;
+        public static bool IsFirstDie()
+        {
+            if (!Progression.firstDie)
+            {
+                Progression.firstDie = true;
+                return true;
+            }
+
+            return false;
+        }
 
         public void StartGame()
         {
