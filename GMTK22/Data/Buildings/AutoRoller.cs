@@ -12,9 +12,7 @@ namespace GMTK22.Data.Buildings
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification(new NameAndDescription("Build AutoRoller", "Automatically rolls attached die every 5 seconds"),
-                info => new AutoRoller(info),
-                new Costs(70)
-            );
+                new Costs(70), info => new AutoRoller(info));
         
         public AutoRoller(PositionAndMap positionAndMap) : base(positionAndMap, AutoRoller.Spec)
         {

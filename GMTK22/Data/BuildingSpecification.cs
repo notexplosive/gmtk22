@@ -12,7 +12,8 @@ namespace GMTK22.Data
 
         public readonly Action<PositionAndMap> buildCallback;
 
-        public BuildingSpecification(NameAndDescription nameAndDescription, Action<PositionAndMap> buildCallback, Costs costs)
+        public BuildingSpecification(NameAndDescription nameAndDescription, Costs costs,
+            Action<PositionAndMap> buildCallback)
         {
             Name = nameAndDescription.Name;
             Description = nameAndDescription.Description;

@@ -7,9 +7,7 @@ namespace GMTK22.Data.Buildings
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification(
                 new NameAndDescription("Starter Die","Can roll 1, 2, 3"),
-                info => new WeakDie(info),
-                new Costs(0)
-            );
+                new Costs(0), info => new WeakDie(info));
 
         public WeakDie(PositionAndMap positionAndMap) : base(positionAndMap, new DieData(new[] {1, 2, 3}, Palette.WeakDieBody, Palette.WeakDiePips))
         {

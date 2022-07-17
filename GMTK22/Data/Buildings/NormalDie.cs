@@ -6,9 +6,7 @@ namespace GMTK22.Data.Buildings
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification(new NameAndDescription("Average Die", "Can roll 1, 2, 3, 4, 5, 6"),
-                info => new NormalDie(info),
-                new Costs(40)
-            );
+                new Costs(40), info => new NormalDie(info));
 
         public NormalDie(PositionAndMap positionAndMap) : base(positionAndMap, new DieData(new[] {1, 2, 3, 4, 5, 6}, Palette.NormalDieBody, Palette.NormalDiePips))
         {

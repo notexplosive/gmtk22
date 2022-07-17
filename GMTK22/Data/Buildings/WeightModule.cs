@@ -7,9 +7,7 @@ namespace GMTK22.Data.Buildings
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification(new NameAndDescription("Weight Module", "Rolls a die, ALL attached dice (including other weights) are 10% more likely to roll that number."),
-                info => new WeightModule(info),
-                new Costs(200)
-            );
+                new Costs(200), info => new WeightModule(info));
         
         private readonly float percentageWeight;
         private readonly DieComponent dieComponent;

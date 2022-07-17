@@ -6,9 +6,7 @@ namespace GMTK22.Data.Buildings
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification(new NameAndDescription("Cosmic Space Die", "Can roll from 1-7"),
-                info => new CosmicDie(info),
-                new Costs(1000)
-            );
+                new Costs(1000), info => new CosmicDie(info));
 
         public CosmicDie(PositionAndMap positionAndMap) : base(positionAndMap,
             new DieData(new[] {1, 2, 3, 4, 5, 6, 7}, Palette.CosmicDieBody, Palette.CosmicDiePips))

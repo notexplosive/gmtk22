@@ -6,9 +6,7 @@ namespace GMTK22.Data.Buildings
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification(new NameAndDescription("Re-roller", "Rolls a die on construction, if the attached die matches that number, immediately re-roll attached die."),
-                info => new ReRollerModule(info),
-                new Costs(100)
-            );
+                new Costs(100), info => new ReRollerModule(info));
         
         private readonly DieComponent dieComponent;
 
