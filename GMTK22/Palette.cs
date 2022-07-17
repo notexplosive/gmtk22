@@ -19,5 +19,6 @@ namespace GMTK22
         public static readonly Color ReRollerPips = Color.Orange;
         public static readonly Color WeightBody = Color.Gray;
         public static readonly Color WeightPips = Color.White;
+        public static readonly Color CableColor = Color.Black;
     }
 }

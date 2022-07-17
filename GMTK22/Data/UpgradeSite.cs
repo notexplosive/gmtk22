@@ -8,7 +8,7 @@ namespace GMTK22.Data
     public class UpgradeSite : SmallBuilding
     {
         public override NameAndDescription NameAndDescription => new NameAndDescription("Upgrade Slot", "Can construct upgrades here");
-        public UpgradeSite(PositionAndMap positionAndMap) : base(positionAndMap, "Upgrade Site")
+        public UpgradeSite(PositionAndMap positionAndMap) : base(positionAndMap)
         {
             new BuildSiteRenderer(Actor);
             new UpgradeSiteRenderer(Actor, Position, Map);
