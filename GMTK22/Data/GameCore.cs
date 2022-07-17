@@ -15,8 +15,10 @@ namespace GMTK22.Data
             
             Progression = new Progression(UiScene.AddActor("ProgressTracker"), GameScene);
             
-            Progression.StartGame();
             Player.MoneyChanged += Progression.OnMoneyChanged;
+            
+            GameScene.camera.Zoom = 2f;
+            GameScene.camera.UnscaledPosition = -new Vector2(1600 / 4f, 900 * 4);
         }
 
         public Scene UiScene { get; }

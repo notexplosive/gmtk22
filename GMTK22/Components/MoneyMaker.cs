@@ -12,9 +12,9 @@ namespace GMTK22.Components
         {
         }
 
-        public void GainMoneyFromRoll(Roll roll)
+        public void GainMoneyFromRoll(int amount)
         {
-            MoneyMaker.GainMoney(roll.FaceValue, transform.Position);
+            MoneyMaker.GainMoney(amount, transform.Position);
         }
 
         public static void GainMoney(int amount, Vector2 particleSpawnPosition)

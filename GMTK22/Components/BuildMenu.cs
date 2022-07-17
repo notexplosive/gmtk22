@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using ExTween;
+using ExTween.MonoGame;
 using GMTK22.Data;
 using Machina.Components;
 using Machina.Data;
@@ -17,14 +19,36 @@ namespace GMTK22.Components
         public event Action<BuildingPosition, Command> RequestedBuilding;
         private readonly BoundingRect boundingRect;
         private readonly List<Actor> buttonActors = new List<Actor>();
+        private readonly SequenceTween tween;
+        private readonly TweenableVector2 positionOffsetTweenable;
+        private readonly Vector2 startingPosition;
 
         public BuildMenu(Actor actor) : base(actor)
         {
+            this.startingPosition = transform.Position;
+            this.positionOffsetTweenable = new TweenableVector2(new Vector2(0, 500));
+            this.tween = new SequenceTween()
+                    .Add(new Tween<Vector2>(this.positionOffsetTweenable, Vector2.Zero, 0.25f, Ease.QuadFastSlow))
+                ;
             this.boundingRect = RequireComponent<BoundingRect>();
+        }
+
+        public void AnimateShow()
+        {
+            this.positionOffsetTweenable.ForceSetValue(this.startingPosition);
+            this.tween.Reset();
+        }
+
+        public override void Update(float dt)
+        {
+            this.tween.Update(dt);
+
+            transform.Position = this.startingPosition + this.positionOffsetTweenable.Value;
         }
 
         public void PopulateButtons(Building building)
         {
+            AnimateShow();
             var commandsFromBuilding = building.Commands();
             var commands = new List<Command>();
 
@@ -105,14 +129,6 @@ namespace GMTK22.Components
             }
 
             return null;
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            var rect = this.boundingRect.Rect;
-
-            spriteBatch.FillRectangle(rect, Color.Black, transform.Depth);
-            spriteBatch.DrawRectangle(rect, Color.White, 2f, transform.Depth - 1);
         }
 
         public void RequestBuilding(BuildingPosition buildingGridPosition, Command command)

@@ -12,7 +12,7 @@ namespace GMTK22.Data.Buildings
         public WeakDie(PositionAndMap positionAndMap) : base(positionAndMap, new DieData(new[] {1, 2, 3}, Palette.WeakDieBody, Palette.WeakDiePips))
         {
             var moneyMaker = new MoneyMaker(Actor);
-            this.dieComponent.RollFinished += moneyMaker.GainMoneyFromRoll;
+            this.dieComponent.RollFinished += roll => moneyMaker.GainMoneyFromRoll(roll.FaceValue);
         }
 
         public override BuildingSpecification MySpec => WeakDie.Spec;

@@ -23,10 +23,10 @@ namespace GMTK22.Data
         public Progression(Actor actor, Scene gameScene) : base(actor)
         {
             this.gameScene = gameScene;
-            this.tween = new SequenceTween();
             this.cameraZoomTweenable = new TweenableFloat(() => Camera.Zoom, val => Camera.Zoom = val);
             this.cameraPositionTweenable = new TweenableVector2(() => Camera.UnscaledPosition, val => Camera.UnscaledPosition = val);
             this.fadeTweenable = new TweenableFloat(0);
+            this.tween = new SequenceTween();
         }
 
         private Camera Camera => this.gameScene.camera;
@@ -46,10 +46,17 @@ namespace GMTK22.Data
 
         public void StartGame()
         {
+            GameStarted = true;
             this.phaseIndex = 0;
-            Camera.Zoom = 2f;
-            Camera.UnscaledPosition = -new Vector2(1600, 900) / 4;
+
+            this.tween = new SequenceTween()
+                    .Add(new MultiplexTween()
+                        .AddChannel(new Tween<Vector2>(this.cameraPositionTweenable, -new Vector2(1600, 900) / 4, 1.5f, Ease.QuadFastSlow))
+                    )
+                ;
         }
+
+        public bool GameStarted { get; private set; }
 
         public override void Update(float dt)
         {
