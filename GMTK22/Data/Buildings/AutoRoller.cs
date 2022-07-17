@@ -1,4 +1,5 @@
 ﻿using System;
+using ExTween;
 using GMTK22.Components;
 using Machina.Components;
 using Machina.Engine;
@@ -28,7 +29,7 @@ namespace GMTK22.Data.Buildings
 
         public AutoRoller(PositionAndMap positionAndMap) : base(positionAndMap, AutoRoller.Spec)
         {
-            new BuildingBodyRenderer(Actor, MySpec.Colors);
+            new UpgradeBuildingBodyRenderer(Actor, MySpec.Colors);
             new AutoRollerComponent(Actor, Map.GetMainBuildingAt(new BuildingPosition(Position.GridPosition)), MySpec.Colors);
         }
 
@@ -45,6 +46,7 @@ namespace GMTK22.Data.Buildings
         private float cooldown;
         private readonly BoundingRect boundingRect;
         private readonly ITwoColor colors;
+        private readonly UpgradeBuildingBodyRenderer body;
 
         public AutoRollerComponent(Actor actor, MainBuilding targetBuilding, ITwoColor colors) : base(actor)
         {
@@ -53,6 +55,7 @@ namespace GMTK22.Data.Buildings
             this.maxCooldown = 5f;
             this.cooldown = this.maxCooldown;
             this.colors = colors;
+            this.body = RequireComponent<UpgradeBuildingBodyRenderer>();
         }
 
         public override void Update(float dt)
@@ -66,6 +69,7 @@ namespace GMTK22.Data.Buildings
             {
                 if (this.targetBuilding.IsIdle())
                 {
+                    this.body.TriggerPulse();
                     this.targetBuilding.Roll();
                     this.cooldown = this.maxCooldown;
                 }

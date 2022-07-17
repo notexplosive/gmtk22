@@ -20,7 +20,7 @@ namespace GMTK22.Data.Buildings
         public SpeedUpgrade(PositionAndMap positionAndMap) : base(positionAndMap, SpeedUpgrade.Spec)
         {
             SpeedBoost = 1;
-            new BuildingBodyRenderer(Actor, MySpec.Colors);
+            new UpgradeBuildingBodyRenderer(Actor, MySpec.Colors);
             new SpeedUpgradeRenderer(Actor, Map.GetMainBuildingAt(new BuildingPosition(Position.GridPosition)));
         }
 
@@ -52,10 +52,23 @@ namespace GMTK22.Data.Buildings
     public class SpeedUpgradeRenderer : BaseComponent
     {
         private readonly BoundingRect boundingRect;
+        private readonly UpgradeBuildingBodyRenderer body;
+        private readonly MainBuilding mainBuilding;
+        private bool wasIdle;
 
         public SpeedUpgradeRenderer(Actor actor, MainBuilding mainBuilding) : base(actor)
         {
             this.boundingRect = RequireComponent<BoundingRect>();
+            this.body = RequireComponent<UpgradeBuildingBodyRenderer>();
+            this.mainBuilding = mainBuilding;
+        }
+
+        public override void Update(float dt)
+        {
+            if (!mainBuilding.IsIdle())
+            {
+                this.body.TriggerPulse();
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
