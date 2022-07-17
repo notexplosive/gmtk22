@@ -28,7 +28,7 @@ namespace GMTK22
             // UI
             var layout = LayoutNode.VerticalParent("", LayoutSize.Pixels(1600, 900), LayoutStyle.Empty,
                 LayoutNode.Leaf("MoneyCounter", LayoutSize.StretchedHorizontally(120)),
-                LayoutNode.StretchedSpacer(),
+                LayoutNode.Leaf("Tooltip", LayoutSize.StretchedBoth()),
                 LayoutNode.OneOffParent("BuildMenuWrapper", LayoutSize.StretchedHorizontally(200), new LayoutStyle(margin: new Point(5)),
                     LayoutNode.Leaf("BuildMenu", LayoutSize.StretchedBoth())
                 )
@@ -46,6 +46,9 @@ namespace GMTK22
             var buildMenuActor = uiLayoutActors.GetActor("BuildMenu");
             new Hoverable(buildMenuActor);
             var buildMenu = new BuildMenu(buildMenuActor);
+            
+            var tooltipActor = uiLayoutActors.GetActor("Tooltip");
+            new Tooltip(tooltipActor, buildMenu);
             
             // Selector
             var selector = new BuildingSelector(buildMenu);

@@ -2,7 +2,7 @@
 {
     public class SellCommand : Command
     {
-        public override string Name => "Sell";
+        public override NameAndDescription NameAndDescription => new NameAndDescription("Sell", "Sell for a partial refund");
         public override int Cost { get; }
 
         public SellCommand(Building building)

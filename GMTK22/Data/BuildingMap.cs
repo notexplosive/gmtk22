@@ -49,7 +49,7 @@ namespace GMTK22.Data
                 Selector.ClearSelection();
                 command.Execute(location, this);
                 DieCartridge.GameCore.Player.SpendMoney(command.Cost);
-                // Selector.Select(GetBuildingAt(location));
+                DieCartridge.GameCore.UiScene.AddDeferredAction(() => { Selector.Select(GetBuildingAt(location));});
             }
         }
 

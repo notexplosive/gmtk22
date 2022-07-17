@@ -11,7 +11,7 @@ namespace GMTK22.Data.Buildings
     public class SpeedUpgrade : UpgradeModule
     {
         public static readonly BuildingSpecification Spec =
-            new BuildingSpecification("Speed Module",
+            new BuildingSpecification(new NameAndDescription("Speed Module","Decrease roll duration of attached die by 0.1 seconds"),
                 info => new SpeedUpgrade(info),
                 new Costs(100)
             );

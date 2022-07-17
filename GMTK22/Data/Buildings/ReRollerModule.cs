@@ -5,7 +5,7 @@ namespace GMTK22.Data.Buildings
     public class ReRollerModule : UpgradeModule
     {
         public static readonly BuildingSpecification Spec =
-            new BuildingSpecification("ReRoller",
+            new BuildingSpecification(new NameAndDescription("Re-roller", "Rolls a die on construction, if the attached die matches that number, immediately re-roll attached die."),
                 info => new ReRollerModule(info),
                 new Costs(100)
             );
@@ -33,7 +33,7 @@ namespace GMTK22.Data.Buildings
         {
             return new Command[]
             {
-                new CallbackCommand("ReRoll", ReRollerModule.Spec.Costs.ConstructCost / 2,() => { this.dieComponent.ForceRoll(); })
+                new CallbackCommand(new NameAndDescription("Re-roll", "Re-roll the number on this die"), ReRollerModule.Spec.Costs.ConstructCost / 2,() => { this.dieComponent.ForceRoll(); })
             };
         }
     }

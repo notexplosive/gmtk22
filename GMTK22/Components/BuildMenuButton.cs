@@ -7,9 +7,11 @@ namespace GMTK22.Components
 {
     public class BuildMenuButton : BaseComponent
     {
+        public Command Command { get; }
 
         public BuildMenuButton(Actor actor, Command command, Building building, BuildMenu menu) : base(actor)
         {
+            Command = command;
             var clickable = RequireComponent<Clickable>();
 
             clickable.OnClick += mouseButton =>

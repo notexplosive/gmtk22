@@ -9,7 +9,7 @@
             this.spec = spec;
         }
 
-        public override string Name => this.spec.Name;
+        public override NameAndDescription NameAndDescription => new NameAndDescription($"Build {this.spec.Name}", this.spec.Description);
         public override int Cost => this.spec.Costs.ConstructCost;
 
         public override void Execute(BuildingPosition buildingLocation, BuildingMap map)

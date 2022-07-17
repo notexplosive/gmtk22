@@ -9,14 +9,14 @@ namespace GMTK22.Data
     {
         private readonly Action callback;
 
-        public CallbackCommand(string name, int cost, Action callback)
+        public CallbackCommand(NameAndDescription nameAndDescription, int cost, Action callback)
         {
             this.callback = callback;
-            Name = name;
+            NameAndDescription = nameAndDescription;
             Cost = cost;
         }
 
-        public override string Name { get; }
+        public override NameAndDescription NameAndDescription { get; }
         public override int Cost { get; }
 
         public override void Execute(BuildingPosition buildingLocation, BuildingMap map)

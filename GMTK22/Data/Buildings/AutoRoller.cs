@@ -11,7 +11,7 @@ namespace GMTK22.Data.Buildings
     public class AutoRoller : UpgradeModule
     {
         public static readonly BuildingSpecification Spec =
-            new BuildingSpecification("Build AutoRoller",
+            new BuildingSpecification(new NameAndDescription("Build AutoRoller", "Automatically rolls attached die every 5 seconds"),
                 info => new AutoRoller(info),
                 new Costs(70)
             );

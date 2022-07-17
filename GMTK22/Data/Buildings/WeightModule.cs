@@ -6,7 +6,7 @@ namespace GMTK22.Data.Buildings
     public class WeightModule : UpgradeModule
     {
         public static readonly BuildingSpecification Spec =
-            new BuildingSpecification("Weight Module",
+            new BuildingSpecification(new NameAndDescription("Weight Module", "Rolls a die, ALL attached dice (including other weights) are 10% more likely to roll that number."),
                 info => new WeightModule(info),
                 new Costs(200)
             );
@@ -33,8 +33,12 @@ namespace GMTK22.Data.Buildings
         {
             return new Command[]
             {
-                new CallbackCommand("ReRoll", ReRollerModule.Spec.Costs.ConstructCost / 2,
-                    () => { this.dieComponent.ForceRoll(); })
+                new CallbackCommand(new NameAndDescription("Re-roll", "Re-roll the face value of this die"), ReRollerModule.Spec.Costs.ConstructCost / 2,
+                    () =>
+                    {
+                        ProbableWeight = new ProbableWeight(); // empty
+                        this.dieComponent.ForceRoll();
+                    })
             };
         }
     }

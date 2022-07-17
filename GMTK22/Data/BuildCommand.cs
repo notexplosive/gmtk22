@@ -6,7 +6,7 @@ namespace GMTK22.Data
 {
     public abstract class Command
     {
-        public abstract string Name { get; }
+        public abstract NameAndDescription NameAndDescription { get; }
         public abstract int Cost { get; }
         public abstract void Execute(BuildingPosition buildingLocation, BuildingMap map);
 

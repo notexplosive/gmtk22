@@ -44,7 +44,7 @@ namespace GMTK22.Components
             
             foreach (var command in commands)
             {
-                leaves.Add(LayoutNode.Leaf($"{command.Name} LayoutNode", buttonSize));
+                leaves.Add(LayoutNode.Leaf($"{command.NameAndDescription} LayoutNode", buttonSize));
             }
 
             var layout = FlowLayout.HorizontalFlowParent("BuildCommands",
@@ -83,6 +83,19 @@ namespace GMTK22.Components
             }
             
             this.buttonActors.Clear();
+        }
+
+        public Command GetHoveredCommand()
+        {
+            foreach (var button in this.buttonActors)
+            {
+                if (button.GetComponent<Hoverable>().IsHovered)
+                {
+                    return button.GetComponent<BuildMenuButton>().Command;
+                }
+            }
+
+            return null;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
