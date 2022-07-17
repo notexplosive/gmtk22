@@ -46,12 +46,13 @@ namespace GMTK22
             var buildMenuActor = uiLayoutActors.GetActor("BuildMenu");
             new Hoverable(buildMenuActor);
             var buildMenu = new BuildMenu(buildMenuActor);
-            
-            var tooltipActor = uiLayoutActors.GetActor("Tooltip");
-            new Tooltip(tooltipActor, buildMenu);
-            
+
             // Selector
             var selector = new BuildingSelector(buildMenu);
+            
+            // Tooltip
+            var tooltipActor = uiLayoutActors.GetActor("Tooltip");
+            new Tooltip(tooltipActor, buildMenu, selector);
             
             // WORLD
             var buildingMap = new BuildingMap(selector);

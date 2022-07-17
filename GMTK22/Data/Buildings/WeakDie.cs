@@ -5,7 +5,7 @@ namespace GMTK22.Data.Buildings
     public class WeakDie : MainBuilding
     {
         public static readonly BuildingSpecification Spec =
-            new BuildingSpecification(new NameAndDescription("Cheap Die","Can roll 1, 2, 3"),
+            new BuildingSpecification(new NameAndDescription("Starter Die","Can roll 1, 2, 3"),
                 info => new WeakDie(info),
                 new Costs(0)
             );

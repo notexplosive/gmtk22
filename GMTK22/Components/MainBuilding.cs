@@ -21,6 +21,8 @@ namespace GMTK22.Components
         public int CurrentFace => this.dieComponent.CurrentFace;
         public int[] Faces { get; }
 
+        public override NameAndDescription NameAndDescription => new NameAndDescription(MySpec.Name, MySpec.Description);
+
         public abstract BuildingSpecification MySpec { get; }
 
         public override Command[] Commands()

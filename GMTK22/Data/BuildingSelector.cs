@@ -30,5 +30,7 @@ namespace GMTK22.Data
             this.selected = null;
             this.buildMenu.ClearButtons();
         }
+
+        public Building HoveredBuilding { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace GMTK22.Data
             MySpec = mySpec;
         }
 
+        public override NameAndDescription NameAndDescription => new NameAndDescription(MySpec.Name, MySpec.Description);
         public BuildingSpecification MySpec { get; }
     }
 }

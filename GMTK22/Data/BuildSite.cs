@@ -6,6 +6,8 @@ namespace GMTK22.Data
 {
     public class BuildSite : Building
     {
+        public override NameAndDescription NameAndDescription => new NameAndDescription("Build Site", "Can construct dice here");
+        
         public BuildSite(PositionAndMap positionAndMap) : base(positionAndMap)
         {
             new BuildSiteRenderer(Actor);
