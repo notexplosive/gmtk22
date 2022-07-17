@@ -71,12 +71,12 @@ namespace GMTK22.Data
 
         public void OnMoneyChanged(int total, int delta)
         {
-            if (total > NormalDie.Spec.Costs.ConstructCost && this.phaseIndex == 0)
+            if (total > NormalDie.Spec.Costs.ConstructCost * 2 && this.phaseIndex == 0)
             {
                 IncreasePhase();
             }
             
-            if (total > HighRollDie.Spec.Costs.ConstructCost && this.phaseIndex == 1)
+            if (total > HighRollDie.Spec.Costs.ConstructCost * 2 && this.phaseIndex == 1)
             {
                 IncreasePhase();
             }
