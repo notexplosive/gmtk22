@@ -4,11 +4,31 @@ using Microsoft.Xna.Framework;
 
 namespace GMTK22.Components
 {
-    public readonly struct DieData
+    public interface TwoColor
+    {
+        public Color PrimaryColor { get; }
+        public Color SecondaryColor { get; }
+    }
+
+    public class ColorPair : TwoColor
+    {
+        public ColorPair(Color primaryColor, Color secondaryColor)
+        {
+            PrimaryColor = primaryColor;
+            SecondaryColor = secondaryColor;
+        }
+
+        public Color PrimaryColor { get; }
+        public Color SecondaryColor { get; }
+    }
+    
+    public readonly struct DieData : TwoColor
     {
         public int[] Faces { get; }
         public Color BodyColor { get; }
         public Color PipColor { get; }
+        public Color PrimaryColor => BodyColor;
+        public Color SecondaryColor => PipColor;
 
         public DieData(int[] faces, Color bodyColor, Color pipColor)
         {

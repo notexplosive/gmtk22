@@ -1,4 +1,5 @@
-﻿using Machina.Components;
+﻿using GMTK22.Data;
+using Machina.Components;
 using Machina.Data;
 using Machina.Engine;
 using Microsoft.Xna.Framework;
@@ -21,7 +22,13 @@ namespace GMTK22.Components
             this.boundingRect = RequireComponent<BoundingRect>();
             this.die = RequireComponent<DieComponent>();
         }
-        
+
+        public static void GenericDrawDie(DrawInfo drawInfo)
+        {
+                DieRenderer.DrawDie(drawInfo.SpriteBatch, drawInfo.Rectangle, new[] {new Pip()},
+                    drawInfo.PrimaryColor, drawInfo.SecondaryColor, drawInfo.Depth);
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             DrawDie(spriteBatch, this.boundingRect.Rect, this.die.Pips, this.bodyColor, this.pipColor, transform.Depth);

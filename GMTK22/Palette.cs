@@ -31,5 +31,11 @@ namespace GMTK22
         
         public static readonly Color RoyalDieBody = Color.IndianRed;
         public static readonly Color RoyalDiePips = Color.Yellow;
+        
+        public static readonly Color AutorollerBody = Color.White;
+        public static readonly Color AutorollerProgress = Color.Blue;
+        
+        public static readonly Color SpeedUpgradeBody = Color.DarkRed;
+        public static readonly Color SpeedUpgradeIcon = Color.Orange;
     }
 }

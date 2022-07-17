@@ -14,14 +14,12 @@ namespace GMTK22.Components
         private readonly BoundingRect boundingRect;
         private readonly Hoverable hoverable;
         private readonly BuildingSpecification spec;
-        private readonly DieData dieData;
 
-        public BuildMainBuildingButtonRenderer(Actor actor, BuildingSpecification spec, DieData dieData) : base(actor)
+        public BuildMainBuildingButtonRenderer(Actor actor, BuildingSpecification spec) : base(actor)
         {
             this.boundingRect = RequireComponent<BoundingRect>();
             this.hoverable = RequireComponent<Hoverable>();
             this.spec = spec;
-            this.dieData = dieData;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -51,7 +49,7 @@ namespace GMTK22.Components
                 rect.Inflate(-5, -5);
             }
 
-            DieRenderer.DrawDie(spriteBatch, this.boundingRect.Rect, new Pip[] {new Pip()}, this.dieData.BodyColor, this.dieData.PipColor, transform.Depth - 10);
+            this.spec.Draw(spriteBatch, rect, transform.Depth - 50);
         }
     }
 }
