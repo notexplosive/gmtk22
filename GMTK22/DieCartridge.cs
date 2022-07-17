@@ -64,10 +64,19 @@ namespace GMTK22
             var position = new BuildingPosition(Point.Zero);
 
             buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(0, 0)));
+            
             buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(-1, 0)));
-            buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(-2, 0)));
             buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(1, 0)));
+            
+            buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(-2, 0)));
             buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(2, 0)));
+            
+            buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(-3, 0)));
+            buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(3, 0)));
+            buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(-3, 1)));
+            buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(3, 1)));
+            buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(-3, -1)));
+            buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(3, -1)));
 
 #if DEBUG
             new Cheats(DieCartridge.GameCore.UiScene.AddActor("Cheat"));

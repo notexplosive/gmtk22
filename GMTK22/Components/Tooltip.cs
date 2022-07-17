@@ -26,15 +26,14 @@ namespace GMTK22.Components
         public override void Update(float dt)
         {
             var hoveredCommand = this.buildMenu.GetHoveredCommand();
-            var hoveredBuilding = this.selector.HoveredBuilding;
+            var selectedBuilding = this.selector.SelectedBuilding;
             if (hoveredCommand != null)
             {
                 SetTextAsCommandDescription(hoveredCommand.NameAndDescription, hoveredCommand.Cost);
             }
-            else if (hoveredBuilding != null)
+            else if (selectedBuilding != null)
             {
-                SetText(hoveredBuilding.NameAndDescription);
-                this.selector.HoveredBuilding = null; // consume hovered building
+                SetText(selectedBuilding.NameAndDescription);
             }
             else
             {

@@ -32,5 +32,19 @@ namespace GMTK22.Data
         }
 
         public Building HoveredBuilding { get; set; }
+
+        public Building SelectedBuilding
+        {
+            get
+            {
+                if (this.selected != null)
+                {
+                    return this.selected.Building;
+                }
+
+                return null;
+            }
+            
+        }
     }
 }

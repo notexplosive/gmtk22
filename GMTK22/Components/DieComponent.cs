@@ -115,8 +115,10 @@ namespace GMTK22.Components
                     }
                     accumulatedWeight += faceWeight.Value;
                 }
-
+                
                 Debug.Assert(roll != null);
+                // done with weight calculations
+                
                 
                 this.tween.Add(new CallbackTween(() =>
                 {
