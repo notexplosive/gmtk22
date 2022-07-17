@@ -12,7 +12,7 @@ namespace GMTK22.Data.Buildings
                 DieRenderer.GenericDrawDie5Pips
                 );
 
-        public HighRollDie(PositionAndMap positionAndMap) : base(positionAndMap, new DieData(new[] {4, 5, 6}, Palette.RoyalDieBody, Palette.RoyalDiePips, DieCartridge.loBlockSounds))
+        public HighRollDie(PositionAndMap positionAndMap) : base(positionAndMap, new DieData(new[] {4, 5, 6}, Palette.RoyalDieBody, Palette.RoyalDiePips, DieCartridge.loBlockSounds.GetNext()))
         {
             var moneyMaker = new MoneyMaker(Actor);
             this.dieComponent.RollFinished += (roll) => moneyMaker.GainMoneyFromRoll(roll.FaceValue * 3);

@@ -10,7 +10,7 @@ namespace GMTK22.Data.Buildings
                 DieRenderer.GenericDrawDie3Pips);
 
         public NormalDie(PositionAndMap positionAndMap) : base(positionAndMap,
-            new DieData(new[] {1, 2, 3, 4, 5, 6}, Palette.NormalDieBody, Palette.NormalDiePips, DieCartridge.popSounds))
+            new DieData(new[] {1, 2, 3, 4, 5, 6}, Palette.NormalDieBody, Palette.NormalDiePips, DieCartridge.popSounds.GetNext()))
         {
             var moneyMaker = new MoneyMaker(Actor);
             this.dieComponent.RollFinished += (roll) => moneyMaker.GainMoneyFromRoll(roll.FaceValue * 2);

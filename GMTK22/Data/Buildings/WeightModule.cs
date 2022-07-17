@@ -18,7 +18,7 @@ namespace GMTK22.Data.Buildings
         public WeightModule(PositionAndMap positionAndMap) : base(positionAndMap, WeightModule.Spec)
         {
             this.percentageWeight = 0.1f;
-            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, AttachedBuilding.Faces, 0.5f, DieCartridge.hiBlockSounds, GetUpgrades);
+            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, AttachedBuilding.Faces, 0.5f, DieCartridge.hiBlockSounds.GetNext(), GetUpgrades);
             new DieRenderer(Actor, Palette.WeightBody, Palette.WeightPips);
 
             this.dieComponent.ForceRoll();

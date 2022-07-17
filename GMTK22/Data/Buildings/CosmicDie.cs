@@ -12,7 +12,7 @@ namespace GMTK22.Data.Buildings
                 DieRenderer.GenericDrawDie7Pips);
 
         public CosmicDie(PositionAndMap positionAndMap) : base(positionAndMap,
-            new DieData(new[] {7}, Palette.CosmicDieBody, Palette.CosmicDiePips, DieCartridge.frogSounds, 20))
+            new DieData(new[] {7}, Palette.CosmicDieBody, Palette.CosmicDiePips, DieCartridge.frogSounds.GetNext(), 20))
         {
             var moneyMaker = new MoneyMaker(Actor);
             this.dieComponent.RollStarted += DieCartridge.GameCore.Progression.TriggerEndCutscene;
