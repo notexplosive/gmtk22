@@ -10,149 +10,19 @@ using Microsoft.Xna.Framework;
 
 namespace GMTK22.Components
 {
-    public class DieComponent : BaseComponent
+    public static class PipTweens
     {
-        private readonly NoiseBasedRNG cleanRandom;
-        private readonly SequenceTween tween = new SequenceTween();
-        private readonly BuildingHoverSelectionRenderer buildingHoverSelectionRenderer;
-        private readonly Func<SmallBuilding[]> getUpgrades;
-        private readonly int[] faces;
-        public event Action<Roll> RollFinished;
-
-        public DieComponent(Actor actor, NoiseBasedRNG cleanRandom, int[] faces, Func<SmallBuilding[]> getUpgrades) : base(actor)
+        public static void TweenToRolling(SequenceTween tween, Pip[] pips, float totalDuration)
         {
-            this.faces = faces;
-            this.getUpgrades = getUpgrades;
-            this.cleanRandom = cleanRandom;
-            this.buildingHoverSelectionRenderer = RequireComponent<BuildingHoverSelectionRenderer>();
-
-            Pips = new Pip[6];
-            for (var i = 0; i < Pips.Length; i++)
-            {
-                Pips[i] = new Pip();
-            }
-        }
-
-        public Pip[] Pips { get; }
-        public int CurrentFace { get; private set; } = 1;
-
-        public override void Update(float dt)
-        {
-            this.tween.Update(dt);
-        }
-
-        public void ForceRoll()
-        {
-            // oh god why
-            this.tween.Clear();
-            this.tween.Reset();
-            
-            AttemptToRoll();
-        }
-
-        public void AttemptToRoll()
-        {
-            if (this.tween.IsDone())
-            {
-                // oh god why
-                this.tween.Clear();
-                this.tween.Reset();
-                
-                CurrentFace = 0;
-
-                var totalDuration = 1.5f;
-                
-                // calculate duration
-                var upgrades = this.getUpgrades();
-                foreach (var upgrade in upgrades)
-                {
-                    totalDuration -= upgrade.SpeedBoost / 10f;
-                }
-
-                // Calculate weight
-                var weights = new List<ProbableWeight>();
-                var percentForUnweighted = 1f;
-
-                foreach (var upgrade in upgrades)
-                {
-                    if (!upgrade.ProbableWeight.IsEmpty)
-                    {
-                        weights.Add(upgrade.ProbableWeight);
-                        percentForUnweighted -= upgrade.ProbableWeight.Percentage;
-                    }
-                }
-                
-                var numberOfFaces = faces.Length;
-                var baselineWeight = percentForUnweighted / numberOfFaces;
-
-                var faceToWeight =  new Dictionary<int, float>();
-                foreach (var face in faces)
-                {
-                    faceToWeight[face] = baselineWeight;
-                }
-
-                foreach (var weight in weights)
-                {
-                    faceToWeight[weight.FaceValue] += weight.Percentage;
-                }
-
-                var totalPercent = 0f;
-                foreach (var val in faceToWeight.Values)
-                {
-                    totalPercent += val;
-                }
-
-                var randomPercent = this.cleanRandom.NextFloat() * totalPercent;
-
-                var accumulatedWeight = 0f;
-                Roll roll = null;
-                foreach (var faceWeight in faceToWeight)
-                {
-                    if (accumulatedWeight + faceWeight.Value > randomPercent)
-                    {
-                        roll = new Roll(faceWeight.Key);
-                        break;
-                    }
-                    accumulatedWeight += faceWeight.Value;
-                }
-                
-                Debug.Assert(roll != null);
-                // done with weight calculations
-                
-                
-                this.tween.Add(new CallbackTween(() =>
-                {
-                    this.buildingHoverSelectionRenderer.BusyFlags++;
-                }));
-                
-                TweenToRolling(totalDuration * 2 / 3f);
-
-                roll.ApplyTween(this.tween, Pips, totalDuration * 1 / 6f);
-
-                this.tween.Add(new CallbackTween(() =>
-                {
-                    CurrentFace = roll.FaceValue;
-                    RollFinished?.Invoke(roll);
-                }));
-                this.tween.Add(new WaitSecondsTween(totalDuration * 1 / 6f));
-                this.tween.Add(new CallbackTween(() =>
-                {
-                    this.buildingHoverSelectionRenderer.BusyFlags--;
-                }));
-            }
-        }
-
-        public void TweenToRolling(float totalDuration)
-        {
-            this.tween.Add(new DynamicTween(() =>
+            tween.Add(new DynamicTween(() =>
             {
                 var result = new MultiplexTween();
 
-                for (var i = 0; i < Pips.Length; i++)
+                for (var i = 0; i < pips.Length; i++)
                 {
-                    var pip = Pips[i];
+                    var pip = pips[i];
 
-                    var percent = (float) i / Pips.Length;
+                    var percent = (float) i / pips.Length;
                     var fullCircle = MathF.PI * 2;
                     var startingPos = new Vector2(MathF.Cos(percent * fullCircle), MathF.Sin(percent * fullCircle));
 
@@ -181,6 +51,134 @@ namespace GMTK22.Components
 
                 return result;
             }));
+        }
+    }
+
+    public class DieComponent : BaseComponent
+    {
+        private readonly BuildingHoverSelectionRenderer buildingHoverSelectionRenderer;
+        private readonly NoiseBasedRNG cleanRandom;
+        private readonly int[] faces;
+        private readonly Func<SmallBuilding[]> getUpgrades;
+        private readonly SequenceTween tween = new SequenceTween();
+
+        public DieComponent(Actor actor, NoiseBasedRNG cleanRandom, int[] faces, Func<SmallBuilding[]> getUpgrades) :
+            base(actor)
+        {
+            this.faces = faces;
+            this.getUpgrades = getUpgrades;
+            this.cleanRandom = cleanRandom;
+            this.buildingHoverSelectionRenderer = RequireComponent<BuildingHoverSelectionRenderer>();
+
+            Pips = new Pip[6];
+            for (var i = 0; i < Pips.Length; i++)
+            {
+                Pips[i] = new Pip();
+            }
+        }
+
+        public Pip[] Pips { get; }
+        public int CurrentFace { get; private set; } = 1;
+        public event Action<Roll> RollFinished;
+
+        public override void Update(float dt)
+        {
+            this.tween.Update(dt);
+        }
+
+        public void ForceRoll()
+        {
+            // oh god why
+            this.tween.Clear();
+            this.tween.Reset();
+
+            AttemptToRoll();
+        }
+
+        public void AttemptToRoll()
+        {
+            if (this.tween.IsDone())
+            {
+                // oh god why
+                this.tween.Clear();
+                this.tween.Reset();
+
+                CurrentFace = 0;
+
+                var totalDuration = 1.5f;
+
+                // calculate duration
+                var upgrades = this.getUpgrades();
+                foreach (var upgrade in upgrades)
+                {
+                    totalDuration -= upgrade.SpeedBoost / 10f;
+                }
+
+                // Calculate weight
+                var weights = new List<ProbableWeight>();
+                var percentForUnweighted = 1f;
+
+                foreach (var upgrade in upgrades)
+                {
+                    if (!upgrade.ProbableWeight.IsEmpty)
+                    {
+                        weights.Add(upgrade.ProbableWeight);
+                        percentForUnweighted -= upgrade.ProbableWeight.Percentage;
+                    }
+                }
+
+                var numberOfFaces = this.faces.Length;
+                var baselineWeight = percentForUnweighted / numberOfFaces;
+
+                var faceToWeight = new Dictionary<int, float>();
+                foreach (var face in this.faces)
+                {
+                    faceToWeight[face] = baselineWeight;
+                }
+
+                foreach (var weight in weights)
+                {
+                    faceToWeight[weight.FaceValue] += weight.Percentage;
+                }
+
+                var totalPercent = 0f;
+                foreach (var val in faceToWeight.Values)
+                {
+                    totalPercent += val;
+                }
+
+                var randomPercent = this.cleanRandom.NextFloat() * totalPercent;
+
+                var accumulatedWeight = 0f;
+                Roll roll = null;
+                foreach (var faceWeight in faceToWeight)
+                {
+                    if (accumulatedWeight + faceWeight.Value > randomPercent)
+                    {
+                        roll = new Roll(faceWeight.Key);
+                        break;
+                    }
+
+                    accumulatedWeight += faceWeight.Value;
+                }
+
+                Debug.Assert(roll != null);
+                // done with weight calculations
+
+                this.tween.Add(new CallbackTween(() => { this.buildingHoverSelectionRenderer.BusyFlags++; }));
+
+                PipTweens.TweenToRolling(this.tween, Pips, totalDuration * 2 / 3f);
+
+                Roll.ApplyTween(this.tween, Pips, roll.FaceValue, totalDuration * 1 / 6f);
+
+                this.tween.Add(new CallbackTween(() =>
+                {
+                    CurrentFace = roll.FaceValue;
+                    RollFinished?.Invoke(roll);
+                }));
+                this.tween.Add(new WaitSecondsTween(totalDuration * 1 / 6f));
+                this.tween.Add(new CallbackTween(() => { this.buildingHoverSelectionRenderer.BusyFlags--; }));
+            }
         }
 
         public bool IsTweenDone()

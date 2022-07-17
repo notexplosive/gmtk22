@@ -9,7 +9,7 @@ namespace GMTK22.Data.Buildings
             new BuildingSpecification(new NameAndDescription("Royal Die", "Can roll 4, 5, and 6"),
                 new Costs(500), new ColorPair(Palette.RoyalDieBody, Palette.RoyalDiePips), 
                 info => new HighRollDie(info),
-                DieRenderer.GenericDrawDie
+                DieRenderer.GenericDrawDie5Pips
                 );
 
         public HighRollDie(PositionAndMap positionAndMap) : base(positionAndMap, new DieData(new[] {4, 5, 6}, Palette.RoyalDieBody, Palette.RoyalDiePips))

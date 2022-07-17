@@ -33,11 +33,11 @@ namespace GMTK22.Data
 
         public readonly Action<PositionAndMap> buildCallback;
         private readonly Action<DrawInfo> drawCallback;
-        public TwoColor Colors { get; }
+        public ITwoColor Colors { get; }
 
         public BuildingSpecification(NameAndDescription nameAndDescription,
             Costs costs,
-            TwoColor colors,
+            ITwoColor colors,
             Action<PositionAndMap> buildCallback,
             Action<DrawInfo> drawCallback)
         {

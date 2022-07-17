@@ -9,15 +9,19 @@ namespace GMTK22.Components
         public class BuildingBodyRenderer : BaseComponent
         {
             private readonly BoundingRect boundingRect;
+            private readonly ITwoColor twoColor;
 
-            public BuildingBodyRenderer(Actor actor) : base(actor)
+            public BuildingBodyRenderer(Actor actor, ITwoColor twoColor) : base(actor)
             {
+                this.twoColor = twoColor;
                 this.boundingRect = RequireComponent<BoundingRect>();
             }
 
             public override void Draw(SpriteBatch spriteBatch)
             {
-                spriteBatch.FillRectangle(this.boundingRect.Rect, Color.White, transform.Depth + 50);
+                var radius = this.boundingRect.Rect.Width / 2f;
+                spriteBatch.DrawCircle(this.boundingRect.Rect.Center.ToVector2(), radius, 24, this.twoColor.PrimaryColor, radius, transform.Depth + 50);
+                spriteBatch.DrawCircle(this.boundingRect.Rect.Center.ToVector2(), radius, 24, this.twoColor.SecondaryColor, 4f, transform.Depth + 40);
             }
         }
 }

@@ -9,7 +9,7 @@ namespace GMTK22.Data.Buildings
                 new NameAndDescription("Weight Module",
                     "Rolls a die, ALL attached dice (including other weights) are 10% more likely to roll that number."),
                 new Costs(200), new ColorPair(Palette.WeightBody, Palette.WeightPips), info => new WeightModule(info),
-                DieRenderer.GenericDrawDie);
+                DieRenderer.GenericDrawDie3Pips);
 
         private readonly DieComponent dieComponent;
 

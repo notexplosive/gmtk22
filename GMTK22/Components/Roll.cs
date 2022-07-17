@@ -12,7 +12,7 @@ namespace GMTK22.Components
 
         public int FaceValue { get; }
 
-        public void ApplyTween(SequenceTween tween, Pip[] inputPips, float duration)
+        public static void ApplyTween(SequenceTween tween, Pip[] inputPips, int faceValue, float duration)
         {
             tween.Add(new DynamicTween(() =>
             {
@@ -20,7 +20,7 @@ namespace GMTK22.Components
                 for (var i = 0; i < inputPips.Length; i++)
                 {
                     var inputPip = inputPips[i];
-                    var j = i % FaceValue;
+                    var j = i % faceValue;
 
                     void TweenTo(Vector2 target)
                     {
@@ -30,7 +30,7 @@ namespace GMTK22.Components
 
                     if (j == 0)
                     {
-                        if (FaceValue == 1)
+                        if (faceValue == 1)
                         {
                             TweenTo(Pip.Center);
                         }
@@ -45,11 +45,11 @@ namespace GMTK22.Components
                     }
                     else if (j == 2)
                     {
-                        if (FaceValue == 6)
+                        if (faceValue == 6)
                         {
                             TweenTo(Pip.Left);
                         }
-                        else if (FaceValue == 4)
+                        else if (faceValue == 4)
                         {
                             TweenTo(Pip.TopLeft);
                         }

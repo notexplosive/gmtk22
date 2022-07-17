@@ -73,8 +73,13 @@ namespace GMTK22.Components
                     
                     if(command is ConstructBuildingCommand constructCommand)
                     {
-                        new BuildMainBuildingButtonRenderer(child, constructCommand.spec);
+                        new ConstructionCommandRenderer(child, constructCommand.spec);
                     }
+                    else
+                    {
+                        new NormalCommandRenderer(child, command);
+                    }
+                    
                 }
             }
         }
