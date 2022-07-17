@@ -10,7 +10,7 @@ namespace GMTK22.Data.Buildings
                 new Costs(500)
             );
 
-        public HighRollDie(PositionAndMap positionAndMap) : base(positionAndMap, new[] {4, 5, 6})
+        public HighRollDie(PositionAndMap positionAndMap) : base(positionAndMap, new DieData(new[] {4, 5, 6}, Palette.RoyalDieBody, Palette.RoyalDiePips))
         {
             var moneyMaker = new MoneyMaker(Actor);
             this.dieComponent.RollFinished += moneyMaker.GainMoneyFromRoll;

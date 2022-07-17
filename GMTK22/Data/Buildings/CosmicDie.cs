@@ -11,7 +11,7 @@ namespace GMTK22.Data.Buildings
             );
 
         public CosmicDie(PositionAndMap positionAndMap) : base(positionAndMap,
-            new[] {1, 2, 3, 4, 5, 6, 7})
+            new DieData(new[] {1, 2, 3, 4, 5, 6, 7}, Palette.CosmicDieBody, Palette.CosmicDiePips))
         {
             var moneyMaker = new MoneyMaker(Actor);
             this.dieComponent.RollFinished += moneyMaker.GainMoneyFromRoll;

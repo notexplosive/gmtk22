@@ -67,6 +67,10 @@ namespace GMTK22
             buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(-2,0)));
             buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(1,0)));
             buildingMap.CreateBuildSite(new BuildingPosition(position.GridPosition + new Point(2,0)));
+            
+            #if DEBUG
+            new Cheats(GameCore.UiScene.AddActor("Cheat"));
+#endif
         }
 
         public override void PrepareDynamicAssets(AssetLoader loader, MachinaRuntime runtime)

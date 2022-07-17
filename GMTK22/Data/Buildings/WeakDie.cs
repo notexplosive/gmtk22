@@ -10,7 +10,7 @@ namespace GMTK22.Data.Buildings
                 new Costs(0)
             );
 
-        public WeakDie(PositionAndMap positionAndMap) : base(positionAndMap, new[] {1, 2, 3})
+        public WeakDie(PositionAndMap positionAndMap) : base(positionAndMap, new DieData(new[] {1, 2, 3}, Palette.WeakDieBody, Palette.WeakDiePips))
         {
             var moneyMaker = new MoneyMaker(Actor);
             this.dieComponent.RollFinished += moneyMaker.GainMoneyFromRoll;
