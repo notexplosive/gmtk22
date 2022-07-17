@@ -11,7 +11,7 @@ namespace GMTK22.Components
     {
         private readonly Command command;
 
-        public NormalCommandRenderer(Actor actor, Command command) : base(actor)
+        public NormalCommandRenderer(Actor actor, Command command, char hotkey) : base(actor, hotkey)
         {
             this.command = command;
         }

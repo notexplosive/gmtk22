@@ -10,6 +10,7 @@ using Machina.Data.TextRendering;
 using Machina.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
 namespace GMTK22.Components
@@ -78,6 +79,17 @@ namespace GMTK22.Components
                 leaves.ToArray()
             ).Bake();
 
+            var hotkeys = new Keys[]
+            {
+                Keys.Q,
+                Keys.W,
+                Keys.E,
+                Keys.R,
+                Keys.T,
+                Keys.Y,
+                Keys.U,
+            };
+            
             foreach (var row in layout.Rows)
             {
                 for (var i = 0; i < row.ItemCount; i++)
@@ -93,15 +105,15 @@ namespace GMTK22.Components
                     new BoundingRect(child, node.Size);
                     new Hoverable(child);
                     new Clickable(child);
-                    new BuildMenuButton(child, command, building, this);
+                    new BuildMenuButton(child, command, building, this, hotkeys[i]);
                     
                     if(command is ConstructBuildingCommand constructCommand)
                     {
-                        new ConstructionCommandRenderer(child, constructCommand.spec);
+                        new ConstructionCommandRenderer(child, constructCommand.spec, hotkeys[i].ToString()[0]);
                     }
                     else
                     {
-                        new NormalCommandRenderer(child, command);
+                        new NormalCommandRenderer(child, command, hotkeys[i].ToString()[0]);
                     }
                     
                 }

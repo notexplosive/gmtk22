@@ -1,10 +1,12 @@
-﻿using GMTK22.Data;
+﻿using ExTween.Art;
+using GMTK22.Data;
 using Machina.Components;
 using Machina.Data;
 using Machina.Data.TextRendering;
 using Machina.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
 namespace GMTK22.Components
@@ -13,11 +15,13 @@ namespace GMTK22.Components
     {
         protected readonly BoundingRect boundingRect;
         protected readonly Hoverable hoverable;
+        private readonly char hotkey;
 
-        protected CommandRenderer(Actor actor) : base(actor)
+        protected CommandRenderer(Actor actor, char hotkey) : base(actor)
         {
             this.boundingRect = RequireComponent<BoundingRect>();
             this.hoverable = RequireComponent<Hoverable>();
+            this.hotkey = hotkey;
         }
 
         protected Rectangle RenderCostAndBackgroundRect(SpriteBatch spriteBatch, int cost)
@@ -37,6 +41,14 @@ namespace GMTK22.Components
             );
 
             text.Draw(spriteBatch, rect.Location - new Point(0,25));
+            
+            var hotkeyText = new BoundedText(rect.Size, Alignment.TopLeft, Overflow.Ignore,
+                new FormattedText(
+                    new FormattedTextFragment(this.hotkey.ToString(), font, Color.Black)
+                )
+            );
+            
+            hotkeyText.Draw(spriteBatch, rect.Location - new Point(0,25));
 
             if (!this.hoverable.IsHovered)
             {
@@ -55,7 +67,7 @@ namespace GMTK22.Components
     {
         private readonly BuildingSpecification spec;
 
-        public ConstructionCommandRenderer(Actor actor, BuildingSpecification spec) : base(actor)
+        public ConstructionCommandRenderer(Actor actor, BuildingSpecification spec, char hotkey) : base(actor, hotkey)
         {
             this.spec = spec;
         }

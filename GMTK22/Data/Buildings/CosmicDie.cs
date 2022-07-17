@@ -7,7 +7,7 @@ namespace GMTK22.Data.Buildings
     {
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification(new NameAndDescription("Cosmic Space Die", "This die only rolls 7, also it wins the game"),
-                new Costs(1000), new ColorPair(Palette.CosmicDieBody, Palette.CosmicDiePips),
+                new Costs(5000), new ColorPair(Palette.CosmicDieBody, Palette.CosmicDiePips),
                 info => new CosmicDie(info),
                 DieRenderer.GenericDrawDie7Pips);
 
