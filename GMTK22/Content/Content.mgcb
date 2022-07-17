@@ -30,3 +30,21 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/UIFontSmall.spritefont
 
+#begin sounds/bgm.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bgm.ogg
+
+#begin sounds/grow.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/grow.ogg
+
+#begin sounds/growflower.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/growflower.ogg
+

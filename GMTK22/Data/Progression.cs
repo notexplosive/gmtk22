@@ -46,6 +46,7 @@ namespace GMTK22.Data
 
         public void StartGame()
         {
+            DieCartridge.bgm.Play();
             GameStarted = true;
             this.phaseIndex = 0;
 

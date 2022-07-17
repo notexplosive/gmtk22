@@ -44,13 +44,30 @@ namespace GMTK22.Components
                 pip.RadiusPercent.ForceSetValue(0);
             }
 
+            var bgmVolumeTweenable =
+                new TweenableFloat(() => DieCartridge.bgm.Volume, val => DieCartridge.bgm.Volume = val);
             this.tween = new SequenceTween();
+            this.tween.Add(new Tween<float>(bgmVolumeTweenable, 0, 1f, Ease.Linear));
             this.tween.Add(new WaitSecondsTween(1));
 
+            var pipIndex = 0;
             foreach (var pip in this.pips)
             {
+                var index = pipIndex;
+                this.tween.Add(new CallbackTween(() =>
+                {
+                    if (index == 6)
+                    {
+                        MachinaClient.SoundEffectPlayer.PlaySound("growflower", 1f, useCache: false);
+                    }
+                    else
+                    {
+                        MachinaClient.SoundEffectPlayer.PlaySound("grow", 1f);
+                    }
+                }));
                 this.tween.Add(new Tween<float>(pip.RadiusPercent, 1f, 0.4f, Ease.QuadFastSlow));
                 this.tween.Add(new WaitSecondsTween(0.25f));
+                pipIndex++;
             }
 
             this.tween.Add(new WaitSecondsTween(2));
@@ -84,15 +101,16 @@ namespace GMTK22.Components
             var titleText = "You rolled a 7!";
             var titleSize = titleFont.MeasureString(titleText);
             spriteBatch.DrawString(titleFont, titleText, center + new Vector2(0, -400f),
-                Palette.CosmicDiePips.WithMultipliedOpacity(this.endTitleOpacity.Value), 0f, titleSize / 2f, Vector2.One,
+                Palette.CosmicDiePips.WithMultipliedOpacity(this.endTitleOpacity.Value), 0f, titleSize / 2f,
+                Vector2.One,
                 SpriteEffects.None, 0f);
-            
-            
+
             var creditsFont = MachinaClient.Assets.GetSpriteFont("UIFontSmall");
             var creditsText = "By NotExplosive and Quarkimo - notexplosive.net - soundcloud.com/quarkimo";
             var creditsSize = creditsFont.MeasureString(creditsText);
             spriteBatch.DrawString(creditsFont, creditsText, center + new Vector2(0, 400f),
-                Palette.CosmicDiePips.WithMultipliedOpacity(this.creditsOpacity.Value), 0f, creditsSize / 2f, Vector2.One,
+                Palette.CosmicDiePips.WithMultipliedOpacity(this.creditsOpacity.Value), 0f, creditsSize / 2f,
+                Vector2.One,
                 SpriteEffects.None, 0f);
         }
     }

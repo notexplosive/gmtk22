@@ -54,7 +54,6 @@ namespace GMTK22.Data.Buildings
         private readonly BoundingRect boundingRect;
         private readonly UpgradeBuildingBodyRenderer body;
         private readonly MainBuilding mainBuilding;
-        private bool wasIdle;
 
         public SpeedUpgradeRenderer(Actor actor, MainBuilding mainBuilding) : base(actor)
         {
