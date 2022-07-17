@@ -7,12 +7,12 @@ namespace GMTK22.Data
 {
     public abstract class Building
     {
-        protected Building(PositionAndMap positionAndMap, string name, int buildingSize = 128)
+        protected Building(PositionAndMap positionAndMap, int buildingSize = 128)
         {
             Position = positionAndMap.Position;
             Map = positionAndMap.Map;
 
-            Actor = DieCartridge.GameCore.GameScene.AddActor(name);
+            Actor = DieCartridge.GameCore.GameScene.AddActor("Building");
             Actor.transform.Position = Position.GridPosition.ToVector2() * (256 + 64) +
                                        Position.SubgridPosition.ToVector2() * (64 + 32);
             new BoundingRect(Actor, new Point(buildingSize, buildingSize)).SetOffsetToCenter();
@@ -29,7 +29,7 @@ namespace GMTK22.Data
         public BuildingPosition Position { get; }
         public SelectableBuilding Selectable { get; }
         public abstract Command[] Commands();
-        
+
         public void Destroy()
         {
             Actor.Destroy();

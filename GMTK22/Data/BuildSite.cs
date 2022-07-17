@@ -6,7 +6,7 @@ namespace GMTK22.Data
 {
     public class BuildSite : Building
     {
-        public BuildSite(PositionAndMap positionAndMap) : base(positionAndMap, "Build Site")
+        public BuildSite(PositionAndMap positionAndMap) : base(positionAndMap)
         {
             new BuildSiteRenderer(Actor);
         }

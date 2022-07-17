@@ -8,11 +8,10 @@ namespace GMTK22.Components
         private readonly SmallBuilding[] cachedUpgrades;
         protected readonly DieComponent dieComponent;
 
-        public MainBuilding(PositionAndMap positionAndMap, int[] faces, BuildingSpecification spec) : base(positionAndMap, spec.Name)
+        public MainBuilding(PositionAndMap positionAndMap, int[] faces) : base(positionAndMap)
         {
             Faces = faces;
             this.cachedUpgrades = new SmallBuilding[8];
-            MySpec = spec;
 
             this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, Faces, GetSmallBuildings);
             new RollOnHover(Actor);
@@ -22,7 +21,7 @@ namespace GMTK22.Components
         public int CurrentFace => this.dieComponent.CurrentFace;
         public int[] Faces { get; }
 
-        public BuildingSpecification MySpec { get; }
+        public abstract BuildingSpecification MySpec { get; }
 
         public override Command[] Commands()
         {
