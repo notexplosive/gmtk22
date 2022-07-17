@@ -32,12 +32,11 @@ namespace GMTK22.Components
 
             var text = new BoundedText(rect.Size, Alignment.TopRight, Overflow.Ignore,
                 new FormattedText(
-                    new FormattedTextFragment(cost.ToString(), font,
-                        DieCartridge.GameCore.Player.CanAfford(cost) ? Palette.MoneyColor : Color.DarkRed)
+                    new FormattedTextFragment(cost.ToString(), font, Palette.AffordColor(cost))
                 )
             );
 
-            text.Draw(spriteBatch, rect.Location);
+            text.Draw(spriteBatch, rect.Location - new Point(0,25));
 
             if (!this.hoverable.IsHovered)
             {

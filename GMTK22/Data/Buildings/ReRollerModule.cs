@@ -8,14 +8,14 @@ namespace GMTK22.Data.Buildings
             new BuildingSpecification(
                 new NameAndDescription("Re-roller",
                     "Rolls a die on construction, if the attached die matches that number, immediately re-roll attached die."),
-                new Costs(100), new ColorPair(Palette.ReRollerBody, Palette.ReRollerPips),
+                new Costs(60), new ColorPair(Palette.ReRollerBody, Palette.ReRollerPips),
                 info => new ReRollerModule(info), DieRenderer.GenericDrawDie1Pip);
 
         private readonly DieComponent dieComponent;
 
         public ReRollerModule(PositionAndMap positionAndMap) : base(positionAndMap, ReRollerModule.Spec)
         {
-            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, AttachedBuilding.Faces,
+            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, AttachedBuilding.Faces, 0.5f,
                 GetUpgrades);
             new DieRenderer(Actor, Palette.ReRollerBody, Palette.ReRollerPips);
             new ReRollerComponent(Actor, Position, Map);

@@ -37,5 +37,10 @@ namespace GMTK22
         
         public static readonly Color SpeedUpgradeBody = Color.White;
         public static readonly Color SpeedUpgradeIcon = Color.Orange;
+
+        public static Color AffordColor(int cost)
+        {
+            return DieCartridge.GameCore.Player.CanAfford(cost) ? Palette.MoneyColor : Color.IndianRed;
+        }
     }
 }

@@ -1,9 +1,13 @@
 ﻿using ExTween;
 using ExTween.MonoGame;
+using GMTK22.Components;
 using GMTK22.Data.Buildings;
 using Machina.Components;
+using Machina.Data;
 using Machina.Engine;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 
 namespace GMTK22.Data
 {
@@ -13,15 +17,19 @@ namespace GMTK22.Data
         private int phaseIndex;
         private SequenceTween tween;
         private readonly TweenableVector2 cameraPositionTweenable;
+        private readonly TweenableFloat fadeTweenable;
+        private readonly Scene gameScene;
 
-        public Progression(Actor actor) : base(actor)
+        public Progression(Actor actor, Scene gameScene) : base(actor)
         {
+            this.gameScene = gameScene;
             this.tween = new SequenceTween();
             this.cameraZoomTweenable = new TweenableFloat(() => Camera.Zoom, val => Camera.Zoom = val);
             this.cameraPositionTweenable = new TweenableVector2(() => Camera.UnscaledPosition, val => Camera.UnscaledPosition = val);
+            this.fadeTweenable = new TweenableFloat(0);
         }
 
-        private Camera Camera => this.actor.scene.camera;
+        private Camera Camera => this.gameScene.camera;
 
         public void StartGame()
         {
@@ -33,6 +41,11 @@ namespace GMTK22.Data
         public override void Update(float dt)
         {
             this.tween.Update(dt);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.FillRectangle(new RectangleF(0,0,1920, 1080), Palette.CosmicDieBody.WithMultipliedOpacity(this.fadeTweenable.Value), 0f);
         }
 
         public void OnMoneyChanged(int total, int delta)
@@ -85,6 +98,33 @@ namespace GMTK22.Data
                 default:
                     return new SequenceTween();
             }
+        }
+
+        public void LoadEndScene()
+        {
+            var sceneLayers = this.gameScene.sceneLayers;
+            sceneLayers.RemoveScene(this.gameScene);
+            sceneLayers.RemoveScene(this.actor.scene);
+
+            sceneLayers.BackgroundColor = Palette.CosmicDieBody;
+            var endScene = sceneLayers.AddNewScene();
+
+            new Ending(endScene.AddActor("EndingRunner"));
+        }
+
+        public void TriggerEndCutscene(Vector2 target)
+        {
+            Camera.ZoomTarget = () => target;
+            this.tween = new SequenceTween()
+                    .Add(new MultiplexTween()
+                        .AddChannel(new Tween<float>(this.cameraZoomTweenable, 3f, 4f, Ease.Linear))
+                        .AddChannel(new SequenceTween()
+                            .Add(new WaitSecondsTween(1f))
+                            .Add(new Tween<float>(this.fadeTweenable, 1f, 2f, Ease.QuadSlowFast))
+                            .Add(new CallbackTween(LoadEndScene))
+                        )
+                    )
+                ;
         }
     }
 }

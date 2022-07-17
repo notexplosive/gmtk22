@@ -10,6 +10,11 @@ namespace GMTK22.Data
         {
             this.money += delta;
 
+            AlertMoneyChanged(delta);
+        }
+
+        private void AlertMoneyChanged(int delta)
+        {
             MoneyChanged?.Invoke(this.money, delta);
         }
 
@@ -23,6 +28,8 @@ namespace GMTK22.Data
         public void SpendMoney(int commandCost)
         {
             this.money -= commandCost;
+            
+            AlertMoneyChanged(commandCost);
         }
     }
 }

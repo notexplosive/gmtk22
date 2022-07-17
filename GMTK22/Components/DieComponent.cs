@@ -61,10 +61,12 @@ namespace GMTK22.Components
         private readonly int[] faces;
         private readonly Func<SmallBuilding[]> getUpgrades;
         private readonly SequenceTween tween = new SequenceTween();
+        private readonly float baseDuration;
 
-        public DieComponent(Actor actor, NoiseBasedRNG cleanRandom, int[] faces, Func<SmallBuilding[]> getUpgrades) :
+        public DieComponent(Actor actor, NoiseBasedRNG cleanRandom, int[] faces, float baseDuration, Func<SmallBuilding[]> getUpgrades) :
             base(actor)
         {
+            this.baseDuration = baseDuration;
             this.faces = faces;
             this.getUpgrades = getUpgrades;
             this.cleanRandom = cleanRandom;
@@ -80,6 +82,7 @@ namespace GMTK22.Components
         public Pip[] Pips { get; }
         public int CurrentFace { get; private set; } = 1;
         public event Action<Roll> RollFinished;
+        public event Action<Vector2> RollStarted;
 
         public override void Update(float dt)
         {
@@ -105,7 +108,7 @@ namespace GMTK22.Components
 
                 CurrentFace = 0;
 
-                var totalDuration = 1.5f;
+                var totalDuration = this.baseDuration;
 
                 // calculate duration
                 var upgrades = this.getUpgrades();
@@ -164,6 +167,11 @@ namespace GMTK22.Components
 
                 Debug.Assert(roll != null);
                 // done with weight calculations
+                
+                this.tween.Add(new CallbackTween(() =>
+                {
+                    RollStarted?.Invoke(this.transform.Position);
+                }));
 
                 this.tween.Add(new CallbackTween(() => { this.buildingHoverSelectionRenderer.BusyFlags++; }));
 

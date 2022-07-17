@@ -63,7 +63,7 @@ namespace GMTK22.Components
                 new FormattedText(
                     new FormattedTextFragment(nameAndDescription.Name, titleFont, Color.White),
                     new FormattedTextFragment("\nCost: ", textFont, Color.White),
-                    new FormattedTextFragment(cost + " pips", textFont, DieCartridge.GameCore.Player.CanAfford(cost) ? Palette.MoneyColor : Color.DarkRed),
+                    new FormattedTextFragment(cost + " pips", textFont, Palette.AffordColor(cost)),
                     new FormattedTextFragment("\n" + nameAndDescription.Description, textFont, Color.White)
                 )
                 );

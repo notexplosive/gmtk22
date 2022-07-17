@@ -13,7 +13,7 @@ namespace GMTK22.Data
             UiScene = sceneLayers.AddNewScene();
             Player = new Player();
             
-            Progression = new Progression(GameScene.AddActor("ProgressTracker"));
+            Progression = new Progression(UiScene.AddActor("ProgressTracker"), GameScene);
             
             Progression.StartGame();
             Player.MoneyChanged += Progression.OnMoneyChanged;

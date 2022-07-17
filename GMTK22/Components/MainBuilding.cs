@@ -29,12 +29,14 @@ namespace GMTK22.Components
         public Color PipColor { get; }
         public Color PrimaryColor => BodyColor;
         public Color SecondaryColor => PipColor;
+        public float Duration { get; }
 
-        public DieData(int[] faces, Color bodyColor, Color pipColor)
+        public DieData(int[] faces, Color bodyColor, Color pipColor, float duration = 1.5f)
         {
             Faces = faces;
             BodyColor = bodyColor;
             PipColor = pipColor;
+            Duration = duration;
         }
     }
     
@@ -48,7 +50,7 @@ namespace GMTK22.Components
             DieData = dieData;
             this.cachedUpgrades = new SmallBuilding[8];
 
-            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom, Faces, GetSmallBuildings);
+            this.dieComponent = new DieComponent(Actor, DieCartridge.GameCore.CleanRandom,  Faces, dieData.Duration, GetSmallBuildings);
             new RollOnHover(Actor);
             new DieRenderer(Actor, dieData.BodyColor, dieData.PipColor);
         }

@@ -13,7 +13,7 @@ namespace GMTK22.Data.Buildings
         public static readonly BuildingSpecification Spec =
             new BuildingSpecification(
                 new NameAndDescription("Speed Module", "Decrease roll duration of attached die by 0.1 seconds"),
-                new Costs(100), new ColorPair(Palette.SpeedUpgradeBody, Palette.SpeedUpgradeIcon),
+                new Costs(30), new ColorPair(Palette.SpeedUpgradeBody, Palette.SpeedUpgradeIcon),
                 info => new SpeedUpgrade(info),
                 SpeedUpgrade.DrawIcon);
 
