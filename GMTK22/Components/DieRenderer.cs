@@ -79,7 +79,7 @@ namespace GMTK22.Components
             {
                 var font = MachinaClient.Assets.GetSpriteFont("UIFontSmall");
                 var text = "Hover over dice to roll them!";
-                var textSize = font.MeasureString("Hover over dice to roll them!");
+                var textSize = font.MeasureString("Hover over ad die to roll it!");
                 spriteBatch.DrawString(font, text, transform.Position + new Vector2(0, -100), Color.White, 0f,
                     textSize / 2, Vector2.One, SpriteEffects.None, transform.Depth - 100);
             }
